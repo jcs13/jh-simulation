@@ -1,0 +1,132 @@
+entity Simulation {
+	id Long required
+    name String required
+    affaire String 
+    client String 
+    parc String 
+    adresseInstallation String 
+    status String 
+    created LocalDate required
+    modifier LocalDate
+    
+    
+}
+
+relationship OneToOne {
+	Simulation to Parcours
+    Simulation{parent} to Simulation
+}
+
+
+entity Parcours {
+	id Long required
+    name String required
+    label String required
+    offreId String required
+}
+
+entity Etape {
+	id Long required
+    name String required
+    label String required
+    etapeDefinitionId String required
+    display Boolean required
+}
+
+entity Bloc {
+	id Long required
+    name String required
+    label String required
+    elementName String required
+    elementPath String required
+    etapeDefinitionId String required
+    blocDefinitionId String required
+	display Boolean required
+}
+
+relationship OneToMany {
+	Etape to Bloc,
+	Parcours to Etape,
+}
+
+
+entity BusinessUnit {
+	id Long required
+    code String required
+    name String required
+    label String required
+}
+
+entity Offre {
+	id Long required
+    name String required
+    label String required
+}
+
+entity ParcoursComposition {
+    inheritanceOrder Integer required
+}
+
+relationship OneToOne {
+	ParcoursComposition{offre} to Offre
+	ParcoursComposition{parcoursParent} to ParcoursDefinition
+	ParcoursComposition{parcoursChild} to ParcoursDefinition
+}
+
+entity ParcoursDefinition {
+	id Long required
+    name String required
+    label String required
+}
+
+entity EtapeDefinition {
+	id Long required
+    name String required
+    label String required
+}
+
+
+entity EtapeTransition {
+    transition Integer required
+}
+
+relationship OneToOne {
+	EtapeTransition{parcoursDefinition} to ParcoursDefinition
+    EtapeTransition{current} to EtapeDefinition
+    EtapeTransition{next} to EtapeDefinition
+}
+
+entity BlocDefinition {
+	id Long required
+    name String required
+    label String required
+}
+
+entity Element {
+	id Long required
+    name String required
+    path String required
+}
+
+
+entity BlocTransition {
+    transition Integer required
+}
+
+relationship OneToOne {
+	BlocTransition{etapeDefinition} to EtapeDefinition
+    BlocTransition{current} to BlocDefinition
+    BlocTransition{next} to BlocDefinition
+}
+
+
+relationship OneToMany {
+	EtapeDefinition to BlocDefinition,
+	ParcoursDefinition to EtapeDefinition,
+    Offre to ParcoursDefinition,
+    BusinessUnit to Offre
+}
+
+relationship OneToOne {
+	BlocDefinition to Element
+}
