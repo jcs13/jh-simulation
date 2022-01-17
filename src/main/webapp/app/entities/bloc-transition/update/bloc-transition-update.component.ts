@@ -9,6 +9,8 @@ import { IBlocTransition, BlocTransition } from '../bloc-transition.model';
 import { BlocTransitionService } from '../service/bloc-transition.service';
 import { IEtapeDefinition } from 'app/entities/etape-definition/etape-definition.model';
 import { EtapeDefinitionService } from 'app/entities/etape-definition/service/etape-definition.service';
+import { IParcoursDefinition } from 'app/entities/parcours-definition/parcours-definition.model';
+import { ParcoursDefinitionService } from 'app/entities/parcours-definition/service/parcours-definition.service';
 import { IBlocDefinition } from 'app/entities/bloc-definition/bloc-definition.model';
 import { BlocDefinitionService } from 'app/entities/bloc-definition/service/bloc-definition.service';
 
@@ -20,6 +22,7 @@ export class BlocTransitionUpdateComponent implements OnInit {
   isSaving = false;
 
   etapeDefinitionsCollection: IEtapeDefinition[] = [];
+  parcoursDefinitionsCollection: IParcoursDefinition[] = [];
   currentsCollection: IBlocDefinition[] = [];
   nextsCollection: IBlocDefinition[] = [];
 
@@ -27,6 +30,7 @@ export class BlocTransitionUpdateComponent implements OnInit {
     id: [],
     transition: [null, [Validators.required]],
     etapeDefinition: [],
+    parcoursDefinition: [],
     current: [],
     next: [],
   });
@@ -34,6 +38,7 @@ export class BlocTransitionUpdateComponent implements OnInit {
   constructor(
     protected blocTransitionService: BlocTransitionService,
     protected etapeDefinitionService: EtapeDefinitionService,
+    protected parcoursDefinitionService: ParcoursDefinitionService,
     protected blocDefinitionService: BlocDefinitionService,
     protected activatedRoute: ActivatedRoute,
     protected fb: FormBuilder
@@ -65,6 +70,10 @@ export class BlocTransitionUpdateComponent implements OnInit {
     return item.id!;
   }
 
+  trackParcoursDefinitionById(index: number, item: IParcoursDefinition): number {
+    return item.id!;
+  }
+
   trackBlocDefinitionById(index: number, item: IBlocDefinition): number {
     return item.id!;
   }
@@ -93,6 +102,7 @@ export class BlocTransitionUpdateComponent implements OnInit {
       id: blocTransition.id,
       transition: blocTransition.transition,
       etapeDefinition: blocTransition.etapeDefinition,
+      parcoursDefinition: blocTransition.parcoursDefinition,
       current: blocTransition.current,
       next: blocTransition.next,
     });
@@ -100,6 +110,10 @@ export class BlocTransitionUpdateComponent implements OnInit {
     this.etapeDefinitionsCollection = this.etapeDefinitionService.addEtapeDefinitionToCollectionIfMissing(
       this.etapeDefinitionsCollection,
       blocTransition.etapeDefinition
+    );
+    this.parcoursDefinitionsCollection = this.parcoursDefinitionService.addParcoursDefinitionToCollectionIfMissing(
+      this.parcoursDefinitionsCollection,
+      blocTransition.parcoursDefinition
     );
     this.currentsCollection = this.blocDefinitionService.addBlocDefinitionToCollectionIfMissing(
       this.currentsCollection,
@@ -118,6 +132,19 @@ export class BlocTransitionUpdateComponent implements OnInit {
         )
       )
       .subscribe((etapeDefinitions: IEtapeDefinition[]) => (this.etapeDefinitionsCollection = etapeDefinitions));
+
+    this.parcoursDefinitionService
+      .query({ filter: 'bloctransition-is-null' })
+      .pipe(map((res: HttpResponse<IParcoursDefinition[]>) => res.body ?? []))
+      .pipe(
+        map((parcoursDefinitions: IParcoursDefinition[]) =>
+          this.parcoursDefinitionService.addParcoursDefinitionToCollectionIfMissing(
+            parcoursDefinitions,
+            this.editForm.get('parcoursDefinition')!.value
+          )
+        )
+      )
+      .subscribe((parcoursDefinitions: IParcoursDefinition[]) => (this.parcoursDefinitionsCollection = parcoursDefinitions));
 
     this.blocDefinitionService
       .query({ filter: 'bloctransition-is-null' })
@@ -146,6 +173,7 @@ export class BlocTransitionUpdateComponent implements OnInit {
       id: this.editForm.get(['id'])!.value,
       transition: this.editForm.get(['transition'])!.value,
       etapeDefinition: this.editForm.get(['etapeDefinition'])!.value,
+      parcoursDefinition: this.editForm.get(['parcoursDefinition'])!.value,
       current: this.editForm.get(['current'])!.value,
       next: this.editForm.get(['next'])!.value,
     };

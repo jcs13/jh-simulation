@@ -20,6 +20,9 @@
             <column name="etape_definition_id" type="bigint">
                 <constraints nullable="true" unique="true" uniqueConstraintName="ux_bloc_transition__etape_definition_id" />
             </column>
+            <column name="parcours_definition_id" type="bigint">
+                <constraints nullable="true" unique="true" uniqueConstraintName="ux_bloc_transition__parcours_definition_id" />
+            </column>
             <column name="current_id" type="bigint">
                 <constraints nullable="true" unique="true" uniqueConstraintName="ux_bloc_transition__current_id" />
             </column>
