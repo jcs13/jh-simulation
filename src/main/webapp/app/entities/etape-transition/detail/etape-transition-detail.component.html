@@ -1,0 +1,52 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="etapeTransition">
+      <h2 data-cy="etapeTransitionDetailsHeading"><span>Etape Transition</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ etapeTransition.id }}</span>
+        </dd>
+        <dt><span>Transition</span></dt>
+        <dd>
+          <span>{{ etapeTransition.transition }}</span>
+        </dd>
+        <dt><span>Parcours Definition</span></dt>
+        <dd>
+          <div *ngIf="etapeTransition.parcoursDefinition">
+            <a [routerLink]="['/parcours-definition', etapeTransition.parcoursDefinition?.id, 'view']">{{
+              etapeTransition.parcoursDefinition?.id
+            }}</a>
+          </div>
+        </dd>
+        <dt><span>Current</span></dt>
+        <dd>
+          <div *ngIf="etapeTransition.current">
+            <a [routerLink]="['/etape-definition', etapeTransition.current?.id, 'view']">{{ etapeTransition.current?.id }}</a>
+          </div>
+        </dd>
+        <dt><span>Next</span></dt>
+        <dd>
+          <div *ngIf="etapeTransition.next">
+            <a [routerLink]="['/etape-definition', etapeTransition.next?.id, 'view']">{{ etapeTransition.next?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/etape-transition', etapeTransition.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

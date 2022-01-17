@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+    <!--
+        Added the constraints for entity EtapeTransition.
+    -->
+    <changeSet id="20220117145621-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="parcours_definition_id"
+                                 baseTableName="etape_transition"
+                                 constraintName="fk_etape_transition__parcours_definition_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="parcours_definition"/>
+
+        <addForeignKeyConstraint baseColumnNames="current_id"
+                                 baseTableName="etape_transition"
+                                 constraintName="fk_etape_transition__current_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="etape_definition"/>
+
+        <addForeignKeyConstraint baseColumnNames="next_id"
+                                 baseTableName="etape_transition"
+                                 constraintName="fk_etape_transition__next_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="etape_definition"/>
+    </changeSet>
+</databaseChangeLog>

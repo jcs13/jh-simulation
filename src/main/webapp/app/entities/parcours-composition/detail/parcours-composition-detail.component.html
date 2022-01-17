@@ -1,0 +1,54 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="parcoursComposition">
+      <h2 data-cy="parcoursCompositionDetailsHeading"><span>Parcours Composition</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ parcoursComposition.id }}</span>
+        </dd>
+        <dt><span>Inheritance Order</span></dt>
+        <dd>
+          <span>{{ parcoursComposition.inheritanceOrder }}</span>
+        </dd>
+        <dt><span>Offre</span></dt>
+        <dd>
+          <div *ngIf="parcoursComposition.offre">
+            <a [routerLink]="['/offre', parcoursComposition.offre?.id, 'view']">{{ parcoursComposition.offre?.id }}</a>
+          </div>
+        </dd>
+        <dt><span>Parcours Parent</span></dt>
+        <dd>
+          <div *ngIf="parcoursComposition.parcoursParent">
+            <a [routerLink]="['/parcours-definition', parcoursComposition.parcoursParent?.id, 'view']">{{
+              parcoursComposition.parcoursParent?.id
+            }}</a>
+          </div>
+        </dd>
+        <dt><span>Parcours Child</span></dt>
+        <dd>
+          <div *ngIf="parcoursComposition.parcoursChild">
+            <a [routerLink]="['/parcours-definition', parcoursComposition.parcoursChild?.id, 'view']">{{
+              parcoursComposition.parcoursChild?.id
+            }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/parcours-composition', parcoursComposition.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

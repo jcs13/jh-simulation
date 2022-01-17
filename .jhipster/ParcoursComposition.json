@@ -1,0 +1,43 @@
+{
+  "name": "ParcoursComposition",
+  "fields": [
+    {
+      "fieldName": "inheritanceOrder",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "offre",
+      "otherEntityRelationshipName": "parcoursComposition",
+      "relationshipName": "offre",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "parcoursDefinition",
+      "otherEntityRelationshipName": "parcoursComposition",
+      "relationshipName": "parcoursParent",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "parcoursDefinition",
+      "otherEntityRelationshipName": "parcoursComposition",
+      "relationshipName": "parcoursChild",
+      "ownerSide": true
+    }
+  ],
+  "entityTableName": "parcours_composition",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20220117145618"
+}

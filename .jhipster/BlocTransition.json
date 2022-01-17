@@ -1,0 +1,43 @@
+{
+  "name": "BlocTransition",
+  "fields": [
+    {
+      "fieldName": "transition",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "etapeDefinition",
+      "otherEntityRelationshipName": "blocTransition",
+      "relationshipName": "etapeDefinition",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "blocDefinition",
+      "otherEntityRelationshipName": "blocTransition",
+      "relationshipName": "current",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "blocDefinition",
+      "otherEntityRelationshipName": "blocTransition",
+      "relationshipName": "next",
+      "ownerSide": true
+    }
+  ],
+  "entityTableName": "bloc_transition",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20220117145624"
+}

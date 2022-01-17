@@ -1,0 +1,44 @@
+{
+  "name": "Offre",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "label",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "parcoursDefinition",
+      "otherEntityRelationshipName": "offre",
+      "relationshipName": "parcoursDefinition"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "businessUnit",
+      "otherEntityRelationshipName": "offre",
+      "relationshipName": "businessUnit"
+    }
+  ],
+  "entityTableName": "offre",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20220117145617"
+}

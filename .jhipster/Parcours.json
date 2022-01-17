@@ -1,0 +1,50 @@
+{
+  "name": "Parcours",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "label",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "offreId",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "etape",
+      "otherEntityRelationshipName": "parcours",
+      "relationshipName": "etape"
+    },
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "simulation",
+      "otherEntityRelationshipName": "parcours",
+      "relationshipName": "simulation",
+      "ownerSide": false
+    }
+  ],
+  "entityTableName": "parcours",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20220117145613"
+}

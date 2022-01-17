@@ -1,0 +1,44 @@
+{
+  "name": "ParcoursDefinition",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "label",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "etapeDefinition",
+      "otherEntityRelationshipName": "parcoursDefinition",
+      "relationshipName": "etapeDefinition"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "offre",
+      "otherEntityRelationshipName": "parcoursDefinition",
+      "relationshipName": "offre"
+    }
+  ],
+  "entityTableName": "parcours_definition",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20220117145619"
+}

@@ -1,0 +1,43 @@
+{
+  "name": "EtapeTransition",
+  "fields": [
+    {
+      "fieldName": "transition",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "parcoursDefinition",
+      "otherEntityRelationshipName": "etapeTransition",
+      "relationshipName": "parcoursDefinition",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "etapeDefinition",
+      "otherEntityRelationshipName": "etapeTransition",
+      "relationshipName": "current",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "etapeDefinition",
+      "otherEntityRelationshipName": "etapeTransition",
+      "relationshipName": "next",
+      "ownerSide": true
+    }
+  ],
+  "entityTableName": "etape_transition",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20220117145621"
+}

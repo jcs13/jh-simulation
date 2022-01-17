@@ -1,0 +1,50 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="blocTransition">
+      <h2 data-cy="blocTransitionDetailsHeading"><span>Bloc Transition</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ blocTransition.id }}</span>
+        </dd>
+        <dt><span>Transition</span></dt>
+        <dd>
+          <span>{{ blocTransition.transition }}</span>
+        </dd>
+        <dt><span>Etape Definition</span></dt>
+        <dd>
+          <div *ngIf="blocTransition.etapeDefinition">
+            <a [routerLink]="['/etape-definition', blocTransition.etapeDefinition?.id, 'view']">{{ blocTransition.etapeDefinition?.id }}</a>
+          </div>
+        </dd>
+        <dt><span>Current</span></dt>
+        <dd>
+          <div *ngIf="blocTransition.current">
+            <a [routerLink]="['/bloc-definition', blocTransition.current?.id, 'view']">{{ blocTransition.current?.id }}</a>
+          </div>
+        </dd>
+        <dt><span>Next</span></dt>
+        <dd>
+          <div *ngIf="blocTransition.next">
+            <a [routerLink]="['/bloc-definition', blocTransition.next?.id, 'view']">{{ blocTransition.next?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/bloc-transition', blocTransition.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

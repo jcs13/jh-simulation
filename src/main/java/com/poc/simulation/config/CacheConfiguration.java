@@ -48,6 +48,25 @@ public class CacheConfiguration {
             createCache(cm, com.poc.simulation.domain.User.class.getName());
             createCache(cm, com.poc.simulation.domain.Authority.class.getName());
             createCache(cm, com.poc.simulation.domain.User.class.getName() + ".authorities");
+            createCache(cm, com.poc.simulation.domain.Simulation.class.getName());
+            createCache(cm, com.poc.simulation.domain.Parcours.class.getName());
+            createCache(cm, com.poc.simulation.domain.Parcours.class.getName() + ".etapes");
+            createCache(cm, com.poc.simulation.domain.Etape.class.getName());
+            createCache(cm, com.poc.simulation.domain.Etape.class.getName() + ".blocs");
+            createCache(cm, com.poc.simulation.domain.Bloc.class.getName());
+            createCache(cm, com.poc.simulation.domain.BusinessUnit.class.getName());
+            createCache(cm, com.poc.simulation.domain.BusinessUnit.class.getName() + ".offres");
+            createCache(cm, com.poc.simulation.domain.Offre.class.getName());
+            createCache(cm, com.poc.simulation.domain.Offre.class.getName() + ".parcoursDefinitions");
+            createCache(cm, com.poc.simulation.domain.ParcoursComposition.class.getName());
+            createCache(cm, com.poc.simulation.domain.ParcoursDefinition.class.getName());
+            createCache(cm, com.poc.simulation.domain.ParcoursDefinition.class.getName() + ".etapeDefinitions");
+            createCache(cm, com.poc.simulation.domain.EtapeDefinition.class.getName());
+            createCache(cm, com.poc.simulation.domain.EtapeDefinition.class.getName() + ".blocDefinitions");
+            createCache(cm, com.poc.simulation.domain.EtapeTransition.class.getName());
+            createCache(cm, com.poc.simulation.domain.BlocDefinition.class.getName());
+            createCache(cm, com.poc.simulation.domain.Element.class.getName());
+            createCache(cm, com.poc.simulation.domain.BlocTransition.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }
