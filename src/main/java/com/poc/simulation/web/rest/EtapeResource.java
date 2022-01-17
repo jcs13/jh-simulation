@@ -135,6 +135,9 @@ public class EtapeResource {
                 if (etape.getDisplay() != null) {
                     existingEtape.setDisplay(etape.getDisplay());
                 }
+                if (etape.getOrder() != null) {
+                    existingEtape.setOrder(etape.getOrder());
+                }
 
                 return existingEtape;
             })

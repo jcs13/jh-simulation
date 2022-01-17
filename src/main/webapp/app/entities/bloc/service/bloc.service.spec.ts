@@ -28,6 +28,7 @@ describe('Bloc Service', () => {
       etapeDefinitionId: 'AAAAAAA',
       blocDefinitionId: 'AAAAAAA',
       display: false,
+      order: 0,
     };
   });
 
@@ -70,6 +71,7 @@ describe('Bloc Service', () => {
           etapeDefinitionId: 'BBBBBB',
           blocDefinitionId: 'BBBBBB',
           display: true,
+          order: 1,
         },
         elemDefault
       );
@@ -116,6 +118,7 @@ describe('Bloc Service', () => {
           etapeDefinitionId: 'BBBBBB',
           blocDefinitionId: 'BBBBBB',
           display: true,
+          order: 1,
         },
         elemDefault
       );
@@ -167,7 +170,7 @@ describe('Bloc Service', () => {
       });
 
       it('should add only unique Bloc to an array', () => {
-        const blocArray: IBloc[] = [{ id: 123 }, { id: 456 }, { id: 8401 }];
+        const blocArray: IBloc[] = [{ id: 123 }, { id: 456 }, { id: 74885 }];
         const blocCollection: IBloc[] = [{ id: 123 }];
         expectedResult = service.addBlocToCollectionIfMissing(blocCollection, ...blocArray);
         expect(expectedResult).toHaveLength(3);

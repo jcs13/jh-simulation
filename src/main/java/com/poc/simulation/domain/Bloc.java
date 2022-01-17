@@ -50,7 +50,11 @@ public class Bloc implements Serializable {
 
     @NotNull
     @Column(name = "display", nullable = false)
-    private Boolean display = true;
+    private Boolean display;
+
+    @NotNull
+    @Column(name = "jhi_order", nullable = false)
+    private Integer order;
 
     @ManyToOne
     @JsonIgnoreProperties(value = { "blocs", "parcours" }, allowSetters = true)
@@ -162,6 +166,19 @@ public class Bloc implements Serializable {
         this.display = display;
     }
 
+    public Integer getOrder() {
+        return this.order;
+    }
+
+    public Bloc order(Integer order) {
+        this.setOrder(order);
+        return this;
+    }
+
+    public void setOrder(Integer order) {
+        this.order = order;
+    }
+
     public Etape getEtape() {
         return this.etape;
     }
@@ -206,6 +223,7 @@ public class Bloc implements Serializable {
             ", etapeDefinitionId='" + getEtapeDefinitionId() + "'" +
             ", blocDefinitionId='" + getBlocDefinitionId() + "'" +
             ", display='" + getDisplay() + "'" +
+            ", order=" + getOrder() +
             "}";
     }
 }

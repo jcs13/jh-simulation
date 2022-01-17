@@ -41,6 +41,9 @@ class EtapeResourceIT {
     private static final Boolean DEFAULT_DISPLAY = false;
     private static final Boolean UPDATED_DISPLAY = true;
 
+    private static final Integer DEFAULT_ORDER = 1;
+    private static final Integer UPDATED_ORDER = 2;
+
     private static final String ENTITY_API_URL = "/api/etapes";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
 
@@ -69,7 +72,8 @@ class EtapeResourceIT {
             .name(DEFAULT_NAME)
             .label(DEFAULT_LABEL)
             .etapeDefinitionId(DEFAULT_ETAPE_DEFINITION_ID)
-            .display(DEFAULT_DISPLAY);
+            .display(DEFAULT_DISPLAY)
+            .order(DEFAULT_ORDER);
         return etape;
     }
 
@@ -84,7 +88,8 @@ class EtapeResourceIT {
             .name(UPDATED_NAME)
             .label(UPDATED_LABEL)
             .etapeDefinitionId(UPDATED_ETAPE_DEFINITION_ID)
-            .display(UPDATED_DISPLAY);
+            .display(UPDATED_DISPLAY)
+            .order(UPDATED_ORDER);
         return etape;
     }
 
@@ -110,6 +115,7 @@ class EtapeResourceIT {
         assertThat(testEtape.getLabel()).isEqualTo(DEFAULT_LABEL);
         assertThat(testEtape.getEtapeDefinitionId()).isEqualTo(DEFAULT_ETAPE_DEFINITION_ID);
         assertThat(testEtape.getDisplay()).isEqualTo(DEFAULT_DISPLAY);
+        assertThat(testEtape.getOrder()).isEqualTo(DEFAULT_ORDER);
     }
 
     @Test
@@ -200,6 +206,23 @@ class EtapeResourceIT {
 
     @Test
     @Transactional
+    void checkOrderIsRequired() throws Exception {
+        int databaseSizeBeforeTest = etapeRepository.findAll().size();
+        // set the field null
+        etape.setOrder(null);
+
+        // Create the Etape, which fails.
+
+        restEtapeMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(etape)))
+            .andExpect(status().isBadRequest());
+
+        List<Etape> etapeList = etapeRepository.findAll();
+        assertThat(etapeList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     void getAllEtapes() throws Exception {
         // Initialize the database
         etapeRepository.saveAndFlush(etape);
@@ -213,7 +236,8 @@ class EtapeResourceIT {
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
             .andExpect(jsonPath("$.[*].label").value(hasItem(DEFAULT_LABEL)))
             .andExpect(jsonPath("$.[*].etapeDefinitionId").value(hasItem(DEFAULT_ETAPE_DEFINITION_ID)))
-            .andExpect(jsonPath("$.[*].display").value(hasItem(DEFAULT_DISPLAY.booleanValue())));
+            .andExpect(jsonPath("$.[*].display").value(hasItem(DEFAULT_DISPLAY.booleanValue())))
+            .andExpect(jsonPath("$.[*].order").value(hasItem(DEFAULT_ORDER)));
     }
 
     @Test
@@ -231,7 +255,8 @@ class EtapeResourceIT {
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME))
             .andExpect(jsonPath("$.label").value(DEFAULT_LABEL))
             .andExpect(jsonPath("$.etapeDefinitionId").value(DEFAULT_ETAPE_DEFINITION_ID))
-            .andExpect(jsonPath("$.display").value(DEFAULT_DISPLAY.booleanValue()));
+            .andExpect(jsonPath("$.display").value(DEFAULT_DISPLAY.booleanValue()))
+            .andExpect(jsonPath("$.order").value(DEFAULT_ORDER));
     }
 
     @Test
@@ -253,7 +278,12 @@ class EtapeResourceIT {
         Etape updatedEtape = etapeRepository.findById(etape.getId()).get();
         // Disconnect from session so that the updates on updatedEtape are not directly saved in db
         em.detach(updatedEtape);
-        updatedEtape.name(UPDATED_NAME).label(UPDATED_LABEL).etapeDefinitionId(UPDATED_ETAPE_DEFINITION_ID).display(UPDATED_DISPLAY);
+        updatedEtape
+            .name(UPDATED_NAME)
+            .label(UPDATED_LABEL)
+            .etapeDefinitionId(UPDATED_ETAPE_DEFINITION_ID)
+            .display(UPDATED_DISPLAY)
+            .order(UPDATED_ORDER);
 
         restEtapeMockMvc
             .perform(
@@ -271,6 +301,7 @@ class EtapeResourceIT {
         assertThat(testEtape.getLabel()).isEqualTo(UPDATED_LABEL);
         assertThat(testEtape.getEtapeDefinitionId()).isEqualTo(UPDATED_ETAPE_DEFINITION_ID);
         assertThat(testEtape.getDisplay()).isEqualTo(UPDATED_DISPLAY);
+        assertThat(testEtape.getOrder()).isEqualTo(UPDATED_ORDER);
     }
 
     @Test
@@ -359,6 +390,7 @@ class EtapeResourceIT {
         assertThat(testEtape.getLabel()).isEqualTo(DEFAULT_LABEL);
         assertThat(testEtape.getEtapeDefinitionId()).isEqualTo(UPDATED_ETAPE_DEFINITION_ID);
         assertThat(testEtape.getDisplay()).isEqualTo(DEFAULT_DISPLAY);
+        assertThat(testEtape.getOrder()).isEqualTo(DEFAULT_ORDER);
     }
 
     @Test
@@ -373,7 +405,12 @@ class EtapeResourceIT {
         Etape partialUpdatedEtape = new Etape();
         partialUpdatedEtape.setId(etape.getId());
 
-        partialUpdatedEtape.name(UPDATED_NAME).label(UPDATED_LABEL).etapeDefinitionId(UPDATED_ETAPE_DEFINITION_ID).display(UPDATED_DISPLAY);
+        partialUpdatedEtape
+            .name(UPDATED_NAME)
+            .label(UPDATED_LABEL)
+            .etapeDefinitionId(UPDATED_ETAPE_DEFINITION_ID)
+            .display(UPDATED_DISPLAY)
+            .order(UPDATED_ORDER);
 
         restEtapeMockMvc
             .perform(
@@ -391,6 +428,7 @@ class EtapeResourceIT {
         assertThat(testEtape.getLabel()).isEqualTo(UPDATED_LABEL);
         assertThat(testEtape.getEtapeDefinitionId()).isEqualTo(UPDATED_ETAPE_DEFINITION_ID);
         assertThat(testEtape.getDisplay()).isEqualTo(UPDATED_DISPLAY);
+        assertThat(testEtape.getOrder()).isEqualTo(UPDATED_ORDER);
     }
 
     @Test

@@ -144,6 +144,9 @@ public class BlocResource {
                 if (bloc.getDisplay() != null) {
                     existingBloc.setDisplay(bloc.getDisplay());
                 }
+                if (bloc.getOrder() != null) {
+                    existingBloc.setOrder(bloc.getOrder());
+                }
 
                 return existingBloc;
             })

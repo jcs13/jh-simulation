@@ -25,6 +25,7 @@ describe('Etape Service', () => {
       label: 'AAAAAAA',
       etapeDefinitionId: 'AAAAAAA',
       display: false,
+      order: 0,
     };
   });
 
@@ -64,6 +65,7 @@ describe('Etape Service', () => {
           label: 'BBBBBB',
           etapeDefinitionId: 'BBBBBB',
           display: true,
+          order: 1,
         },
         elemDefault
       );
@@ -106,6 +108,7 @@ describe('Etape Service', () => {
           label: 'BBBBBB',
           etapeDefinitionId: 'BBBBBB',
           display: true,
+          order: 1,
         },
         elemDefault
       );
@@ -157,7 +160,7 @@ describe('Etape Service', () => {
       });
 
       it('should add only unique Etape to an array', () => {
-        const etapeArray: IEtape[] = [{ id: 123 }, { id: 456 }, { id: 5836 }];
+        const etapeArray: IEtape[] = [{ id: 123 }, { id: 456 }, { id: 12737 }];
         const etapeCollection: IEtape[] = [{ id: 123 }];
         expectedResult = service.addEtapeToCollectionIfMissing(etapeCollection, ...etapeArray);
         expect(expectedResult).toHaveLength(3);

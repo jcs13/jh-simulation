@@ -114,6 +114,15 @@
         </div>
 
         <div class="form-group">
+          <label class="form-control-label" for="field_order">Order</label>
+          <input type="number" class="form-control" name="order" id="field_order" data-cy="order" formControlName="order" />
+          <div *ngIf="editForm.get('order')!.invalid && (editForm.get('order')!.dirty || editForm.get('order')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('order')?.errors?.required"> This field is required. </small>
+            <small class="form-text text-danger" [hidden]="!editForm.get('order')?.errors?.number"> This field should be a number. </small>
+          </div>
+        </div>
+
+        <div class="form-group">
           <label class="form-control-label" for="field_etape">Etape</label>
           <select class="form-control" id="field_etape" data-cy="etape" name="etape" formControlName="etape">
             <option [ngValue]="null"></option>
