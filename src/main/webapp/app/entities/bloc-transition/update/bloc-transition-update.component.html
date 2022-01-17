@@ -53,6 +53,29 @@
         </div>
 
         <div class="form-group">
+          <label class="form-control-label" for="field_parcoursDefinition">Parcours Definition</label>
+          <select
+            class="form-control"
+            id="field_parcoursDefinition"
+            data-cy="parcoursDefinition"
+            name="parcoursDefinition"
+            formControlName="parcoursDefinition"
+          >
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="
+                parcoursDefinitionOption.id === editForm.get('parcoursDefinition')!.value?.id
+                  ? editForm.get('parcoursDefinition')!.value
+                  : parcoursDefinitionOption
+              "
+              *ngFor="let parcoursDefinitionOption of parcoursDefinitionsCollection; trackBy: trackParcoursDefinitionById"
+            >
+              {{ parcoursDefinitionOption.id }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
           <label class="form-control-label" for="field_current">Current</label>
           <select class="form-control" id="field_current" data-cy="current" name="current" formControlName="current">
             <option [ngValue]="null"></option>

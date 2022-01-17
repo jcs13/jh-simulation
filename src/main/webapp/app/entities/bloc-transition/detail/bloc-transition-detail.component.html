@@ -24,6 +24,14 @@
             <a [routerLink]="['/etape-definition', blocTransition.etapeDefinition?.id, 'view']">{{ blocTransition.etapeDefinition?.id }}</a>
           </div>
         </dd>
+        <dt><span>Parcours Definition</span></dt>
+        <dd>
+          <div *ngIf="blocTransition.parcoursDefinition">
+            <a [routerLink]="['/parcours-definition', blocTransition.parcoursDefinition?.id, 'view']">{{
+              blocTransition.parcoursDefinition?.id
+            }}</a>
+          </div>
+        </dd>
         <dt><span>Current</span></dt>
         <dd>
           <div *ngIf="blocTransition.current">

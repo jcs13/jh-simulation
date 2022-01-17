@@ -14,6 +14,12 @@
                                  referencedColumnNames="id"
                                  referencedTableName="etape_definition"/>
 
+        <addForeignKeyConstraint baseColumnNames="parcours_definition_id"
+                                 baseTableName="bloc_transition"
+                                 constraintName="fk_bloc_transition__parcours_definition_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="parcours_definition"/>
+
         <addForeignKeyConstraint baseColumnNames="current_id"
                                  baseTableName="bloc_transition"
                                  constraintName="fk_bloc_transition__current_id"
