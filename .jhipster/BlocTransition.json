@@ -17,6 +17,13 @@
     },
     {
       "relationshipType": "one-to-one",
+      "otherEntityName": "parcoursDefinition",
+      "otherEntityRelationshipName": "blocTransition",
+      "relationshipName": "parcoursDefinition",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "one-to-one",
       "otherEntityName": "blocDefinition",
       "otherEntityRelationshipName": "blocTransition",
       "relationshipName": "current",

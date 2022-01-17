@@ -32,6 +32,11 @@ public class BlocTransition implements Serializable {
     @JoinColumn(unique = true)
     private EtapeDefinition etapeDefinition;
 
+    @JsonIgnoreProperties(value = { "etapeDefinitions", "offre" }, allowSetters = true)
+    @OneToOne
+    @JoinColumn(unique = true)
+    private ParcoursDefinition parcoursDefinition;
+
     @JsonIgnoreProperties(value = { "element", "etapeDefinition" }, allowSetters = true)
     @OneToOne
     @JoinColumn(unique = true)
@@ -80,6 +85,19 @@ public class BlocTransition implements Serializable {
 
     public BlocTransition etapeDefinition(EtapeDefinition etapeDefinition) {
         this.setEtapeDefinition(etapeDefinition);
+        return this;
+    }
+
+    public ParcoursDefinition getParcoursDefinition() {
+        return this.parcoursDefinition;
+    }
+
+    public void setParcoursDefinition(ParcoursDefinition parcoursDefinition) {
+        this.parcoursDefinition = parcoursDefinition;
+    }
+
+    public BlocTransition parcoursDefinition(ParcoursDefinition parcoursDefinition) {
+        this.setParcoursDefinition(parcoursDefinition);
         return this;
     }
 
