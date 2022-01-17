@@ -12,6 +12,7 @@ import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 @Service
@@ -99,16 +100,18 @@ public class ParcoursService {
     }
 
     private List<Etape> convertEtapeDefinitionsToEtapes(Parcours parcours, List<EtapeDefinition> etapeDefinitionOrdered) {
+        AtomicInteger atomicInteger = new AtomicInteger(0);
         return etapeDefinitionOrdered
             .stream()
-            .map(etapeDefinition -> buildEtapeFromDefinition(parcours, etapeDefinition))
+            .map(etapeDefinition -> buildEtapeFromDefinition(parcours, etapeDefinition, atomicInteger.getAndIncrement()))
             .collect(Collectors.toList());
     }
 
-    private Etape buildEtapeFromDefinition(Parcours parcours, EtapeDefinition etapeDefinition) {
+    private Etape buildEtapeFromDefinition(Parcours parcours, EtapeDefinition etapeDefinition, int order) {
         return new Etape()
             .name(etapeDefinition.getName())
             .label(etapeDefinition.getLabel())
+            .order(order)
             .etapeDefinitionId(etapeDefinition.getId().toString())
             .parcours(parcours);
     }

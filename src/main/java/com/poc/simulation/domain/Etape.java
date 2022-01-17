@@ -40,7 +40,7 @@ public class Etape implements Serializable {
 
     @NotNull
     @Column(name = "display", nullable = false)
-    private Boolean display;
+    private Boolean display = true;
 
     @NotNull
     @Column(name = "jhi_order", nullable = false)

@@ -38,7 +38,7 @@ public class Parcours implements Serializable {
     @Column(name = "offre_id", nullable = false)
     private String offreId;
 
-    @OneToMany(mappedBy = "parcours")
+    @OneToMany(mappedBy = "parcours", cascade = CascadeType.PERSIST)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "blocs", "parcours" }, allowSetters = true)
     private Set<Etape> etapes = new HashSet<>();
