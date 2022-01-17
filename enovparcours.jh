@@ -31,6 +31,7 @@ entity Etape {
     label String required
     etapeDefinitionId String required
     display Boolean required
+    order Integer required
 }
 
 entity Bloc {
@@ -42,6 +43,7 @@ entity Bloc {
     etapeDefinitionId String required
     blocDefinitionId String required
 	display Boolean required
+    order Integer required
 }
 
 relationship OneToMany {
