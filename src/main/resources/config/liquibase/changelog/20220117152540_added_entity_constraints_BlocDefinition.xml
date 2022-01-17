@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+    <!--
+        Added the constraints for entity BlocDefinition.
+    -->
+    <changeSet id="20220117152540-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="element_id"
+                                 baseTableName="bloc_definition"
+                                 constraintName="fk_bloc_definition__element_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="element"/>
+
+        <addForeignKeyConstraint baseColumnNames="etape_definition_id"
+                                 baseTableName="bloc_definition"
+                                 constraintName="fk_bloc_definition__etape_definition_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="etape_definition"/>
+    </changeSet>
+</databaseChangeLog>

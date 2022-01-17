@@ -1,0 +1,94 @@
+<div>
+  <h2 id="page-heading" data-cy="BlocDefinitionHeading">
+    <span>Bloc Definitions</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="loadAll()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-bloc-definition"
+        [routerLink]="['/bloc-definition/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span> Create a new Bloc Definition </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="blocDefinitions?.length === 0">
+    <span>No blocDefinitions found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="blocDefinitions && blocDefinitions.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr>
+          <th scope="col"><span>Id</span></th>
+          <th scope="col"><span>Name</span></th>
+          <th scope="col"><span>Label</span></th>
+          <th scope="col"><span>Element</span></th>
+          <th scope="col"><span>Etape Definition</span></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let blocDefinition of blocDefinitions; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/bloc-definition', blocDefinition.id, 'view']">{{ blocDefinition.id }}</a>
+          </td>
+          <td>{{ blocDefinition.name }}</td>
+          <td>{{ blocDefinition.label }}</td>
+          <td>
+            <div *ngIf="blocDefinition.element">
+              <a [routerLink]="['/element', blocDefinition.element?.id, 'view']">{{ blocDefinition.element?.id }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="blocDefinition.etapeDefinition">
+              <a [routerLink]="['/etape-definition', blocDefinition.etapeDefinition?.id, 'view']">{{
+                blocDefinition.etapeDefinition?.id
+              }}</a>
+            </div>
+          </td>
+          <td class="text-right">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/bloc-definition', blocDefinition.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/bloc-definition', blocDefinition.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(blocDefinition)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

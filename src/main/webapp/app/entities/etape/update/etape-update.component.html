@@ -1,0 +1,95 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-etape-heading" data-cy="EtapeCreateUpdateHeading">Create or edit a Etape</h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" for="field_id">Id</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          <div *ngIf="editForm.get('id')!.invalid && (editForm.get('id')!.dirty || editForm.get('id')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('id')?.errors?.required"> This field is required. </small>
+            <small class="form-text text-danger" [hidden]="!editForm.get('id')?.errors?.number"> This field should be a number. </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_name">Name</label>
+          <input type="text" class="form-control" name="name" id="field_name" data-cy="name" formControlName="name" />
+          <div *ngIf="editForm.get('name')!.invalid && (editForm.get('name')!.dirty || editForm.get('name')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('name')?.errors?.required"> This field is required. </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_label">Label</label>
+          <input type="text" class="form-control" name="label" id="field_label" data-cy="label" formControlName="label" />
+          <div *ngIf="editForm.get('label')!.invalid && (editForm.get('label')!.dirty || editForm.get('label')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('label')?.errors?.required"> This field is required. </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_etapeDefinitionId">Etape Definition Id</label>
+          <input
+            type="text"
+            class="form-control"
+            name="etapeDefinitionId"
+            id="field_etapeDefinitionId"
+            data-cy="etapeDefinitionId"
+            formControlName="etapeDefinitionId"
+          />
+          <div
+            *ngIf="
+              editForm.get('etapeDefinitionId')!.invalid &&
+              (editForm.get('etapeDefinitionId')!.dirty || editForm.get('etapeDefinitionId')!.touched)
+            "
+          >
+            <small class="form-text text-danger" *ngIf="editForm.get('etapeDefinitionId')?.errors?.required">
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_display">Display</label>
+          <input type="checkbox" class="form-check" name="display" id="field_display" data-cy="display" formControlName="display" />
+          <div *ngIf="editForm.get('display')!.invalid && (editForm.get('display')!.dirty || editForm.get('display')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('display')?.errors?.required"> This field is required. </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_parcours">Parcours</label>
+          <select class="form-control" id="field_parcours" data-cy="parcours" name="parcours" formControlName="parcours">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="parcoursOption.id === editForm.get('parcours')!.value?.id ? editForm.get('parcours')!.value : parcoursOption"
+              *ngFor="let parcoursOption of parcoursSharedCollection; trackBy: trackParcoursById"
+            >
+              {{ parcoursOption.id }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,62 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="bloc">
+      <h2 data-cy="blocDetailsHeading"><span>Bloc</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>Id</span></dt>
+        <dd>
+          <span>{{ bloc.id }}</span>
+        </dd>
+        <dt><span>Name</span></dt>
+        <dd>
+          <span>{{ bloc.name }}</span>
+        </dd>
+        <dt><span>Label</span></dt>
+        <dd>
+          <span>{{ bloc.label }}</span>
+        </dd>
+        <dt><span>Element Name</span></dt>
+        <dd>
+          <span>{{ bloc.elementName }}</span>
+        </dd>
+        <dt><span>Element Path</span></dt>
+        <dd>
+          <span>{{ bloc.elementPath }}</span>
+        </dd>
+        <dt><span>Etape Definition Id</span></dt>
+        <dd>
+          <span>{{ bloc.etapeDefinitionId }}</span>
+        </dd>
+        <dt><span>Bloc Definition Id</span></dt>
+        <dd>
+          <span>{{ bloc.blocDefinitionId }}</span>
+        </dd>
+        <dt><span>Display</span></dt>
+        <dd>
+          <span>{{ bloc.display }}</span>
+        </dd>
+        <dt><span>Etape</span></dt>
+        <dd>
+          <div *ngIf="bloc.etape">
+            <a [routerLink]="['/etape', bloc.etape?.id, 'view']">{{ bloc.etape?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/bloc', bloc.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

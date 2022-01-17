@@ -42,7 +42,23 @@
     "clientTheme": "none",
     "clientThemeVariant": "",
     "reactive": false,
-    "enableGradleEnterprise": false
+    "enableGradleEnterprise": false,
+    "entities": [
+      "Simulation",
+      "Parcours",
+      "Etape",
+      "Bloc",
+      "BusinessUnit",
+      "Offre",
+      "ParcoursComposition",
+      "ParcoursDefinition",
+      "EtapeDefinition",
+      "EtapeTransition",
+      "BlocDefinition",
+      "Element",
+      "BlocTransition"
+    ],
+    "lastLiquibaseTimestamp": 1642433142000
   },
   "git-provider": "GitHub",
   "git-company": "jcs13",

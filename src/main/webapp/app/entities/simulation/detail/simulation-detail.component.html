@@ -1,0 +1,72 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="simulation">
+      <h2 data-cy="simulationDetailsHeading"><span>Simulation</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>Id</span></dt>
+        <dd>
+          <span>{{ simulation.id }}</span>
+        </dd>
+        <dt><span>Name</span></dt>
+        <dd>
+          <span>{{ simulation.name }}</span>
+        </dd>
+        <dt><span>Affaire</span></dt>
+        <dd>
+          <span>{{ simulation.affaire }}</span>
+        </dd>
+        <dt><span>Client</span></dt>
+        <dd>
+          <span>{{ simulation.client }}</span>
+        </dd>
+        <dt><span>Parc</span></dt>
+        <dd>
+          <span>{{ simulation.parc }}</span>
+        </dd>
+        <dt><span>Adresse Installation</span></dt>
+        <dd>
+          <span>{{ simulation.adresseInstallation }}</span>
+        </dd>
+        <dt><span>Status</span></dt>
+        <dd>
+          <span>{{ simulation.status }}</span>
+        </dd>
+        <dt><span>Created</span></dt>
+        <dd>
+          <span>{{ simulation.created | formatMediumDate }}</span>
+        </dd>
+        <dt><span>Modifier</span></dt>
+        <dd>
+          <span>{{ simulation.modifier | formatMediumDate }}</span>
+        </dd>
+        <dt><span>Parcours</span></dt>
+        <dd>
+          <div *ngIf="simulation.parcours">
+            <a [routerLink]="['/parcours', simulation.parcours?.id, 'view']">{{ simulation.parcours?.id }}</a>
+          </div>
+        </dd>
+        <dt><span>Parent</span></dt>
+        <dd>
+          <div *ngIf="simulation.parent">
+            <a [routerLink]="['/simulation', simulation.parent?.id, 'view']">{{ simulation.parent?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/simulation', simulation.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>
