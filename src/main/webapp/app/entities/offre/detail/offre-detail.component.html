@@ -1,0 +1,42 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="offre">
+      <h2 data-cy="offreDetailsHeading"><span>Offre</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>Id</span></dt>
+        <dd>
+          <span>{{ offre.id }}</span>
+        </dd>
+        <dt><span>Name</span></dt>
+        <dd>
+          <span>{{ offre.name }}</span>
+        </dd>
+        <dt><span>Label</span></dt>
+        <dd>
+          <span>{{ offre.label }}</span>
+        </dd>
+        <dt><span>Business Unit</span></dt>
+        <dd>
+          <div *ngIf="offre.businessUnit">
+            <a [routerLink]="['/business-unit', offre.businessUnit?.id, 'view']">{{ offre.businessUnit?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/offre', offre.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

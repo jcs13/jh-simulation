@@ -1,0 +1,104 @@
+<div>
+  <h2 id="page-heading" data-cy="SimulationHeading">
+    <span>Simulations</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="loadAll()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-simulation"
+        [routerLink]="['/simulation/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span> Create a new Simulation </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="simulations?.length === 0">
+    <span>No simulations found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="simulations && simulations.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr>
+          <th scope="col"><span>Id</span></th>
+          <th scope="col"><span>Name</span></th>
+          <th scope="col"><span>Affaire</span></th>
+          <th scope="col"><span>Client</span></th>
+          <th scope="col"><span>Parc</span></th>
+          <th scope="col"><span>Adresse Installation</span></th>
+          <th scope="col"><span>Status</span></th>
+          <th scope="col"><span>Created</span></th>
+          <th scope="col"><span>Modifier</span></th>
+          <th scope="col"><span>Parcours</span></th>
+          <th scope="col"><span>Parent</span></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let simulation of simulations; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/simulation', simulation.id, 'view']">{{ simulation.id }}</a>
+          </td>
+          <td>{{ simulation.name }}</td>
+          <td>{{ simulation.affaire }}</td>
+          <td>{{ simulation.client }}</td>
+          <td>{{ simulation.parc }}</td>
+          <td>{{ simulation.adresseInstallation }}</td>
+          <td>{{ simulation.status }}</td>
+          <td>{{ simulation.created | formatMediumDate }}</td>
+          <td>{{ simulation.modifier | formatMediumDate }}</td>
+          <td>
+            <div *ngIf="simulation.parcours">
+              <a [routerLink]="['/parcours', simulation.parcours?.id, 'view']">{{ simulation.parcours?.id }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="simulation.parent">
+              <a [routerLink]="['/simulation', simulation.parent?.id, 'view']">{{ simulation.parent?.id }}</a>
+            </div>
+          </td>
+          <td class="text-right">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/simulation', simulation.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/simulation', simulation.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(simulation)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

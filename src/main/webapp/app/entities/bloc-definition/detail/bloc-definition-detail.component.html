@@ -1,0 +1,48 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="blocDefinition">
+      <h2 data-cy="blocDefinitionDetailsHeading"><span>Bloc Definition</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>Id</span></dt>
+        <dd>
+          <span>{{ blocDefinition.id }}</span>
+        </dd>
+        <dt><span>Name</span></dt>
+        <dd>
+          <span>{{ blocDefinition.name }}</span>
+        </dd>
+        <dt><span>Label</span></dt>
+        <dd>
+          <span>{{ blocDefinition.label }}</span>
+        </dd>
+        <dt><span>Element</span></dt>
+        <dd>
+          <div *ngIf="blocDefinition.element">
+            <a [routerLink]="['/element', blocDefinition.element?.id, 'view']">{{ blocDefinition.element?.id }}</a>
+          </div>
+        </dd>
+        <dt><span>Etape Definition</span></dt>
+        <dd>
+          <div *ngIf="blocDefinition.etapeDefinition">
+            <a [routerLink]="['/etape-definition', blocDefinition.etapeDefinition?.id, 'view']">{{ blocDefinition.etapeDefinition?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/bloc-definition', blocDefinition.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

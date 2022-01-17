@@ -1,0 +1,98 @@
+<div>
+  <h2 id="page-heading" data-cy="EtapeTransitionHeading">
+    <span>Etape Transitions</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="loadAll()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-etape-transition"
+        [routerLink]="['/etape-transition/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span> Create a new Etape Transition </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="etapeTransitions?.length === 0">
+    <span>No etapeTransitions found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="etapeTransitions && etapeTransitions.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr>
+          <th scope="col"><span>ID</span></th>
+          <th scope="col"><span>Transition</span></th>
+          <th scope="col"><span>Parcours Definition</span></th>
+          <th scope="col"><span>Current</span></th>
+          <th scope="col"><span>Next</span></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let etapeTransition of etapeTransitions; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/etape-transition', etapeTransition.id, 'view']">{{ etapeTransition.id }}</a>
+          </td>
+          <td>{{ etapeTransition.transition }}</td>
+          <td>
+            <div *ngIf="etapeTransition.parcoursDefinition">
+              <a [routerLink]="['/parcours-definition', etapeTransition.parcoursDefinition?.id, 'view']">{{
+                etapeTransition.parcoursDefinition?.id
+              }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="etapeTransition.current">
+              <a [routerLink]="['/etape-definition', etapeTransition.current?.id, 'view']">{{ etapeTransition.current?.id }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="etapeTransition.next">
+              <a [routerLink]="['/etape-definition', etapeTransition.next?.id, 'view']">{{ etapeTransition.next?.id }}</a>
+            </div>
+          </td>
+          <td class="text-right">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/etape-transition', etapeTransition.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/etape-transition', etapeTransition.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(etapeTransition)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,44 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="etapeDefinition">
+      <h2 data-cy="etapeDefinitionDetailsHeading"><span>Etape Definition</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>Id</span></dt>
+        <dd>
+          <span>{{ etapeDefinition.id }}</span>
+        </dd>
+        <dt><span>Name</span></dt>
+        <dd>
+          <span>{{ etapeDefinition.name }}</span>
+        </dd>
+        <dt><span>Label</span></dt>
+        <dd>
+          <span>{{ etapeDefinition.label }}</span>
+        </dd>
+        <dt><span>Parcours Definition</span></dt>
+        <dd>
+          <div *ngIf="etapeDefinition.parcoursDefinition">
+            <a [routerLink]="['/parcours-definition', etapeDefinition.parcoursDefinition?.id, 'view']">{{
+              etapeDefinition.parcoursDefinition?.id
+            }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/etape-definition', etapeDefinition.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

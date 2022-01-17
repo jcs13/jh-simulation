@@ -1,0 +1,98 @@
+<div>
+  <h2 id="page-heading" data-cy="BlocTransitionHeading">
+    <span>Bloc Transitions</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="loadAll()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-bloc-transition"
+        [routerLink]="['/bloc-transition/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span> Create a new Bloc Transition </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="blocTransitions?.length === 0">
+    <span>No blocTransitions found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="blocTransitions && blocTransitions.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr>
+          <th scope="col"><span>ID</span></th>
+          <th scope="col"><span>Transition</span></th>
+          <th scope="col"><span>Etape Definition</span></th>
+          <th scope="col"><span>Current</span></th>
+          <th scope="col"><span>Next</span></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let blocTransition of blocTransitions; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/bloc-transition', blocTransition.id, 'view']">{{ blocTransition.id }}</a>
+          </td>
+          <td>{{ blocTransition.transition }}</td>
+          <td>
+            <div *ngIf="blocTransition.etapeDefinition">
+              <a [routerLink]="['/etape-definition', blocTransition.etapeDefinition?.id, 'view']">{{
+                blocTransition.etapeDefinition?.id
+              }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="blocTransition.current">
+              <a [routerLink]="['/bloc-definition', blocTransition.current?.id, 'view']">{{ blocTransition.current?.id }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="blocTransition.next">
+              <a [routerLink]="['/bloc-definition', blocTransition.next?.id, 'view']">{{ blocTransition.next?.id }}</a>
+            </div>
+          </td>
+          <td class="text-right">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/bloc-transition', blocTransition.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/bloc-transition', blocTransition.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(blocTransition)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
