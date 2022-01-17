@@ -4,6 +4,7 @@ import com.poc.simulation.domain.*;
 import com.poc.simulation.repository.BlocTransitionRepository;
 import com.poc.simulation.repository.EtapeTransitionRepository;
 import com.poc.simulation.repository.ParcoursCompositionRepository;
+import com.poc.simulation.repository.ParcoursRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,9 @@ public class ParcoursService {
     private final Logger log = LoggerFactory.getLogger(ParcoursService.class);
 
     @Autowired
+    private ParcoursRepository parcoursRepository;
+
+    @Autowired
     private ParcoursCompositionRepository offreParcoursCompositionRepository;
 
     @Autowired
@@ -31,12 +35,9 @@ public class ParcoursService {
         log.debug("START instanciateParcoursByOffre");
         log.debug("offerName={}", offerName);
 
-        Long parcoursId = 1L;
+        Parcours parcours = new Parcours().name("parcours name").label("parcours pour offre " + offerName).offreId("1");
 
-        Parcours parcours = new Parcours().id(parcoursId).name("parcours " + parcoursId).label("parcours pour offre " + offerName);
-
-        ParcoursComposition opcFilter = new ParcoursComposition();
-        opcFilter.setOffre(new Offre().name(offerName));
+        ParcoursComposition opcFilter = new ParcoursComposition().offre(new Offre().name(offerName));
         final List<ParcoursComposition> parcoursCompositionsFromOffre = offreParcoursCompositionRepository.findAll(
             Example.of(opcFilter)
         );
@@ -67,7 +68,8 @@ public class ParcoursService {
         etapes.forEach(etape -> log.info("{}", etape));
 
         log.debug("STOP instanciateParcoursByOffre");
-        return parcours;
+
+        return parcoursRepository.save(parcours);
     }
 
     private Set<Bloc> buildOrderedBlocs(ParcoursDefinition parcoursDefinition, EtapeDefinition etapeDefinition) {
