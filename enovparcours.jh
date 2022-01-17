@@ -115,7 +115,8 @@ entity BlocTransition {
 
 relationship OneToOne {
 	BlocTransition{etapeDefinition} to EtapeDefinition
-    BlocTransition{current} to BlocDefinition
+	BlocTransition{parcoursDefinition} to ParcoursDefinition
+	BlocTransition{current} to BlocDefinition
     BlocTransition{next} to BlocDefinition
 }
 
