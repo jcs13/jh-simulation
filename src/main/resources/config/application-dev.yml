@@ -35,7 +35,7 @@ spring:
     #    url: jdbc:mariadb://localhost:3306/jhParcours?useLegacyDatetimeCode=false&serverTimezone=UTC
     #    username: root
     #    password:
-    url: jdbc:h2:file:./target/h2db/db/jhparcours;DB_CLOSE_DELAY=-1
+    url: jdbc:h2:file:./target/h2db/db/jhsimulation;DB_CLOSE_DELAY=-1
     username: jhSimulation
     password:
     hikari:
