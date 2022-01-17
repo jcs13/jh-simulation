@@ -25,6 +25,7 @@ export class EtapeUpdateComponent implements OnInit {
     label: [null, [Validators.required]],
     etapeDefinitionId: [null, [Validators.required]],
     display: [null, [Validators.required]],
+    order: [null, [Validators.required]],
     parcours: [],
   });
 
@@ -87,6 +88,7 @@ export class EtapeUpdateComponent implements OnInit {
       label: etape.label,
       etapeDefinitionId: etape.etapeDefinitionId,
       display: etape.display,
+      order: etape.order,
       parcours: etape.parcours,
     });
 
@@ -113,6 +115,7 @@ export class EtapeUpdateComponent implements OnInit {
       label: this.editForm.get(['label'])!.value,
       etapeDefinitionId: this.editForm.get(['etapeDefinitionId'])!.value,
       display: this.editForm.get(['display'])!.value,
+      order: this.editForm.get(['order'])!.value,
       parcours: this.editForm.get(['parcours'])!.value,
     };
   }

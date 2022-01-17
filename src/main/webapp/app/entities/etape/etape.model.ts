@@ -7,6 +7,7 @@ export interface IEtape {
   label?: string;
   etapeDefinitionId?: string;
   display?: boolean;
+  order?: number;
   blocs?: IBloc[] | null;
   parcours?: IParcours | null;
 }
@@ -18,6 +19,7 @@ export class Etape implements IEtape {
     public label?: string,
     public etapeDefinitionId?: string,
     public display?: boolean,
+    public order?: number,
     public blocs?: IBloc[] | null,
     public parcours?: IParcours | null
   ) {

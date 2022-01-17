@@ -50,6 +50,9 @@ class BlocResourceIT {
     private static final Boolean DEFAULT_DISPLAY = false;
     private static final Boolean UPDATED_DISPLAY = true;
 
+    private static final Integer DEFAULT_ORDER = 1;
+    private static final Integer UPDATED_ORDER = 2;
+
     private static final String ENTITY_API_URL = "/api/blocs";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
 
@@ -81,7 +84,8 @@ class BlocResourceIT {
             .elementPath(DEFAULT_ELEMENT_PATH)
             .etapeDefinitionId(DEFAULT_ETAPE_DEFINITION_ID)
             .blocDefinitionId(DEFAULT_BLOC_DEFINITION_ID)
-            .display(DEFAULT_DISPLAY);
+            .display(DEFAULT_DISPLAY)
+            .order(DEFAULT_ORDER);
         return bloc;
     }
 
@@ -99,7 +103,8 @@ class BlocResourceIT {
             .elementPath(UPDATED_ELEMENT_PATH)
             .etapeDefinitionId(UPDATED_ETAPE_DEFINITION_ID)
             .blocDefinitionId(UPDATED_BLOC_DEFINITION_ID)
-            .display(UPDATED_DISPLAY);
+            .display(UPDATED_DISPLAY)
+            .order(UPDATED_ORDER);
         return bloc;
     }
 
@@ -128,6 +133,7 @@ class BlocResourceIT {
         assertThat(testBloc.getEtapeDefinitionId()).isEqualTo(DEFAULT_ETAPE_DEFINITION_ID);
         assertThat(testBloc.getBlocDefinitionId()).isEqualTo(DEFAULT_BLOC_DEFINITION_ID);
         assertThat(testBloc.getDisplay()).isEqualTo(DEFAULT_DISPLAY);
+        assertThat(testBloc.getOrder()).isEqualTo(DEFAULT_ORDER);
     }
 
     @Test
@@ -269,6 +275,23 @@ class BlocResourceIT {
 
     @Test
     @Transactional
+    void checkOrderIsRequired() throws Exception {
+        int databaseSizeBeforeTest = blocRepository.findAll().size();
+        // set the field null
+        bloc.setOrder(null);
+
+        // Create the Bloc, which fails.
+
+        restBlocMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(bloc)))
+            .andExpect(status().isBadRequest());
+
+        List<Bloc> blocList = blocRepository.findAll();
+        assertThat(blocList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     void getAllBlocs() throws Exception {
         // Initialize the database
         blocRepository.saveAndFlush(bloc);
@@ -285,7 +308,8 @@ class BlocResourceIT {
             .andExpect(jsonPath("$.[*].elementPath").value(hasItem(DEFAULT_ELEMENT_PATH)))
             .andExpect(jsonPath("$.[*].etapeDefinitionId").value(hasItem(DEFAULT_ETAPE_DEFINITION_ID)))
             .andExpect(jsonPath("$.[*].blocDefinitionId").value(hasItem(DEFAULT_BLOC_DEFINITION_ID)))
-            .andExpect(jsonPath("$.[*].display").value(hasItem(DEFAULT_DISPLAY.booleanValue())));
+            .andExpect(jsonPath("$.[*].display").value(hasItem(DEFAULT_DISPLAY.booleanValue())))
+            .andExpect(jsonPath("$.[*].order").value(hasItem(DEFAULT_ORDER)));
     }
 
     @Test
@@ -306,7 +330,8 @@ class BlocResourceIT {
             .andExpect(jsonPath("$.elementPath").value(DEFAULT_ELEMENT_PATH))
             .andExpect(jsonPath("$.etapeDefinitionId").value(DEFAULT_ETAPE_DEFINITION_ID))
             .andExpect(jsonPath("$.blocDefinitionId").value(DEFAULT_BLOC_DEFINITION_ID))
-            .andExpect(jsonPath("$.display").value(DEFAULT_DISPLAY.booleanValue()));
+            .andExpect(jsonPath("$.display").value(DEFAULT_DISPLAY.booleanValue()))
+            .andExpect(jsonPath("$.order").value(DEFAULT_ORDER));
     }
 
     @Test
@@ -335,7 +360,8 @@ class BlocResourceIT {
             .elementPath(UPDATED_ELEMENT_PATH)
             .etapeDefinitionId(UPDATED_ETAPE_DEFINITION_ID)
             .blocDefinitionId(UPDATED_BLOC_DEFINITION_ID)
-            .display(UPDATED_DISPLAY);
+            .display(UPDATED_DISPLAY)
+            .order(UPDATED_ORDER);
 
         restBlocMockMvc
             .perform(
@@ -356,6 +382,7 @@ class BlocResourceIT {
         assertThat(testBloc.getEtapeDefinitionId()).isEqualTo(UPDATED_ETAPE_DEFINITION_ID);
         assertThat(testBloc.getBlocDefinitionId()).isEqualTo(UPDATED_BLOC_DEFINITION_ID);
         assertThat(testBloc.getDisplay()).isEqualTo(UPDATED_DISPLAY);
+        assertThat(testBloc.getOrder()).isEqualTo(UPDATED_ORDER);
     }
 
     @Test
@@ -447,6 +474,7 @@ class BlocResourceIT {
         assertThat(testBloc.getEtapeDefinitionId()).isEqualTo(DEFAULT_ETAPE_DEFINITION_ID);
         assertThat(testBloc.getBlocDefinitionId()).isEqualTo(DEFAULT_BLOC_DEFINITION_ID);
         assertThat(testBloc.getDisplay()).isEqualTo(DEFAULT_DISPLAY);
+        assertThat(testBloc.getOrder()).isEqualTo(DEFAULT_ORDER);
     }
 
     @Test
@@ -468,7 +496,8 @@ class BlocResourceIT {
             .elementPath(UPDATED_ELEMENT_PATH)
             .etapeDefinitionId(UPDATED_ETAPE_DEFINITION_ID)
             .blocDefinitionId(UPDATED_BLOC_DEFINITION_ID)
-            .display(UPDATED_DISPLAY);
+            .display(UPDATED_DISPLAY)
+            .order(UPDATED_ORDER);
 
         restBlocMockMvc
             .perform(
@@ -489,6 +518,7 @@ class BlocResourceIT {
         assertThat(testBloc.getEtapeDefinitionId()).isEqualTo(UPDATED_ETAPE_DEFINITION_ID);
         assertThat(testBloc.getBlocDefinitionId()).isEqualTo(UPDATED_BLOC_DEFINITION_ID);
         assertThat(testBloc.getDisplay()).isEqualTo(UPDATED_DISPLAY);
+        assertThat(testBloc.getOrder()).isEqualTo(UPDATED_ORDER);
     }
 
     @Test

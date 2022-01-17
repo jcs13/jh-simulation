@@ -40,6 +40,7 @@
           <th scope="col"><span>Etape Definition Id</span></th>
           <th scope="col"><span>Bloc Definition Id</span></th>
           <th scope="col"><span>Display</span></th>
+          <th scope="col"><span>Order</span></th>
           <th scope="col"><span>Etape</span></th>
           <th scope="col"></th>
         </tr>
@@ -56,6 +57,7 @@
           <td>{{ bloc.etapeDefinitionId }}</td>
           <td>{{ bloc.blocDefinitionId }}</td>
           <td>{{ bloc.display }}</td>
+          <td>{{ bloc.order }}</td>
           <td>
             <div *ngIf="bloc.etape">
               <a [routerLink]="['/etape', bloc.etape?.id, 'view']">{{ bloc.etape?.id }}</a>

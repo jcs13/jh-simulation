@@ -9,6 +9,7 @@ export interface IBloc {
   etapeDefinitionId?: string;
   blocDefinitionId?: string;
   display?: boolean;
+  order?: number;
   etape?: IEtape | null;
 }
 
@@ -22,6 +23,7 @@ export class Bloc implements IBloc {
     public etapeDefinitionId?: string,
     public blocDefinitionId?: string,
     public display?: boolean,
+    public order?: number,
     public etape?: IEtape | null
   ) {
     this.display = this.display ?? false;

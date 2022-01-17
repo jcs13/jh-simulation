@@ -28,6 +28,7 @@ export class BlocUpdateComponent implements OnInit {
     etapeDefinitionId: [null, [Validators.required]],
     blocDefinitionId: [null, [Validators.required]],
     display: [null, [Validators.required]],
+    order: [null, [Validators.required]],
     etape: [],
   });
 
@@ -93,6 +94,7 @@ export class BlocUpdateComponent implements OnInit {
       etapeDefinitionId: bloc.etapeDefinitionId,
       blocDefinitionId: bloc.blocDefinitionId,
       display: bloc.display,
+      order: bloc.order,
       etape: bloc.etape,
     });
 
@@ -118,6 +120,7 @@ export class BlocUpdateComponent implements OnInit {
       etapeDefinitionId: this.editForm.get(['etapeDefinitionId'])!.value,
       blocDefinitionId: this.editForm.get(['blocDefinitionId'])!.value,
       display: this.editForm.get(['display'])!.value,
+      order: this.editForm.get(['order'])!.value,
       etape: this.editForm.get(['etape'])!.value,
     };
   }

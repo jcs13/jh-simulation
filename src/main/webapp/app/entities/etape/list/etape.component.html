@@ -37,6 +37,7 @@
           <th scope="col"><span>Label</span></th>
           <th scope="col"><span>Etape Definition Id</span></th>
           <th scope="col"><span>Display</span></th>
+          <th scope="col"><span>Order</span></th>
           <th scope="col"><span>Parcours</span></th>
           <th scope="col"></th>
         </tr>
@@ -50,6 +51,7 @@
           <td>{{ etape.label }}</td>
           <td>{{ etape.etapeDefinitionId }}</td>
           <td>{{ etape.display }}</td>
+          <td>{{ etape.order }}</td>
           <td>
             <div *ngIf="etape.parcours">
               <a [routerLink]="['/parcours', etape.parcours?.id, 'view']">{{ etape.parcours?.id }}</a>

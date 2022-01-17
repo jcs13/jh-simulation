@@ -35,6 +35,9 @@
             <column name="display" type="boolean">
                 <constraints nullable="false" />
             </column>
+            <column name="jhi_order" type="integer">
+                <constraints nullable="false" />
+            </column>
             <column name="etape_id" type="bigint">
                 <constraints nullable="true" />
             </column>
@@ -66,6 +69,7 @@
             <column name="etape_definition_id" type="string"/>
             <column name="bloc_definition_id" type="string"/>
             <column name="display" type="boolean"/>
+            <column name="jhi_order" type="numeric"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
     </changeSet>

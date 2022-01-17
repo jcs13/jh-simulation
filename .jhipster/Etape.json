@@ -25,6 +25,11 @@
       "fieldName": "display",
       "fieldType": "Boolean",
       "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "order",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
     }
   ],
   "relationships": [

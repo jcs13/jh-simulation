@@ -40,7 +40,11 @@ public class Etape implements Serializable {
 
     @NotNull
     @Column(name = "display", nullable = false)
-    private Boolean display = true;
+    private Boolean display;
+
+    @NotNull
+    @Column(name = "jhi_order", nullable = false)
+    private Integer order;
 
     @OneToMany(mappedBy = "etape")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -118,6 +122,19 @@ public class Etape implements Serializable {
         this.display = display;
     }
 
+    public Integer getOrder() {
+        return this.order;
+    }
+
+    public Etape order(Integer order) {
+        this.setOrder(order);
+        return this;
+    }
+
+    public void setOrder(Integer order) {
+        this.order = order;
+    }
+
     public Set<Bloc> getBlocs() {
         return this.blocs;
     }
@@ -190,6 +207,7 @@ public class Etape implements Serializable {
             ", label='" + getLabel() + "'" +
             ", etapeDefinitionId='" + getEtapeDefinitionId() + "'" +
             ", display='" + getDisplay() + "'" +
+            ", order=" + getOrder() +
             "}";
     }
 }
