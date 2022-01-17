@@ -50,7 +50,7 @@ public class Bloc implements Serializable {
 
     @NotNull
     @Column(name = "display", nullable = false)
-    private Boolean display;
+    private Boolean display = true;
 
     @ManyToOne
     @JsonIgnoreProperties(value = { "blocs", "parcours" }, allowSetters = true)

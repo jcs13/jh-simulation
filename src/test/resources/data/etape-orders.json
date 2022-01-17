@@ -1,0 +1,173 @@
+[
+  {
+    "id": 1,
+    "transition": 1,
+    "parcoursDefinition": {
+      "id": "1",
+      "name": "core",
+      "label": "parcours socle"
+    },
+    "current": {
+      "id": "1",
+      "name": "infos",
+      "label": "informations générales"
+    },
+    "next": {
+      "id": "2",
+      "name": "configuration",
+      "label": "configuration de l'offre"
+    }
+  },
+  {
+    "id": 2,
+    "transition": 2,
+    "parcoursDefinition": {
+      "id": "1",
+      "name": "core",
+      "label": "parcours socle"
+    },
+    "current": {
+      "id": "2",
+      "name": "configuration",
+      "label": "configuration de l'offre"
+    },
+    "next": {
+      "id": "3",
+      "name": "marges-manoeuvre",
+      "label": "marges de manoeuvre"
+    }
+  },
+  {
+    "id": 3,
+    "transition": 3,
+    "parcoursDefinition": {
+      "id": "1",
+      "name": "core",
+      "label": "parcours socle"
+    },
+    "current": {
+      "id": "3",
+      "name": "marges-manoeuvre",
+      "label": "marges de manoeuvre"
+    },
+    "next": {
+      "id": "4",
+      "name": "recap",
+      "label": "récapitulatif"
+    }
+  },
+  {
+    "id": 4,
+    "transition": 4,
+    "parcoursDefinition": {
+      "id": "1",
+      "name": "core",
+      "label": "parcours socle"
+    },
+    "current": {
+      "id": "4",
+      "name": "recap",
+      "label": "récapitulatif"
+    },
+    "next": {
+      "id": "5",
+      "name": "generate-documents",
+      "label": "génération de documents"
+    }
+  },
+  {
+    "id": 5,
+    "transition": 1,
+    "parcoursDefinition": {
+      "id": "2",
+      "name": "asproe",
+      "label": "ASPROe"
+    },
+    "current": {
+      "id": "2",
+      "name": "configuration",
+      "label": "configuration de l'offre"
+    },
+    "next": {
+      "id": "6",
+      "name": "terminaux",
+      "label": "gestion des terminaux"
+    }
+  },
+  {
+    "id": 51,
+    "transition": 2,
+    "parcoursDefinition": {
+      "id": "2",
+      "name": "asproe",
+      "label": "ASPROe"
+    },
+    "current": {
+      "id": "4",
+      "name": "recap",
+      "label": "récapitulatif"
+    },
+    "next": {
+      "id": "61",
+      "name": "aproe-validation",
+      "label": "validation asproe"
+    }
+  },
+  {
+    "id": 6,
+    "transition": 1,
+    "parcoursDefinition": {
+      "id": "3",
+      "name": "asproe-toto",
+      "label": "ASPROe TOTO"
+    },
+    "current": {
+      "id": "2",
+      "name": "configuration",
+      "label": "configuration de l'offre"
+    },
+    "next": {
+      "id": "16",
+      "name": "toto-1",
+      "label": "toto 1"
+    }
+  },
+  {
+    "id": 9,
+    "transition": 3,
+    "parcoursDefinition": {
+      "id": "3",
+      "name": "asproe-toto",
+      "label": "ASPROe TOTO"
+    },
+    "current": {
+      "id": "17",
+      "name": "toto-2",
+      "label": "toto 2"
+    },
+    "next": {
+      "id": "18",
+      "name": "toto-3",
+      "label": "toto 3"
+    }
+  },
+  {
+    "id": 8,
+    "transition": 2,
+    "parcoursDefinition": {
+      "id": "3",
+      "name": "asproe-toto",
+      "label": "ASPROe TOTO"
+    },
+    "current": {
+      "id": "16",
+      "name": "toto-1",
+      "label": "toto 1"
+    },
+    "next": {
+      "id": "17",
+      "name": "toto-2",
+      "label": "toto 2"
+    }
+  }
+]

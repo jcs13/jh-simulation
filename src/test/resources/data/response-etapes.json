@@ -1,0 +1,132 @@
+[
+  {
+    "id": "1",
+    "name": "infos",
+    "label": "informations générales",
+    "display": null,
+    "blocs": [],
+    "parcours": {
+      "id": "121",
+      "name": "test",
+      "label": "parcours de test",
+      "offreId": "BVC"
+    }
+  },
+  {
+    "id": "2",
+    "name": "configuration",
+    "label": "configuration de l'offre",
+    "display": null,
+    "blocs": [],
+    "parcours": {
+      "id": "121",
+      "name": "test",
+      "label": "parcours de test",
+      "offreId": "BVC"
+    }
+  },
+  {
+    "id": "16",
+    "name": "toto-1",
+    "label": "toto 1",
+    "display": null,
+    "blocs": [],
+    "parcours": {
+      "id": "121",
+      "name": "test",
+      "label": "parcours de test",
+      "offreId": "BVC"
+    }
+  },
+  {
+    "id": "17",
+    "name": "toto-2",
+    "label": "toto 2",
+    "display": null,
+    "blocs": [],
+    "parcours": {
+      "id": "121",
+      "name": "test",
+      "label": "parcours de test",
+      "offreId": "BVC"
+    }
+  },
+  {
+    "id": "18",
+    "name": "toto-3",
+    "label": "toto 3",
+    "display": null,
+    "blocs": [],
+    "parcours": {
+      "id": "121",
+      "name": "test",
+      "label": "parcours de test",
+      "offreId": "BVC"
+    }
+  },
+  {
+    "id": "6",
+    "name": "terminaux",
+    "label": "gestion des terminaux",
+    "display": null,
+    "blocs": [],
+    "parcours": {
+      "id": "121",
+      "name": "test",
+      "label": "parcours de test",
+      "offreId": "BVC"
+    }
+  },
+  {
+    "id": "3",
+    "name": "marges-manoeuvre",
+    "label": "marges de manoeuvre",
+    "display": null,
+    "blocs": [],
+    "parcours": {
+      "id": "121",
+      "name": "test",
+      "label": "parcours de test",
+      "offreId": "BVC"
+    }
+  },
+  {
+    "id": "4",
+    "name": "recap",
+    "label": "récapitulatif",
+    "display": null,
+    "blocs": [],
+    "parcours": {
+      "id": "121",
+      "name": "test",
+      "label": "parcours de test",
+      "offreId": "BVC"
+    }
+  },
+  {
+    "id": "61",
+    "name": "aproe-validation",
+    "label": "validation asproe",
+    "display": null,
+    "blocs": [],
+    "parcours": {
+      "id": "121",
+      "name": "test",
+      "label": "parcours de test",
+      "offreId": "BVC"
+    }
+  },
+  {
+    "id": "5",
+    "name": "generate-documents",
+    "label": "génération de documents",
+    "display": null,
+    "blocs": [],
+    "parcours": {
+      "id": "121",
+      "name": "test",
+      "label": "parcours de test",
+      "offreId": "BVC"
+    }
+  }
+]

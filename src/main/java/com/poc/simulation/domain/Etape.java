@@ -40,7 +40,7 @@ public class Etape implements Serializable {
 
     @NotNull
     @Column(name = "display", nullable = false)
-    private Boolean display;
+    private Boolean display = true;
 
     @OneToMany(mappedBy = "etape")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)

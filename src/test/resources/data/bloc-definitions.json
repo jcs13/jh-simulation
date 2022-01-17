@@ -1,0 +1,137 @@
+[
+  {
+    "id": "1",
+    "name": "infos-client",
+    "label": "informations client",
+    "element": {
+      "id": "1",
+      "name": "info-client",
+      "path": "/elements/info-client.php"
+    },
+    "etapeDefinition": {
+      "id": "1",
+      "name": "infos",
+      "label": "informations générales"
+    }
+  },
+  {
+    "id": "2",
+    "name": "adresse",
+    "label": "adresse client",
+    "element": {
+      "id": "2",
+      "name": "adresse-client",
+      "path": "/elements/adresse-client.php"
+    },
+    "etapeDefinition": {
+      "id": "1",
+      "name": "infos",
+      "label": "informations générales"
+    }
+  },
+  {
+    "id": "3",
+    "name": "mode-paiement",
+    "label": "mode de paiement",
+    "element": {
+      "id": "3",
+      "name": "mode-paiement",
+      "path": "/elements/mode-paiement.php"
+    },
+    "etapeDefinition": {
+      "id": "1",
+      "name": "infos",
+      "label": "informations générales"
+    }
+  },
+  {
+    "id": "4",
+    "name": "configuration-castor",
+    "label": "configuration offres castor",
+    "element": {
+      "id": "4",
+      "name": "configuration-offre-castor",
+      "path": "/elements/configuration-offre-castor.php"
+    },
+    "etapeDefinition": {
+      "id": "2",
+      "name": "configuration",
+      "label": "configuration de l'offre"
+    }
+  },
+  {
+    "id": "5",
+    "name": "mdm",
+    "label": "marges",
+    "element": {
+      "id": "5",
+      "name": "mdm",
+      "path": "/elements/mdm.php"
+    },
+    "etapeDefinition": {
+      "id": "3",
+      "name": "marges-manoeuvre",
+      "label": "marges de manoeuvre"
+    }
+  },
+  {
+    "id": "6",
+    "name": "recap",
+    "label": "récapitulatif vendeur",
+    "element": {
+      "id": "6",
+      "name": "recap-vendeur",
+      "path": "/elements/recap-vendeur.php"
+    },
+    "etapeDefinition": {
+      "id": "4",
+      "name": "recap",
+      "label": "récapitulatif"
+    }
+  },
+  {
+    "id": "7",
+    "name": "gen-doc",
+    "label": "générer les documents",
+    "element": {
+      "id": "7",
+      "name": "generer-documents",
+      "path": "/elements/generer-documents.php"
+    },
+    "etapeDefinition": {
+      "id": "5",
+      "name": "generate-documents",
+      "label": "génération de documents"
+    }
+  },
+  {
+    "id": "8",
+    "name": "eligibilite",
+    "label": "éligibilité 360",
+    "element": {
+      "id": "8",
+      "name": "eligibilite",
+      "path": "/elements/eligibilite.php"
+    },
+    "etapeDefinition": {
+      "id": "1",
+      "name": "infos",
+      "label": "informations générales"
+    }
+  },
+  {
+    "id": "9",
+    "name": "terminaux",
+    "label": "liste des terminaux",
+    "element": {
+      "id": "9",
+      "name": "terminaux",
+      "path": "/elements/terminaux.php"
+    },
+    "etapeDefinition": {
+      "id": "6",
+      "name": "terminaux",
+      "label": "gestion des terminaux"
+    }
+  }
+]

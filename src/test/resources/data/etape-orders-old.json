@@ -1,0 +1,192 @@
+[
+  {
+    "id": 1,
+    "start": true,
+    "parcoursDefinition": {
+      "id": "1",
+      "name": "core",
+      "label": "parcours socle"
+    },
+    "current": {
+      "id": "1",
+      "name": "infos",
+      "label": "informations générales"
+    },
+    "next": {
+      "id": "2",
+      "name": "configuration",
+      "label": "configuration de l'offre"
+    }
+  },
+  {
+    "id": 2,
+    "start": false,
+    "parcoursDefinition": {
+      "id": "1",
+      "name": "core",
+      "label": "parcours socle"
+    },
+    "current": {
+      "id": "2",
+      "name": "configuration",
+      "label": "configuration de l'offre"
+    },
+    "next": {
+      "id": "3",
+      "name": "marges-manoeuvre",
+      "label": "marges de manoeuvre"
+    }
+  },
+  {
+    "id": 3,
+    "start": false,
+    "parcoursDefinition": {
+      "id": "1",
+      "name": "core",
+      "label": "parcours socle"
+    },
+    "current": {
+      "id": "3",
+      "name": "marges-manoeuvre",
+      "label": "marges de manoeuvre"
+    },
+    "next": {
+      "id": "4",
+      "name": "recap",
+      "label": "récapitulatif"
+    }
+  },
+  {
+    "id": 4,
+    "start": false,
+    "parcoursDefinition": {
+      "id": "1",
+      "name": "core",
+      "label": "parcours socle"
+    },
+    "current": {
+      "id": "4",
+      "name": "recap",
+      "label": "récapitulatif"
+    },
+    "next": {
+      "id": "5",
+      "name": "generate-documents",
+      "label": "génération de documents"
+    }
+  },
+  {
+    "id": 5,
+    "start": true,
+    "parcoursDefinition": {
+      "id": "2",
+      "name": "asproe",
+      "label": "ASPROe"
+    },
+    "current": {
+      "id": "2",
+      "name": "configuration",
+      "label": "configuration de l'offre"
+    },
+    "next": {
+      "id": "6",
+      "name": "terminaux",
+      "label": "gestion des terminaux"
+    }
+  },
+  {
+    "id": 6,
+    "start": false,
+    "parcoursDefinition": {
+      "id": "2",
+      "name": "asproe",
+      "label": "ASPROe"
+    },
+    "current": {
+      "id": "6",
+      "name": "terminaux",
+      "label": "gestion des terminaux"
+    },
+    "next": {
+      "id": "3",
+      "name": "marges-manoeuvre",
+      "label": "marges de manoeuvre"
+    }
+  },
+  {
+    "id": 7,
+    "start": true,
+    "parcoursDefinition": {
+      "id": "3",
+      "name": "asproe-toto",
+      "label": "ASPROe TOTO"
+    },
+    "current": {
+      "id": "16",
+      "name": "toto-1",
+      "label": "toto 1"
+    },
+    "next": {
+      "id": "17",
+      "name": "toto-2",
+      "label": "toto 2"
+    }
+  },
+  {
+    "id": 7,
+    "start": true,
+    "parcoursDefinition": {
+      "id": "3",
+      "name": "asproe-toto",
+      "label": "ASPROe TOTO"
+    },
+    "current": {
+      "id": "16",
+      "name": "toto-1",
+      "label": "toto 1"
+    },
+    "next": {
+      "id": "17",
+      "name": "toto-2",
+      "label": "toto 2"
+    }
+  },
+  {
+    "id": 7,
+    "start": false,
+    "parcoursDefinition": {
+      "id": "3",
+      "name": "asproe-toto",
+      "label": "ASPROe TOTO"
+    },
+    "current": {
+      "id": "17",
+      "name": "toto-2",
+      "label": "toto 2"
+    },
+    "next": {
+      "id": "18",
+      "name": "toto-3",
+      "label": "toto 3"
+    }
+  },
+  {
+    "id": 8,
+    "start": false,
+    "parcoursDefinition": {
+      "id": "3",
+      "name": "asproe-toto",
+      "label": "ASPROe TOTO"
+    },
+    "current": {
+      "id": "18",
+      "name": "toto-3",
+      "label": "toto 3"
+    },
+    "next": {
+      "id": "5",
+      "name": "generate-documents",
+      "label": "génération de documents"
+    }
+  }
+]

@@ -1,0 +1,68 @@
+[
+  {
+    "id": "1",
+    "name": "infos",
+    "label": "informations générales",
+    "blocDefinitions": null,
+    "parcoursDefinition": {
+      "id": "1",
+      "name": "core",
+      "label": "parcours socle"
+    }
+  },
+  {
+    "id": "2",
+    "name": "configuration",
+    "label": "configuration de l'offre",
+    "blocDefinitions": null,
+    "parcoursDefinition": {
+      "id": "1",
+      "name": "core",
+      "label": "parcours socle"
+    }
+  },
+  {
+    "id": "3",
+    "name": "marges-manoeuvre",
+    "label": "marges de manoeuvre",
+    "blocDefinitions": null,
+    "parcoursDefinition": {
+      "id": "1",
+      "name": "core",
+      "label": "parcours socle"
+    }
+  },
+  {
+    "id": "4",
+    "name": "recap",
+    "label": "récapitulatif",
+    "blocDefinitions": null,
+    "parcoursDefinition": {
+      "id": "1",
+      "name": "core",
+      "label": "parcours socle"
+    }
+  },
+  {
+    "id": "5",
+    "name": "generate-documents",
+    "label": "génération de documents",
+    "blocDefinitions": null,
+    "parcoursDefinition": {
+      "id": "1",
+      "name": "core",
+      "label": "parcours socle"
+    }
+  },
+  {
+    "id": "6",
+    "name": "terminaux",
+    "label": "gestion des terminaux",
+    "blocDefinitions": null,
+    "parcoursDefinition": {
+      "id": "2",
+      "name": "asproe",
+      "label": "ASPROe"
+    }
+  }
+]

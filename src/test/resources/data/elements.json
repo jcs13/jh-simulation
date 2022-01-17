@@ -1,0 +1,92 @@
+[
+  {
+    "id": "1",
+    "name": "info-client",
+    "path": "/elements/info-client.php",
+    "blocDefinition": {
+      "id": "1",
+      "name": "infos-client",
+      "label": "informations client"
+    }
+  },
+  {
+    "id": "2",
+    "name": "adresse-client",
+    "path": "/elements/adresse-client.php",
+    "blocDefinition": {
+      "id": "2",
+      "name": "adresse",
+      "label": "adresse client"
+    }
+  },
+  {
+    "id": "3",
+    "name": "mode-paiement",
+    "path": "/elements/mode-paiement.php",
+    "blocDefinition": {
+      "id": "3",
+      "name": "mode-paiement",
+      "label": "mode de paiement"
+    }
+  },
+  {
+    "id": "4",
+    "name": "configuration-offre-castor",
+    "path": "/elements/configuration-offre-castor.php",
+    "blocDefinition": {
+      "id": "4",
+      "name": "configuration-castor",
+      "label": "configuration offres castor"
+    }
+  },
+  {
+    "id": "5",
+    "name": "mdm",
+    "path": "/elements/mdm.php",
+    "blocDefinition": {
+      "id": "5",
+      "name": "mdm",
+      "label": "marges"
+    }
+  },
+  {
+    "id": "6",
+    "name": "recap-vendeur",
+    "path": "/elements/recap-vendeur.php",
+    "blocDefinition": {
+      "id": "6",
+      "name": "recap",
+      "label": "récapitulatif vendeur"
+    }
+  },
+  {
+    "id": "7",
+    "name": "generer-documents",
+    "path": "/elements/generer-documents.php",
+    "blocDefinition": {
+      "id": "7",
+      "name": "gen-doc",
+      "label": "générer les documents"
+    }
+  },
+  {
+    "id": "8",
+    "name": "eligibilite",
+    "path": "/elements/eligibilite.php",
+    "blocDefinition": {
+      "id": "8",
+      "name": "eligibilite",
+      "label": "éligibilité 360"
+    }
+  },
+  {
+    "id": "9",
+    "name": "terminaux",
+    "path": "/elements/terminaux.php",
+    "blocDefinition": {
+      "id": "9",
+      "name": "terminaux",
+      "label": "liste des terminaux"
+    }
+  }
+]

@@ -21,7 +21,7 @@
                 <constraints nullable="true"/>
             </column>
             <column name="parcours_definition_id" type="bigint">
-                <constraints nullable="true" unique="true" uniqueConstraintName="ux_bloc_transition__parcours_definition_id" />
+                <constraints nullable="true"/>
             </column>
             <column name="current_id" type="bigint">
                 <constraints nullable="true"/>
