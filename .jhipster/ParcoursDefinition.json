@@ -17,20 +17,7 @@
       "fieldValidateRules": ["required"]
     }
   ],
-  "relationships": [
-    {
-      "relationshipType": "one-to-many",
-      "otherEntityName": "etapeDefinition",
-      "otherEntityRelationshipName": "parcoursDefinition",
-      "relationshipName": "etapeDefinition"
-    },
-    {
-      "relationshipType": "many-to-one",
-      "otherEntityName": "offre",
-      "otherEntityRelationshipName": "parcoursDefinition",
-      "relationshipName": "offre"
-    }
-  ],
+  "relationships": [],
   "entityTableName": "parcours_definition",
   "dto": "no",
   "pagination": "no",

@@ -24,12 +24,6 @@
       "otherEntityRelationshipName": "blocDefinition",
       "relationshipName": "element",
       "ownerSide": true
-    },
-    {
-      "relationshipType": "many-to-one",
-      "otherEntityName": "etapeDefinition",
-      "otherEntityRelationshipName": "blocDefinition",
-      "relationshipName": "etapeDefinition"
     }
   ],
   "entityTableName": "bloc_definition",

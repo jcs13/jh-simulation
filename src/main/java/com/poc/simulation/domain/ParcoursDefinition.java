@@ -1,9 +1,6 @@
 package com.poc.simulation.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
@@ -33,15 +30,6 @@ public class ParcoursDefinition implements Serializable {
     @NotNull
     @Column(name = "label", nullable = false)
     private String label;
-
-    @OneToMany(mappedBy = "parcoursDefinition", fetch = FetchType.EAGER)
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "blocDefinitions", "parcoursDefinition" }, allowSetters = true)
-    private Set<EtapeDefinition> etapeDefinitions = new HashSet<>();
-
-    @ManyToOne
-    @JsonIgnoreProperties(value = { "parcoursDefinitions", "businessUnit" }, allowSetters = true)
-    private Offre offre;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -82,50 +70,6 @@ public class ParcoursDefinition implements Serializable {
 
     public void setLabel(String label) {
         this.label = label;
-    }
-
-    public Set<EtapeDefinition> getEtapeDefinitions() {
-        return this.etapeDefinitions;
-    }
-
-    public void setEtapeDefinitions(Set<EtapeDefinition> etapeDefinitions) {
-        if (this.etapeDefinitions != null) {
-            this.etapeDefinitions.forEach(i -> i.setParcoursDefinition(null));
-        }
-        if (etapeDefinitions != null) {
-            etapeDefinitions.forEach(i -> i.setParcoursDefinition(this));
-        }
-        this.etapeDefinitions = etapeDefinitions;
-    }
-
-    public ParcoursDefinition etapeDefinitions(Set<EtapeDefinition> etapeDefinitions) {
-        this.setEtapeDefinitions(etapeDefinitions);
-        return this;
-    }
-
-    public ParcoursDefinition addEtapeDefinition(EtapeDefinition etapeDefinition) {
-        this.etapeDefinitions.add(etapeDefinition);
-        etapeDefinition.setParcoursDefinition(this);
-        return this;
-    }
-
-    public ParcoursDefinition removeEtapeDefinition(EtapeDefinition etapeDefinition) {
-        this.etapeDefinitions.remove(etapeDefinition);
-        etapeDefinition.setParcoursDefinition(null);
-        return this;
-    }
-
-    public Offre getOffre() {
-        return this.offre;
-    }
-
-    public void setOffre(Offre offre) {
-        this.offre = offre;
-    }
-
-    public ParcoursDefinition offre(Offre offre) {
-        this.setOffre(offre);
-        return this;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

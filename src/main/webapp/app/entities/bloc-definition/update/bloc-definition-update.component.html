@@ -43,29 +43,6 @@
             </option>
           </select>
         </div>
-
-        <div class="form-group">
-          <label class="form-control-label" for="field_etapeDefinition">Etape Definition</label>
-          <select
-            class="form-control"
-            id="field_etapeDefinition"
-            data-cy="etapeDefinition"
-            name="etapeDefinition"
-            formControlName="etapeDefinition"
-          >
-            <option [ngValue]="null"></option>
-            <option
-              [ngValue]="
-                etapeDefinitionOption.id === editForm.get('etapeDefinition')!.value?.id
-                  ? editForm.get('etapeDefinition')!.value
-                  : etapeDefinitionOption
-              "
-              *ngFor="let etapeDefinitionOption of etapeDefinitionsSharedCollection; trackBy: trackEtapeDefinitionById"
-            >
-              {{ etapeDefinitionOption.id }}
-            </option>
-          </select>
-        </div>
       </div>
 
       <div>

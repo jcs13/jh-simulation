@@ -10,8 +10,6 @@ import { BlocDefinitionService } from '../service/bloc-definition.service';
 import { IBlocDefinition, BlocDefinition } from '../bloc-definition.model';
 import { IElement } from 'app/entities/element/element.model';
 import { ElementService } from 'app/entities/element/service/element.service';
-import { IEtapeDefinition } from 'app/entities/etape-definition/etape-definition.model';
-import { EtapeDefinitionService } from 'app/entities/etape-definition/service/etape-definition.service';
 
 import { BlocDefinitionUpdateComponent } from './bloc-definition-update.component';
 
@@ -21,7 +19,6 @@ describe('BlocDefinition Management Update Component', () => {
   let activatedRoute: ActivatedRoute;
   let blocDefinitionService: BlocDefinitionService;
   let elementService: ElementService;
-  let etapeDefinitionService: EtapeDefinitionService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -44,7 +41,6 @@ describe('BlocDefinition Management Update Component', () => {
     activatedRoute = TestBed.inject(ActivatedRoute);
     blocDefinitionService = TestBed.inject(BlocDefinitionService);
     elementService = TestBed.inject(ElementService);
-    etapeDefinitionService = TestBed.inject(EtapeDefinitionService);
 
     comp = fixture.componentInstance;
   });
@@ -68,41 +64,16 @@ describe('BlocDefinition Management Update Component', () => {
       expect(comp.elementsCollection).toEqual(expectedCollection);
     });
 
-    it('Should call EtapeDefinition query and add missing value', () => {
-      const blocDefinition: IBlocDefinition = { id: 456 };
-      const etapeDefinition: IEtapeDefinition = { id: 30033 };
-      blocDefinition.etapeDefinition = etapeDefinition;
-
-      const etapeDefinitionCollection: IEtapeDefinition[] = [{ id: 17300 }];
-      jest.spyOn(etapeDefinitionService, 'query').mockReturnValue(of(new HttpResponse({ body: etapeDefinitionCollection })));
-      const additionalEtapeDefinitions = [etapeDefinition];
-      const expectedCollection: IEtapeDefinition[] = [...additionalEtapeDefinitions, ...etapeDefinitionCollection];
-      jest.spyOn(etapeDefinitionService, 'addEtapeDefinitionToCollectionIfMissing').mockReturnValue(expectedCollection);
-
-      activatedRoute.data = of({ blocDefinition });
-      comp.ngOnInit();
-
-      expect(etapeDefinitionService.query).toHaveBeenCalled();
-      expect(etapeDefinitionService.addEtapeDefinitionToCollectionIfMissing).toHaveBeenCalledWith(
-        etapeDefinitionCollection,
-        ...additionalEtapeDefinitions
-      );
-      expect(comp.etapeDefinitionsSharedCollection).toEqual(expectedCollection);
-    });
-
     it('Should update editForm', () => {
       const blocDefinition: IBlocDefinition = { id: 456 };
       const element: IElement = { id: 82005 };
       blocDefinition.element = element;
-      const etapeDefinition: IEtapeDefinition = { id: 74190 };
-      blocDefinition.etapeDefinition = etapeDefinition;
 
       activatedRoute.data = of({ blocDefinition });
       comp.ngOnInit();
 
       expect(comp.editForm.value).toEqual(expect.objectContaining(blocDefinition));
       expect(comp.elementsCollection).toContain(element);
-      expect(comp.etapeDefinitionsSharedCollection).toContain(etapeDefinition);
     });
   });
 
@@ -175,14 +146,6 @@ describe('BlocDefinition Management Update Component', () => {
       it('Should return tracked Element primary key', () => {
         const entity = { id: 123 };
         const trackResult = comp.trackElementById(0, entity);
-        expect(trackResult).toEqual(entity.id);
-      });
-    });
-
-    describe('trackEtapeDefinitionById', () => {
-      it('Should return tracked EtapeDefinition primary key', () => {
-        const entity = { id: 123 };
-        const trackResult = comp.trackEtapeDefinitionById(0, entity);
         expect(trackResult).toEqual(entity.id);
       });
     });
