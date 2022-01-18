@@ -67,6 +67,7 @@ public class CacheConfiguration {
             createCache(cm, com.poc.simulation.domain.BlocDefinition.class.getName());
             createCache(cm, com.poc.simulation.domain.Element.class.getName());
             createCache(cm, com.poc.simulation.domain.BlocTransition.class.getName());
+            createCache(cm, com.poc.simulation.domain.ParcoursDefinition.class.getName() + ".blocDefinitions");
             // jhipster-needle-ehcache-add-entry
         };
     }

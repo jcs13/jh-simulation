@@ -19,5 +19,11 @@
                                  constraintName="fk_bloc_definition__etape_definition_id"
                                  referencedColumnNames="id"
                                  referencedTableName="etape_definition"/>
+
+        <addForeignKeyConstraint baseColumnNames="parcours_definition_id"
+                                 baseTableName="bloc_definition"
+                                 constraintName="fk_bloc_definition__parcours_definition_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="parcours_definition"/>
     </changeSet>
 </databaseChangeLog>

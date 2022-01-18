@@ -126,6 +126,7 @@ relationship OneToOne {
 relationship OneToMany {
 	EtapeDefinition to BlocDefinition,
 	ParcoursDefinition to EtapeDefinition,
+	ParcoursDefinition to BlocDefinition,
     Offre to ParcoursDefinition,
     BusinessUnit to Offre
 }
