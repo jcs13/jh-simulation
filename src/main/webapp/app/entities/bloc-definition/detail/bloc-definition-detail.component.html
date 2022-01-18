@@ -28,12 +28,6 @@
             <a [routerLink]="['/element', blocDefinition.element?.id, 'view']">{{ blocDefinition.element?.id }}</a>
           </div>
         </dd>
-        <dt><span>Etape Definition</span></dt>
-        <dd>
-          <div *ngIf="blocDefinition.etapeDefinition">
-            <a [routerLink]="['/etape-definition', blocDefinition.etapeDefinition?.id, 'view']">{{ blocDefinition.etapeDefinition?.id }}</a>
-          </div>
-        </dd>
       </dl>
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">

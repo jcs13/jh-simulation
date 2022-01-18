@@ -33,13 +33,9 @@ public class BlocDefinition implements Serializable {
     private String label;
 
     @JsonIgnoreProperties(value = { "blocDefinition" }, allowSetters = true)
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne
     @JoinColumn(unique = true)
     private Element element;
-
-    @ManyToOne
-    @JsonIgnoreProperties(value = { "blocDefinitions", "parcoursDefinition" }, allowSetters = true)
-    private EtapeDefinition etapeDefinition;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -92,19 +88,6 @@ public class BlocDefinition implements Serializable {
 
     public BlocDefinition element(Element element) {
         this.setElement(element);
-        return this;
-    }
-
-    public EtapeDefinition getEtapeDefinition() {
-        return this.etapeDefinition;
-    }
-
-    public void setEtapeDefinition(EtapeDefinition etapeDefinition) {
-        this.etapeDefinition = etapeDefinition;
-    }
-
-    public BlocDefinition etapeDefinition(EtapeDefinition etapeDefinition) {
-        this.setEtapeDefinition(etapeDefinition);
         return this;
     }
 
