@@ -12,6 +12,8 @@ import { IElement } from 'app/entities/element/element.model';
 import { ElementService } from 'app/entities/element/service/element.service';
 import { IEtapeDefinition } from 'app/entities/etape-definition/etape-definition.model';
 import { EtapeDefinitionService } from 'app/entities/etape-definition/service/etape-definition.service';
+import { IParcoursDefinition } from 'app/entities/parcours-definition/parcours-definition.model';
+import { ParcoursDefinitionService } from 'app/entities/parcours-definition/service/parcours-definition.service';
 
 import { BlocDefinitionUpdateComponent } from './bloc-definition-update.component';
 
@@ -22,6 +24,7 @@ describe('BlocDefinition Management Update Component', () => {
   let blocDefinitionService: BlocDefinitionService;
   let elementService: ElementService;
   let etapeDefinitionService: EtapeDefinitionService;
+  let parcoursDefinitionService: ParcoursDefinitionService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -45,6 +48,7 @@ describe('BlocDefinition Management Update Component', () => {
     blocDefinitionService = TestBed.inject(BlocDefinitionService);
     elementService = TestBed.inject(ElementService);
     etapeDefinitionService = TestBed.inject(EtapeDefinitionService);
+    parcoursDefinitionService = TestBed.inject(ParcoursDefinitionService);
 
     comp = fixture.componentInstance;
   });
@@ -90,12 +94,36 @@ describe('BlocDefinition Management Update Component', () => {
       expect(comp.etapeDefinitionsSharedCollection).toEqual(expectedCollection);
     });
 
+    it('Should call ParcoursDefinition query and add missing value', () => {
+      const blocDefinition: IBlocDefinition = { id: 456 };
+      const parcoursDefinition: IParcoursDefinition = { id: 50138 };
+      blocDefinition.parcoursDefinition = parcoursDefinition;
+
+      const parcoursDefinitionCollection: IParcoursDefinition[] = [{ id: 79774 }];
+      jest.spyOn(parcoursDefinitionService, 'query').mockReturnValue(of(new HttpResponse({ body: parcoursDefinitionCollection })));
+      const additionalParcoursDefinitions = [parcoursDefinition];
+      const expectedCollection: IParcoursDefinition[] = [...additionalParcoursDefinitions, ...parcoursDefinitionCollection];
+      jest.spyOn(parcoursDefinitionService, 'addParcoursDefinitionToCollectionIfMissing').mockReturnValue(expectedCollection);
+
+      activatedRoute.data = of({ blocDefinition });
+      comp.ngOnInit();
+
+      expect(parcoursDefinitionService.query).toHaveBeenCalled();
+      expect(parcoursDefinitionService.addParcoursDefinitionToCollectionIfMissing).toHaveBeenCalledWith(
+        parcoursDefinitionCollection,
+        ...additionalParcoursDefinitions
+      );
+      expect(comp.parcoursDefinitionsSharedCollection).toEqual(expectedCollection);
+    });
+
     it('Should update editForm', () => {
       const blocDefinition: IBlocDefinition = { id: 456 };
       const element: IElement = { id: 82005 };
       blocDefinition.element = element;
       const etapeDefinition: IEtapeDefinition = { id: 74190 };
       blocDefinition.etapeDefinition = etapeDefinition;
+      const parcoursDefinition: IParcoursDefinition = { id: 4884 };
+      blocDefinition.parcoursDefinition = parcoursDefinition;
 
       activatedRoute.data = of({ blocDefinition });
       comp.ngOnInit();
@@ -103,6 +131,7 @@ describe('BlocDefinition Management Update Component', () => {
       expect(comp.editForm.value).toEqual(expect.objectContaining(blocDefinition));
       expect(comp.elementsCollection).toContain(element);
       expect(comp.etapeDefinitionsSharedCollection).toContain(etapeDefinition);
+      expect(comp.parcoursDefinitionsSharedCollection).toContain(parcoursDefinition);
     });
   });
 
@@ -183,6 +212,14 @@ describe('BlocDefinition Management Update Component', () => {
       it('Should return tracked EtapeDefinition primary key', () => {
         const entity = { id: 123 };
         const trackResult = comp.trackEtapeDefinitionById(0, entity);
+        expect(trackResult).toEqual(entity.id);
+      });
+    });
+
+    describe('trackParcoursDefinitionById', () => {
+      it('Should return tracked ParcoursDefinition primary key', () => {
+        const entity = { id: 123 };
+        const trackResult = comp.trackParcoursDefinitionById(0, entity);
         expect(trackResult).toEqual(entity.id);
       });
     });

@@ -30,6 +30,12 @@
       "otherEntityName": "etapeDefinition",
       "otherEntityRelationshipName": "blocDefinition",
       "relationshipName": "etapeDefinition"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "parcoursDefinition",
+      "otherEntityRelationshipName": "blocDefinition",
+      "relationshipName": "parcoursDefinition"
     }
   ],
   "entityTableName": "bloc_definition",

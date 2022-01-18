@@ -27,19 +27,19 @@ public class EtapeTransition implements Serializable {
     @Column(name = "transition", nullable = false)
     private Integer transition;
 
-    @JsonIgnoreProperties(value = { "etapeDefinitions", "offre" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "etapeDefinitions", "blocDefinitions", "offre" }, allowSetters = true)
     @OneToOne
-    @JoinColumn
+    @JoinColumn(unique = true)
     private ParcoursDefinition parcoursDefinition;
 
     @JsonIgnoreProperties(value = { "blocDefinitions", "parcoursDefinition" }, allowSetters = true)
     @OneToOne
-    @JoinColumn
+    @JoinColumn(unique = true)
     private EtapeDefinition current;
 
     @JsonIgnoreProperties(value = { "blocDefinitions", "parcoursDefinition" }, allowSetters = true)
     @OneToOne
-    @JoinColumn
+    @JoinColumn(unique = true)
     private EtapeDefinition next;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

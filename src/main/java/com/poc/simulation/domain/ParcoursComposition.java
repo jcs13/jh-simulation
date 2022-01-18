@@ -29,17 +29,17 @@ public class ParcoursComposition implements Serializable {
 
     @JsonIgnoreProperties(value = { "parcoursDefinitions", "businessUnit" }, allowSetters = true)
     @OneToOne
-    @JoinColumn
+    @JoinColumn(unique = true)
     private Offre offre;
 
-    @JsonIgnoreProperties(value = { "etapeDefinitions", "offre" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "etapeDefinitions", "blocDefinitions", "offre" }, allowSetters = true)
     @OneToOne
-    @JoinColumn
+    @JoinColumn(unique = true)
     private ParcoursDefinition parcoursParent;
 
-    @JsonIgnoreProperties(value = { "etapeDefinitions", "offre" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "etapeDefinitions", "blocDefinitions", "offre" }, allowSetters = true)
     @OneToOne
-    @JoinColumn
+    @JoinColumn(unique = true)
     private ParcoursDefinition parcoursChild;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

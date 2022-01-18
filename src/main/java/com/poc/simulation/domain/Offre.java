@@ -34,9 +34,9 @@ public class Offre implements Serializable {
     @Column(name = "label", nullable = false)
     private String label;
 
-    @OneToMany(mappedBy = "offre", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "offre")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "etapeDefinitions", "offre" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "etapeDefinitions", "blocDefinitions", "offre" }, allowSetters = true)
     private Set<ParcoursDefinition> parcoursDefinitions = new HashSet<>();
 
     @ManyToOne

@@ -32,7 +32,7 @@ public class Element implements Serializable {
     @Column(name = "path", nullable = false)
     private String path;
 
-    @JsonIgnoreProperties(value = { "element", "etapeDefinition" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "element", "etapeDefinition", "parcoursDefinition" }, allowSetters = true)
     @OneToOne(mappedBy = "element")
     private BlocDefinition blocDefinition;
 
