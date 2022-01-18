@@ -34,7 +34,7 @@ public class EtapeDefinition implements Serializable {
     @Column(name = "label", nullable = false)
     private String label;
 
-    @OneToMany(mappedBy = "etapeDefinition")
+    @OneToMany(mappedBy = "etapeDefinition", fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "element", "etapeDefinition" }, allowSetters = true)
     private Set<BlocDefinition> blocDefinitions = new HashSet<>();

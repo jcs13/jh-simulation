@@ -34,7 +34,7 @@ public class ParcoursDefinition implements Serializable {
     @Column(name = "label", nullable = false)
     private String label;
 
-    @OneToMany(mappedBy = "parcoursDefinition")
+    @OneToMany(mappedBy = "parcoursDefinition", fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "blocDefinitions", "parcoursDefinition" }, allowSetters = true)
     private Set<EtapeDefinition> etapeDefinitions = new HashSet<>();

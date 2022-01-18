@@ -33,7 +33,7 @@ public class BlocDefinition implements Serializable {
     private String label;
 
     @JsonIgnoreProperties(value = { "blocDefinition" }, allowSetters = true)
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(unique = true)
     private Element element;
 

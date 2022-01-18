@@ -1,10 +1,7 @@
 package com.poc.simulation.service;
 
 import com.poc.simulation.domain.*;
-import com.poc.simulation.repository.BlocTransitionRepository;
-import com.poc.simulation.repository.EtapeTransitionRepository;
-import com.poc.simulation.repository.ParcoursCompositionRepository;
-import com.poc.simulation.repository.ParcoursRepository;
+import com.poc.simulation.repository.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +18,9 @@ public class ParcoursService {
     private final Logger log = LoggerFactory.getLogger(ParcoursService.class);
 
     @Autowired
+    private OffreRepository offreRepository;
+
+    @Autowired
     private ParcoursRepository parcoursRepository;
 
     @Autowired
@@ -30,11 +30,17 @@ public class ParcoursService {
     private EtapeTransitionRepository etapeTransitionRepository;
 
     @Autowired
-    private BlocTransitionRepository blocOrderRepository;
+    private BlocTransitionRepository blocTransitionRepository;
 
     public Parcours instanciateParcoursByOffre(String offerName) {
         log.debug("START instanciateParcoursByOffre");
         log.debug("offerName={}", offerName);
+
+
+        final Optional<Offre> offre = offreRepository.findById(1L);
+
+        log.info("offre {}", offre);
+
 
         Parcours parcours = new Parcours().name("parcours name").label("parcours pour offre " + offerName).offreId("1");
 
@@ -55,16 +61,32 @@ public class ParcoursService {
         List<EtapeTransition> etapeTransitionsChild = etapeTransitionRepository.findAll(Example.of(etapeTransitionChildFilter));
         etapeTransitionsChild.sort(Comparator.comparing(EtapeTransition::getTransition));
 
-        List<EtapeTransition> EtapeTransitions = new ArrayList<>();
-        EtapeTransitions.addAll(etapeTransitionsParents);
-        EtapeTransitions.addAll(etapeTransitionsChild);
+        List<EtapeTransition> etapeTransitions = new ArrayList<>();
+        etapeTransitions.addAll(etapeTransitionsParents);
+        etapeTransitions.addAll(etapeTransitionsChild);
 
-        List<Etape> etapes = buildOrderedEtapes(parcours, EtapeTransitions);
+        List<Etape> etapes = buildOrderedEtapes(parcours, etapeTransitions);
         parcours.setEtapes(Set.copyOf(etapes));
 
-//        etapes.forEach(etape -> {
+        List<ParcoursDefinition> parcoursDefinitionComposition = new ArrayList<>();
+        parcoursDefinitionComposition.add(parcoursParent);
+        parcoursDefinitionComposition.add(parcoursChild);
+
+
+        parcoursDefinitionComposition.forEach(parcoursDefinition -> {
+
+        });
+
+//        BlocTransition blocOrderFilterByParcoursDefEtapeDef = new BlocTransition().parcoursDefinition(parcoursParent);
+//        final List<BlocTransition> blocOrders = blocTransitionRepository.findAll(Example.of(blocOrderFilterByParcoursDefEtapeDef));
+
+
+        etapes.forEach(etape -> {
+
 //            etape.blocs(buildOrderedBlocs(etape.get, etape.getEtapeDefinitionId()));
-//        });
+        });
+
+
 
         etapes.forEach(etape -> log.info("{}", etape));
 
@@ -77,7 +99,7 @@ public class ParcoursService {
         BlocTransition blocOrderFilterByParcoursDefEtapeDef = new BlocTransition()
             .parcoursDefinition(parcoursDefinition)
             .etapeDefinition(etapeDefinition);
-        final List<BlocTransition> blocOrders = blocOrderRepository.findAll(Example.of(blocOrderFilterByParcoursDefEtapeDef));
+        final List<BlocTransition> blocOrders = blocTransitionRepository.findAll(Example.of(blocOrderFilterByParcoursDefEtapeDef));
         List<BlocDefinition> blocDefinitionsOrdered = new ArrayList<>();
         blocOrders.forEach(blocOrder -> {
             orderingLinkedElements(blocDefinitionsOrdered, blocOrder.getCurrent(), blocOrder.getNext());
@@ -90,9 +112,9 @@ public class ParcoursService {
         return Set.copyOf(blocs);
     }
 
-    public List<Etape> buildOrderedEtapes(Parcours parcours, List<EtapeTransition> EtapeTransitions) {
+    public List<Etape> buildOrderedEtapes(Parcours parcours, List<EtapeTransition> etapeTransitions) {
         List<EtapeDefinition> etapeDefinitionOrdered = new ArrayList<>();
-        EtapeTransitions.forEach(EtapeTransition -> {
+        etapeTransitions.forEach(EtapeTransition -> {
             orderingLinkedElements(etapeDefinitionOrdered, EtapeTransition.getCurrent(), EtapeTransition.getNext());
         });
 
@@ -108,6 +130,8 @@ public class ParcoursService {
     }
 
     private Etape buildEtapeFromDefinition(Parcours parcours, EtapeDefinition etapeDefinition, int order) {
+//        List<BlocDefinition> blodDefs = findBlocDefinitionFromEtapeDefinition(etapeDefinition);
+
         return new Etape()
             .name(etapeDefinition.getName())
             .label(etapeDefinition.getLabel())
