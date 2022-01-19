@@ -8,8 +8,6 @@ import { of, Subject, from } from 'rxjs';
 
 import { EtapeDefinitionService } from '../service/etape-definition.service';
 import { IEtapeDefinition, EtapeDefinition } from '../etape-definition.model';
-import { IParcoursDefinition } from 'app/entities/parcours-definition/parcours-definition.model';
-import { ParcoursDefinitionService } from 'app/entities/parcours-definition/service/parcours-definition.service';
 
 import { EtapeDefinitionUpdateComponent } from './etape-definition-update.component';
 
@@ -18,7 +16,6 @@ describe('EtapeDefinition Management Update Component', () => {
   let fixture: ComponentFixture<EtapeDefinitionUpdateComponent>;
   let activatedRoute: ActivatedRoute;
   let etapeDefinitionService: EtapeDefinitionService;
-  let parcoursDefinitionService: ParcoursDefinitionService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -40,44 +37,18 @@ describe('EtapeDefinition Management Update Component', () => {
     fixture = TestBed.createComponent(EtapeDefinitionUpdateComponent);
     activatedRoute = TestBed.inject(ActivatedRoute);
     etapeDefinitionService = TestBed.inject(EtapeDefinitionService);
-    parcoursDefinitionService = TestBed.inject(ParcoursDefinitionService);
 
     comp = fixture.componentInstance;
   });
 
   describe('ngOnInit', () => {
-    it('Should call ParcoursDefinition query and add missing value', () => {
-      const etapeDefinition: IEtapeDefinition = { id: 456 };
-      const parcoursDefinition: IParcoursDefinition = { id: 62673 };
-      etapeDefinition.parcoursDefinition = parcoursDefinition;
-
-      const parcoursDefinitionCollection: IParcoursDefinition[] = [{ id: 3835 }];
-      jest.spyOn(parcoursDefinitionService, 'query').mockReturnValue(of(new HttpResponse({ body: parcoursDefinitionCollection })));
-      const additionalParcoursDefinitions = [parcoursDefinition];
-      const expectedCollection: IParcoursDefinition[] = [...additionalParcoursDefinitions, ...parcoursDefinitionCollection];
-      jest.spyOn(parcoursDefinitionService, 'addParcoursDefinitionToCollectionIfMissing').mockReturnValue(expectedCollection);
-
-      activatedRoute.data = of({ etapeDefinition });
-      comp.ngOnInit();
-
-      expect(parcoursDefinitionService.query).toHaveBeenCalled();
-      expect(parcoursDefinitionService.addParcoursDefinitionToCollectionIfMissing).toHaveBeenCalledWith(
-        parcoursDefinitionCollection,
-        ...additionalParcoursDefinitions
-      );
-      expect(comp.parcoursDefinitionsSharedCollection).toEqual(expectedCollection);
-    });
-
     it('Should update editForm', () => {
       const etapeDefinition: IEtapeDefinition = { id: 456 };
-      const parcoursDefinition: IParcoursDefinition = { id: 58954 };
-      etapeDefinition.parcoursDefinition = parcoursDefinition;
 
       activatedRoute.data = of({ etapeDefinition });
       comp.ngOnInit();
 
       expect(comp.editForm.value).toEqual(expect.objectContaining(etapeDefinition));
-      expect(comp.parcoursDefinitionsSharedCollection).toContain(parcoursDefinition);
     });
   });
 
@@ -142,16 +113,6 @@ describe('EtapeDefinition Management Update Component', () => {
       expect(etapeDefinitionService.update).toHaveBeenCalledWith(etapeDefinition);
       expect(comp.isSaving).toEqual(false);
       expect(comp.previousState).not.toHaveBeenCalled();
-    });
-  });
-
-  describe('Tracking relationships identifiers', () => {
-    describe('trackParcoursDefinitionById', () => {
-      it('Should return tracked ParcoursDefinition primary key', () => {
-        const entity = { id: 123 };
-        const trackResult = comp.trackParcoursDefinitionById(0, entity);
-        expect(trackResult).toEqual(entity.id);
-      });
     });
   });
 });

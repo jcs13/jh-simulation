@@ -40,7 +40,7 @@ public class BusinessUnit implements Serializable {
 
     @OneToMany(mappedBy = "businessUnit")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "parcoursDefinitions", "businessUnit" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "businessUnit" }, allowSetters = true)
     private Set<Offre> offres = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

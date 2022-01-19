@@ -8,8 +8,6 @@ import { of, Subject, from } from 'rxjs';
 
 import { ParcoursDefinitionService } from '../service/parcours-definition.service';
 import { IParcoursDefinition, ParcoursDefinition } from '../parcours-definition.model';
-import { IOffre } from 'app/entities/offre/offre.model';
-import { OffreService } from 'app/entities/offre/service/offre.service';
 
 import { ParcoursDefinitionUpdateComponent } from './parcours-definition-update.component';
 
@@ -18,7 +16,6 @@ describe('ParcoursDefinition Management Update Component', () => {
   let fixture: ComponentFixture<ParcoursDefinitionUpdateComponent>;
   let activatedRoute: ActivatedRoute;
   let parcoursDefinitionService: ParcoursDefinitionService;
-  let offreService: OffreService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -40,41 +37,18 @@ describe('ParcoursDefinition Management Update Component', () => {
     fixture = TestBed.createComponent(ParcoursDefinitionUpdateComponent);
     activatedRoute = TestBed.inject(ActivatedRoute);
     parcoursDefinitionService = TestBed.inject(ParcoursDefinitionService);
-    offreService = TestBed.inject(OffreService);
 
     comp = fixture.componentInstance;
   });
 
   describe('ngOnInit', () => {
-    it('Should call Offre query and add missing value', () => {
-      const parcoursDefinition: IParcoursDefinition = { id: 456 };
-      const offre: IOffre = { id: 98099 };
-      parcoursDefinition.offre = offre;
-
-      const offreCollection: IOffre[] = [{ id: 16048 }];
-      jest.spyOn(offreService, 'query').mockReturnValue(of(new HttpResponse({ body: offreCollection })));
-      const additionalOffres = [offre];
-      const expectedCollection: IOffre[] = [...additionalOffres, ...offreCollection];
-      jest.spyOn(offreService, 'addOffreToCollectionIfMissing').mockReturnValue(expectedCollection);
-
-      activatedRoute.data = of({ parcoursDefinition });
-      comp.ngOnInit();
-
-      expect(offreService.query).toHaveBeenCalled();
-      expect(offreService.addOffreToCollectionIfMissing).toHaveBeenCalledWith(offreCollection, ...additionalOffres);
-      expect(comp.offresSharedCollection).toEqual(expectedCollection);
-    });
-
     it('Should update editForm', () => {
       const parcoursDefinition: IParcoursDefinition = { id: 456 };
-      const offre: IOffre = { id: 45048 };
-      parcoursDefinition.offre = offre;
 
       activatedRoute.data = of({ parcoursDefinition });
       comp.ngOnInit();
 
       expect(comp.editForm.value).toEqual(expect.objectContaining(parcoursDefinition));
-      expect(comp.offresSharedCollection).toContain(offre);
     });
   });
 
@@ -139,16 +113,6 @@ describe('ParcoursDefinition Management Update Component', () => {
       expect(parcoursDefinitionService.update).toHaveBeenCalledWith(parcoursDefinition);
       expect(comp.isSaving).toEqual(false);
       expect(comp.previousState).not.toHaveBeenCalled();
-    });
-  });
-
-  describe('Tracking relationships identifiers', () => {
-    describe('trackOffreById', () => {
-      it('Should return tracked Offre primary key', () => {
-        const entity = { id: 123 };
-        const trackResult = comp.trackOffreById(0, entity);
-        expect(trackResult).toEqual(entity.id);
-      });
     });
   });
 });

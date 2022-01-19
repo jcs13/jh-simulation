@@ -3,12 +3,10 @@ import { HttpResponse } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { finalize, map } from 'rxjs/operators';
+import { finalize } from 'rxjs/operators';
 
 import { IParcoursDefinition, ParcoursDefinition } from '../parcours-definition.model';
 import { ParcoursDefinitionService } from '../service/parcours-definition.service';
-import { IOffre } from 'app/entities/offre/offre.model';
-import { OffreService } from 'app/entities/offre/service/offre.service';
 
 @Component({
   selector: 'jhi-parcours-definition-update',
@@ -17,18 +15,14 @@ import { OffreService } from 'app/entities/offre/service/offre.service';
 export class ParcoursDefinitionUpdateComponent implements OnInit {
   isSaving = false;
 
-  offresSharedCollection: IOffre[] = [];
-
   editForm = this.fb.group({
     id: [null, [Validators.required]],
     name: [null, [Validators.required]],
     label: [null, [Validators.required]],
-    offre: [],
   });
 
   constructor(
     protected parcoursDefinitionService: ParcoursDefinitionService,
-    protected offreService: OffreService,
     protected activatedRoute: ActivatedRoute,
     protected fb: FormBuilder
   ) {}
@@ -36,8 +30,6 @@ export class ParcoursDefinitionUpdateComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ parcoursDefinition }) => {
       this.updateForm(parcoursDefinition);
-
-      this.loadRelationshipsOptions();
     });
   }
 
@@ -53,10 +45,6 @@ export class ParcoursDefinitionUpdateComponent implements OnInit {
     } else {
       this.subscribeToSaveResponse(this.parcoursDefinitionService.create(parcoursDefinition));
     }
-  }
-
-  trackOffreById(index: number, item: IOffre): number {
-    return item.id!;
   }
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<IParcoursDefinition>>): void {
@@ -83,18 +71,7 @@ export class ParcoursDefinitionUpdateComponent implements OnInit {
       id: parcoursDefinition.id,
       name: parcoursDefinition.name,
       label: parcoursDefinition.label,
-      offre: parcoursDefinition.offre,
     });
-
-    this.offresSharedCollection = this.offreService.addOffreToCollectionIfMissing(this.offresSharedCollection, parcoursDefinition.offre);
-  }
-
-  protected loadRelationshipsOptions(): void {
-    this.offreService
-      .query()
-      .pipe(map((res: HttpResponse<IOffre[]>) => res.body ?? []))
-      .pipe(map((offres: IOffre[]) => this.offreService.addOffreToCollectionIfMissing(offres, this.editForm.get('offre')!.value)))
-      .subscribe((offres: IOffre[]) => (this.offresSharedCollection = offres));
   }
 
   protected createFromForm(): IParcoursDefinition {
@@ -103,7 +80,6 @@ export class ParcoursDefinitionUpdateComponent implements OnInit {
       id: this.editForm.get(['id'])!.value,
       name: this.editForm.get(['name'])!.value,
       label: this.editForm.get(['label'])!.value,
-      offre: this.editForm.get(['offre'])!.value,
     };
   }
 }
