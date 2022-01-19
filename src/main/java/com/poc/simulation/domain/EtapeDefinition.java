@@ -34,13 +34,13 @@ public class EtapeDefinition implements Serializable {
     @Column(name = "label", nullable = false)
     private String label;
 
-    @OneToMany(mappedBy = "etapeDefinition", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "etapeDefinition")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "element", "etapeDefinition" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "element", "etapeDefinition", "parcoursDefinition" }, allowSetters = true)
     private Set<BlocDefinition> blocDefinitions = new HashSet<>();
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "etapeDefinitions", "offre" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "etapeDefinitions", "blocDefinitions", "offre" }, allowSetters = true)
     private ParcoursDefinition parcoursDefinition;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

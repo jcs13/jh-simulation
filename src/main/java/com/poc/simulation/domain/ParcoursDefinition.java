@@ -39,6 +39,11 @@ public class ParcoursDefinition implements Serializable {
     @JsonIgnoreProperties(value = { "blocDefinitions", "parcoursDefinition" }, allowSetters = true)
     private Set<EtapeDefinition> etapeDefinitions = new HashSet<>();
 
+    @OneToMany(mappedBy = "parcoursDefinition", fetch = FetchType.EAGER)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "element", "etapeDefinition", "parcoursDefinition" }, allowSetters = true)
+    private Set<BlocDefinition> blocDefinitions = new HashSet<>();
+
     @ManyToOne
     @JsonIgnoreProperties(value = { "parcoursDefinitions", "businessUnit" }, allowSetters = true)
     private Offre offre;
@@ -112,6 +117,37 @@ public class ParcoursDefinition implements Serializable {
     public ParcoursDefinition removeEtapeDefinition(EtapeDefinition etapeDefinition) {
         this.etapeDefinitions.remove(etapeDefinition);
         etapeDefinition.setParcoursDefinition(null);
+        return this;
+    }
+
+    public Set<BlocDefinition> getBlocDefinitions() {
+        return this.blocDefinitions;
+    }
+
+    public void setBlocDefinitions(Set<BlocDefinition> blocDefinitions) {
+        if (this.blocDefinitions != null) {
+            this.blocDefinitions.forEach(i -> i.setParcoursDefinition(null));
+        }
+        if (blocDefinitions != null) {
+            blocDefinitions.forEach(i -> i.setParcoursDefinition(this));
+        }
+        this.blocDefinitions = blocDefinitions;
+    }
+
+    public ParcoursDefinition blocDefinitions(Set<BlocDefinition> blocDefinitions) {
+        this.setBlocDefinitions(blocDefinitions);
+        return this;
+    }
+
+    public ParcoursDefinition addBlocDefinition(BlocDefinition blocDefinition) {
+        this.blocDefinitions.add(blocDefinition);
+        blocDefinition.setParcoursDefinition(this);
+        return this;
+    }
+
+    public ParcoursDefinition removeBlocDefinition(BlocDefinition blocDefinition) {
+        this.blocDefinitions.remove(blocDefinition);
+        blocDefinition.setParcoursDefinition(null);
         return this;
     }
 

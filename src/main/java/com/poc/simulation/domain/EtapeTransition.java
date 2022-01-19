@@ -27,7 +27,7 @@ public class EtapeTransition implements Serializable {
     @Column(name = "transition", nullable = false)
     private Integer transition;
 
-    @JsonIgnoreProperties(value = { "etapeDefinitions", "offre" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "etapeDefinitions", "blocDefinitions", "offre" }, allowSetters = true)
     @OneToOne
     @JoinColumn
     private ParcoursDefinition parcoursDefinition;

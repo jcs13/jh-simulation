@@ -25,6 +25,12 @@
       "relationshipName": "etapeDefinition"
     },
     {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "blocDefinition",
+      "otherEntityRelationshipName": "parcoursDefinition",
+      "relationshipName": "blocDefinition"
+    },
+    {
       "relationshipType": "many-to-one",
       "otherEntityName": "offre",
       "otherEntityRelationshipName": "parcoursDefinition",

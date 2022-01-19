@@ -32,12 +32,12 @@ public class ParcoursComposition implements Serializable {
     @JoinColumn
     private Offre offre;
 
-    @JsonIgnoreProperties(value = { "etapeDefinitions", "offre" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "etapeDefinitions", "blocDefinitions", "offre" }, allowSetters = true)
     @OneToOne
     @JoinColumn
     private ParcoursDefinition parcoursParent;
 
-    @JsonIgnoreProperties(value = { "etapeDefinitions", "offre" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "etapeDefinitions", "blocDefinitions", "offre" }, allowSetters = true)
     @OneToOne
     @JoinColumn
     private ParcoursDefinition parcoursChild;

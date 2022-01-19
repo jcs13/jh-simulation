@@ -44,6 +44,7 @@ public class ParcoursService {
 
         Parcours parcours = new Parcours().name("parcours name").label("parcours pour offre " + offerName).offreId("1");
 
+
         ParcoursComposition opcFilter = new ParcoursComposition().offre(new Offre().name(offerName));
         final List<ParcoursComposition> parcoursCompositionsFromOffre = offreParcoursCompositionRepository.findAll(
             Example.of(opcFilter)
@@ -72,6 +73,10 @@ public class ParcoursService {
         parcoursDefinitionComposition.add(parcoursParent);
         parcoursDefinitionComposition.add(parcoursChild);
 
+
+        final List<BlocTransition> blocTransitionParcoursEtapes = blocTransitionRepository.findByParcoursAndEtapes(parcoursDefinitionComposition, etapeTransitionsParents.stream().findFirst().get().getCurrent());
+
+        blocTransitionParcoursEtapes.forEach(blocTransition -> log.debug("blocTransition {}", blocTransition));
 
         parcoursDefinitionComposition.forEach(parcoursDefinition -> {
 

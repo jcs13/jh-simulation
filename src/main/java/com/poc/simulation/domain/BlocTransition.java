@@ -32,17 +32,17 @@ public class BlocTransition implements Serializable {
     @JoinColumn
     private EtapeDefinition etapeDefinition;
 
-    @JsonIgnoreProperties(value = { "etapeDefinitions", "offre" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "etapeDefinitions", "blocDefinitions", "offre" }, allowSetters = true)
     @OneToOne
     @JoinColumn
     private ParcoursDefinition parcoursDefinition;
 
-    @JsonIgnoreProperties(value = { "element", "etapeDefinition" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "element", "etapeDefinition", "parcoursDefinition" }, allowSetters = true)
     @OneToOne
     @JoinColumn
     private BlocDefinition current;
 
-    @JsonIgnoreProperties(value = { "element", "etapeDefinition" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "element", "etapeDefinition", "parcoursDefinition" }, allowSetters = true)
     @OneToOne
     @JoinColumn
     private BlocDefinition next;

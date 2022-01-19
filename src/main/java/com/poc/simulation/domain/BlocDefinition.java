@@ -41,6 +41,10 @@ public class BlocDefinition implements Serializable {
     @JsonIgnoreProperties(value = { "blocDefinitions", "parcoursDefinition" }, allowSetters = true)
     private EtapeDefinition etapeDefinition;
 
+    @ManyToOne
+    @JsonIgnoreProperties(value = { "etapeDefinitions", "blocDefinitions", "offre" }, allowSetters = true)
+    private ParcoursDefinition parcoursDefinition;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {
@@ -105,6 +109,19 @@ public class BlocDefinition implements Serializable {
 
     public BlocDefinition etapeDefinition(EtapeDefinition etapeDefinition) {
         this.setEtapeDefinition(etapeDefinition);
+        return this;
+    }
+
+    public ParcoursDefinition getParcoursDefinition() {
+        return this.parcoursDefinition;
+    }
+
+    public void setParcoursDefinition(ParcoursDefinition parcoursDefinition) {
+        this.parcoursDefinition = parcoursDefinition;
+    }
+
+    public BlocDefinition parcoursDefinition(ParcoursDefinition parcoursDefinition) {
+        this.setParcoursDefinition(parcoursDefinition);
         return this;
     }
 
