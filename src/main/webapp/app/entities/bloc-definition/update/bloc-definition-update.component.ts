@@ -9,10 +9,6 @@ import { IBlocDefinition, BlocDefinition } from '../bloc-definition.model';
 import { BlocDefinitionService } from '../service/bloc-definition.service';
 import { IElement } from 'app/entities/element/element.model';
 import { ElementService } from 'app/entities/element/service/element.service';
-import { IEtapeDefinition } from 'app/entities/etape-definition/etape-definition.model';
-import { EtapeDefinitionService } from 'app/entities/etape-definition/service/etape-definition.service';
-import { IParcoursDefinition } from 'app/entities/parcours-definition/parcours-definition.model';
-import { ParcoursDefinitionService } from 'app/entities/parcours-definition/service/parcours-definition.service';
 
 @Component({
   selector: 'jhi-bloc-definition-update',
@@ -22,23 +18,17 @@ export class BlocDefinitionUpdateComponent implements OnInit {
   isSaving = false;
 
   elementsCollection: IElement[] = [];
-  etapeDefinitionsSharedCollection: IEtapeDefinition[] = [];
-  parcoursDefinitionsSharedCollection: IParcoursDefinition[] = [];
 
   editForm = this.fb.group({
     id: [null, [Validators.required]],
     name: [null, [Validators.required]],
     label: [null, [Validators.required]],
     element: [],
-    etapeDefinition: [],
-    parcoursDefinition: [],
   });
 
   constructor(
     protected blocDefinitionService: BlocDefinitionService,
     protected elementService: ElementService,
-    protected etapeDefinitionService: EtapeDefinitionService,
-    protected parcoursDefinitionService: ParcoursDefinitionService,
     protected activatedRoute: ActivatedRoute,
     protected fb: FormBuilder
   ) {}
@@ -69,14 +59,6 @@ export class BlocDefinitionUpdateComponent implements OnInit {
     return item.id!;
   }
 
-  trackEtapeDefinitionById(index: number, item: IEtapeDefinition): number {
-    return item.id!;
-  }
-
-  trackParcoursDefinitionById(index: number, item: IParcoursDefinition): number {
-    return item.id!;
-  }
-
   protected subscribeToSaveResponse(result: Observable<HttpResponse<IBlocDefinition>>): void {
     result.pipe(finalize(() => this.onSaveFinalize())).subscribe({
       next: () => this.onSaveSuccess(),
@@ -102,19 +84,9 @@ export class BlocDefinitionUpdateComponent implements OnInit {
       name: blocDefinition.name,
       label: blocDefinition.label,
       element: blocDefinition.element,
-      etapeDefinition: blocDefinition.etapeDefinition,
-      parcoursDefinition: blocDefinition.parcoursDefinition,
     });
 
     this.elementsCollection = this.elementService.addElementToCollectionIfMissing(this.elementsCollection, blocDefinition.element);
-    this.etapeDefinitionsSharedCollection = this.etapeDefinitionService.addEtapeDefinitionToCollectionIfMissing(
-      this.etapeDefinitionsSharedCollection,
-      blocDefinition.etapeDefinition
-    );
-    this.parcoursDefinitionsSharedCollection = this.parcoursDefinitionService.addParcoursDefinitionToCollectionIfMissing(
-      this.parcoursDefinitionsSharedCollection,
-      blocDefinition.parcoursDefinition
-    );
   }
 
   protected loadRelationshipsOptions(): void {
@@ -125,29 +97,6 @@ export class BlocDefinitionUpdateComponent implements OnInit {
         map((elements: IElement[]) => this.elementService.addElementToCollectionIfMissing(elements, this.editForm.get('element')!.value))
       )
       .subscribe((elements: IElement[]) => (this.elementsCollection = elements));
-
-    this.etapeDefinitionService
-      .query()
-      .pipe(map((res: HttpResponse<IEtapeDefinition[]>) => res.body ?? []))
-      .pipe(
-        map((etapeDefinitions: IEtapeDefinition[]) =>
-          this.etapeDefinitionService.addEtapeDefinitionToCollectionIfMissing(etapeDefinitions, this.editForm.get('etapeDefinition')!.value)
-        )
-      )
-      .subscribe((etapeDefinitions: IEtapeDefinition[]) => (this.etapeDefinitionsSharedCollection = etapeDefinitions));
-
-    this.parcoursDefinitionService
-      .query()
-      .pipe(map((res: HttpResponse<IParcoursDefinition[]>) => res.body ?? []))
-      .pipe(
-        map((parcoursDefinitions: IParcoursDefinition[]) =>
-          this.parcoursDefinitionService.addParcoursDefinitionToCollectionIfMissing(
-            parcoursDefinitions,
-            this.editForm.get('parcoursDefinition')!.value
-          )
-        )
-      )
-      .subscribe((parcoursDefinitions: IParcoursDefinition[]) => (this.parcoursDefinitionsSharedCollection = parcoursDefinitions));
   }
 
   protected createFromForm(): IBlocDefinition {
@@ -157,8 +106,6 @@ export class BlocDefinitionUpdateComponent implements OnInit {
       name: this.editForm.get(['name'])!.value,
       label: this.editForm.get(['label'])!.value,
       element: this.editForm.get(['element'])!.value,
-      etapeDefinition: this.editForm.get(['etapeDefinition'])!.value,
-      parcoursDefinition: this.editForm.get(['parcoursDefinition'])!.value,
     };
   }
 }

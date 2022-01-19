@@ -17,20 +17,7 @@
       "fieldValidateRules": ["required"]
     }
   ],
-  "relationships": [
-    {
-      "relationshipType": "one-to-many",
-      "otherEntityName": "blocDefinition",
-      "otherEntityRelationshipName": "etapeDefinition",
-      "relationshipName": "blocDefinition"
-    },
-    {
-      "relationshipType": "many-to-one",
-      "otherEntityName": "parcoursDefinition",
-      "otherEntityRelationshipName": "etapeDefinition",
-      "relationshipName": "parcoursDefinition"
-    }
-  ],
+  "relationships": [],
   "entityTableName": "etape_definition",
   "dto": "no",
   "pagination": "no",
