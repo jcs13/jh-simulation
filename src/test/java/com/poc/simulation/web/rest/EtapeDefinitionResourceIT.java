@@ -35,6 +35,9 @@ class EtapeDefinitionResourceIT {
     private static final String DEFAULT_LABEL = "AAAAAAAAAA";
     private static final String UPDATED_LABEL = "BBBBBBBBBB";
 
+    private static final Boolean DEFAULT_DISPLAY = false;
+    private static final Boolean UPDATED_DISPLAY = true;
+
     private static final String ENTITY_API_URL = "/api/etape-definitions";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
 
@@ -59,7 +62,7 @@ class EtapeDefinitionResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static EtapeDefinition createEntity(EntityManager em) {
-        EtapeDefinition etapeDefinition = new EtapeDefinition().name(DEFAULT_NAME).label(DEFAULT_LABEL);
+        EtapeDefinition etapeDefinition = new EtapeDefinition().name(DEFAULT_NAME).label(DEFAULT_LABEL).display(DEFAULT_DISPLAY);
         return etapeDefinition;
     }
 
@@ -70,7 +73,7 @@ class EtapeDefinitionResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static EtapeDefinition createUpdatedEntity(EntityManager em) {
-        EtapeDefinition etapeDefinition = new EtapeDefinition().name(UPDATED_NAME).label(UPDATED_LABEL);
+        EtapeDefinition etapeDefinition = new EtapeDefinition().name(UPDATED_NAME).label(UPDATED_LABEL).display(UPDATED_DISPLAY);
         return etapeDefinition;
     }
 
@@ -96,6 +99,7 @@ class EtapeDefinitionResourceIT {
         EtapeDefinition testEtapeDefinition = etapeDefinitionList.get(etapeDefinitionList.size() - 1);
         assertThat(testEtapeDefinition.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testEtapeDefinition.getLabel()).isEqualTo(DEFAULT_LABEL);
+        assertThat(testEtapeDefinition.getDisplay()).isEqualTo(DEFAULT_DISPLAY);
     }
 
     @Test
@@ -158,6 +162,25 @@ class EtapeDefinitionResourceIT {
 
     @Test
     @Transactional
+    void checkDisplayIsRequired() throws Exception {
+        int databaseSizeBeforeTest = etapeDefinitionRepository.findAll().size();
+        // set the field null
+        etapeDefinition.setDisplay(null);
+
+        // Create the EtapeDefinition, which fails.
+
+        restEtapeDefinitionMockMvc
+            .perform(
+                post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(etapeDefinition))
+            )
+            .andExpect(status().isBadRequest());
+
+        List<EtapeDefinition> etapeDefinitionList = etapeDefinitionRepository.findAll();
+        assertThat(etapeDefinitionList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     void getAllEtapeDefinitions() throws Exception {
         // Initialize the database
         etapeDefinitionRepository.saveAndFlush(etapeDefinition);
@@ -169,7 +192,8 @@ class EtapeDefinitionResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(etapeDefinition.getId().intValue())))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
-            .andExpect(jsonPath("$.[*].label").value(hasItem(DEFAULT_LABEL)));
+            .andExpect(jsonPath("$.[*].label").value(hasItem(DEFAULT_LABEL)))
+            .andExpect(jsonPath("$.[*].display").value(hasItem(DEFAULT_DISPLAY.booleanValue())));
     }
 
     @Test
@@ -185,7 +209,8 @@ class EtapeDefinitionResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(etapeDefinition.getId().intValue()))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME))
-            .andExpect(jsonPath("$.label").value(DEFAULT_LABEL));
+            .andExpect(jsonPath("$.label").value(DEFAULT_LABEL))
+            .andExpect(jsonPath("$.display").value(DEFAULT_DISPLAY.booleanValue()));
     }
 
     @Test
@@ -207,7 +232,7 @@ class EtapeDefinitionResourceIT {
         EtapeDefinition updatedEtapeDefinition = etapeDefinitionRepository.findById(etapeDefinition.getId()).get();
         // Disconnect from session so that the updates on updatedEtapeDefinition are not directly saved in db
         em.detach(updatedEtapeDefinition);
-        updatedEtapeDefinition.name(UPDATED_NAME).label(UPDATED_LABEL);
+        updatedEtapeDefinition.name(UPDATED_NAME).label(UPDATED_LABEL).display(UPDATED_DISPLAY);
 
         restEtapeDefinitionMockMvc
             .perform(
@@ -223,6 +248,7 @@ class EtapeDefinitionResourceIT {
         EtapeDefinition testEtapeDefinition = etapeDefinitionList.get(etapeDefinitionList.size() - 1);
         assertThat(testEtapeDefinition.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testEtapeDefinition.getLabel()).isEqualTo(UPDATED_LABEL);
+        assertThat(testEtapeDefinition.getDisplay()).isEqualTo(UPDATED_DISPLAY);
     }
 
     @Test
@@ -295,6 +321,8 @@ class EtapeDefinitionResourceIT {
         EtapeDefinition partialUpdatedEtapeDefinition = new EtapeDefinition();
         partialUpdatedEtapeDefinition.setId(etapeDefinition.getId());
 
+        partialUpdatedEtapeDefinition.display(UPDATED_DISPLAY);
+
         restEtapeDefinitionMockMvc
             .perform(
                 patch(ENTITY_API_URL_ID, partialUpdatedEtapeDefinition.getId())
@@ -309,6 +337,7 @@ class EtapeDefinitionResourceIT {
         EtapeDefinition testEtapeDefinition = etapeDefinitionList.get(etapeDefinitionList.size() - 1);
         assertThat(testEtapeDefinition.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testEtapeDefinition.getLabel()).isEqualTo(DEFAULT_LABEL);
+        assertThat(testEtapeDefinition.getDisplay()).isEqualTo(UPDATED_DISPLAY);
     }
 
     @Test
@@ -323,7 +352,7 @@ class EtapeDefinitionResourceIT {
         EtapeDefinition partialUpdatedEtapeDefinition = new EtapeDefinition();
         partialUpdatedEtapeDefinition.setId(etapeDefinition.getId());
 
-        partialUpdatedEtapeDefinition.name(UPDATED_NAME).label(UPDATED_LABEL);
+        partialUpdatedEtapeDefinition.name(UPDATED_NAME).label(UPDATED_LABEL).display(UPDATED_DISPLAY);
 
         restEtapeDefinitionMockMvc
             .perform(
@@ -339,6 +368,7 @@ class EtapeDefinitionResourceIT {
         EtapeDefinition testEtapeDefinition = etapeDefinitionList.get(etapeDefinitionList.size() - 1);
         assertThat(testEtapeDefinition.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testEtapeDefinition.getLabel()).isEqualTo(UPDATED_LABEL);
+        assertThat(testEtapeDefinition.getDisplay()).isEqualTo(UPDATED_DISPLAY);
     }
 
     @Test

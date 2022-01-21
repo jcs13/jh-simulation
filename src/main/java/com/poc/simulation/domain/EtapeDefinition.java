@@ -1,9 +1,6 @@
 package com.poc.simulation.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
@@ -34,14 +31,9 @@ public class EtapeDefinition implements Serializable {
     @Column(name = "label", nullable = false)
     private String label;
 
-    @OneToMany(mappedBy = "etapeDefinition")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "element", "etapeDefinition", "parcoursDefinition" }, allowSetters = true)
-    private Set<BlocDefinition> blocDefinitions = new HashSet<>();
-
-    @ManyToOne
-    @JsonIgnoreProperties(value = { "etapeDefinitions", "blocDefinitions", "offre" }, allowSetters = true)
-    private ParcoursDefinition parcoursDefinition;
+    @NotNull
+    @Column(name = "display", nullable = false)
+    private Boolean display;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -84,48 +76,17 @@ public class EtapeDefinition implements Serializable {
         this.label = label;
     }
 
-    public Set<BlocDefinition> getBlocDefinitions() {
-        return this.blocDefinitions;
+    public Boolean getDisplay() {
+        return this.display;
     }
 
-    public void setBlocDefinitions(Set<BlocDefinition> blocDefinitions) {
-        if (this.blocDefinitions != null) {
-            this.blocDefinitions.forEach(i -> i.setEtapeDefinition(null));
-        }
-        if (blocDefinitions != null) {
-            blocDefinitions.forEach(i -> i.setEtapeDefinition(this));
-        }
-        this.blocDefinitions = blocDefinitions;
-    }
-
-    public EtapeDefinition blocDefinitions(Set<BlocDefinition> blocDefinitions) {
-        this.setBlocDefinitions(blocDefinitions);
+    public EtapeDefinition display(Boolean display) {
+        this.setDisplay(display);
         return this;
     }
 
-    public EtapeDefinition addBlocDefinition(BlocDefinition blocDefinition) {
-        this.blocDefinitions.add(blocDefinition);
-        blocDefinition.setEtapeDefinition(this);
-        return this;
-    }
-
-    public EtapeDefinition removeBlocDefinition(BlocDefinition blocDefinition) {
-        this.blocDefinitions.remove(blocDefinition);
-        blocDefinition.setEtapeDefinition(null);
-        return this;
-    }
-
-    public ParcoursDefinition getParcoursDefinition() {
-        return this.parcoursDefinition;
-    }
-
-    public void setParcoursDefinition(ParcoursDefinition parcoursDefinition) {
-        this.parcoursDefinition = parcoursDefinition;
-    }
-
-    public EtapeDefinition parcoursDefinition(ParcoursDefinition parcoursDefinition) {
-        this.setParcoursDefinition(parcoursDefinition);
-        return this;
+    public void setDisplay(Boolean display) {
+        this.display = display;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
@@ -154,6 +115,7 @@ public class EtapeDefinition implements Serializable {
             "id=" + getId() +
             ", name='" + getName() + "'" +
             ", label='" + getLabel() + "'" +
+            ", display='" + getDisplay() + "'" +
             "}";
     }
 }

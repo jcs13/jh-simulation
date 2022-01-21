@@ -19,12 +19,6 @@
   ],
   "relationships": [
     {
-      "relationshipType": "one-to-many",
-      "otherEntityName": "parcoursDefinition",
-      "otherEntityRelationshipName": "offre",
-      "relationshipName": "parcoursDefinition"
-    },
-    {
       "relationshipType": "many-to-one",
       "otherEntityName": "businessUnit",
       "otherEntityRelationshipName": "offre",

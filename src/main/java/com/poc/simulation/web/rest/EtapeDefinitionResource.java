@@ -132,6 +132,9 @@ public class EtapeDefinitionResource {
                 if (etapeDefinition.getLabel() != null) {
                     existingEtapeDefinition.setLabel(etapeDefinition.getLabel());
                 }
+                if (etapeDefinition.getDisplay() != null) {
+                    existingEtapeDefinition.setDisplay(etapeDefinition.getDisplay());
+                }
 
                 return existingEtapeDefinition;
             })

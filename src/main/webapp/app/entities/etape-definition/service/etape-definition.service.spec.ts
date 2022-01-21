@@ -23,6 +23,7 @@ describe('EtapeDefinition Service', () => {
       id: 0,
       name: 'AAAAAAA',
       label: 'AAAAAAA',
+      display: false,
     };
   });
 
@@ -60,6 +61,7 @@ describe('EtapeDefinition Service', () => {
           id: 1,
           name: 'BBBBBB',
           label: 'BBBBBB',
+          display: true,
         },
         elemDefault
       );
@@ -77,6 +79,7 @@ describe('EtapeDefinition Service', () => {
       const patchObject = Object.assign(
         {
           label: 'BBBBBB',
+          display: true,
         },
         new EtapeDefinition()
       );
@@ -98,6 +101,7 @@ describe('EtapeDefinition Service', () => {
           id: 1,
           name: 'BBBBBB',
           label: 'BBBBBB',
+          display: true,
         },
         elemDefault
       );
@@ -149,7 +153,7 @@ describe('EtapeDefinition Service', () => {
       });
 
       it('should add only unique EtapeDefinition to an array', () => {
-        const etapeDefinitionArray: IEtapeDefinition[] = [{ id: 123 }, { id: 456 }, { id: 61726 }];
+        const etapeDefinitionArray: IEtapeDefinition[] = [{ id: 123 }, { id: 456 }, { id: 91482 }];
         const etapeDefinitionCollection: IEtapeDefinition[] = [{ id: 123 }];
         expectedResult = service.addEtapeDefinitionToCollectionIfMissing(etapeDefinitionCollection, ...etapeDefinitionArray);
         expect(expectedResult).toHaveLength(3);

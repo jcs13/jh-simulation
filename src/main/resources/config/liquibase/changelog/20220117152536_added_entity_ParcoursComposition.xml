@@ -18,13 +18,13 @@
                 <constraints nullable="false" />
             </column>
             <column name="offre_id" type="bigint">
-                <constraints nullable="true"/>
+                <constraints nullable="true" unique="true" uniqueConstraintName="ux_parcours_composition__offre_id" />
             </column>
             <column name="parcours_parent_id" type="bigint">
-                <constraints nullable="true"/>
+                <constraints nullable="true" unique="true" uniqueConstraintName="ux_parcours_composition__parcours_parent_id" />
             </column>
             <column name="parcours_child_id" type="bigint">
-                <constraints nullable="true"/>
+                <constraints nullable="true" unique="true" uniqueConstraintName="ux_parcours_composition__parcours_child_id" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
