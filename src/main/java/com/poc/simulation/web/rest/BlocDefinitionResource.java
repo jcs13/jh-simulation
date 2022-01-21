@@ -132,6 +132,9 @@ public class BlocDefinitionResource {
                 if (blocDefinition.getLabel() != null) {
                     existingBlocDefinition.setLabel(blocDefinition.getLabel());
                 }
+                if (blocDefinition.getDisplay() != null) {
+                    existingBlocDefinition.setDisplay(blocDefinition.getDisplay());
+                }
 
                 return existingBlocDefinition;
             })

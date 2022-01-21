@@ -15,6 +15,11 @@
       "fieldName": "label",
       "fieldType": "String",
       "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "display",
+      "fieldType": "Boolean",
+      "fieldValidateRules": ["required"]
     }
   ],
   "relationships": [
@@ -24,18 +29,6 @@
       "otherEntityRelationshipName": "blocDefinition",
       "relationshipName": "element",
       "ownerSide": true
-    },
-    {
-      "relationshipType": "many-to-one",
-      "otherEntityName": "etapeDefinition",
-      "otherEntityRelationshipName": "blocDefinition",
-      "relationshipName": "etapeDefinition"
-    },
-    {
-      "relationshipType": "many-to-one",
-      "otherEntityName": "parcoursDefinition",
-      "otherEntityRelationshipName": "blocDefinition",
-      "relationshipName": "parcoursDefinition"
     }
   ],
   "entityTableName": "bloc_definition",

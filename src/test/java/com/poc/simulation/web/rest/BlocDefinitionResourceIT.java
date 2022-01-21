@@ -35,6 +35,9 @@ class BlocDefinitionResourceIT {
     private static final String DEFAULT_LABEL = "AAAAAAAAAA";
     private static final String UPDATED_LABEL = "BBBBBBBBBB";
 
+    private static final Boolean DEFAULT_DISPLAY = false;
+    private static final Boolean UPDATED_DISPLAY = true;
+
     private static final String ENTITY_API_URL = "/api/bloc-definitions";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
 
@@ -59,7 +62,7 @@ class BlocDefinitionResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static BlocDefinition createEntity(EntityManager em) {
-        BlocDefinition blocDefinition = new BlocDefinition().name(DEFAULT_NAME).label(DEFAULT_LABEL);
+        BlocDefinition blocDefinition = new BlocDefinition().name(DEFAULT_NAME).label(DEFAULT_LABEL).display(DEFAULT_DISPLAY);
         return blocDefinition;
     }
 
@@ -70,7 +73,7 @@ class BlocDefinitionResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static BlocDefinition createUpdatedEntity(EntityManager em) {
-        BlocDefinition blocDefinition = new BlocDefinition().name(UPDATED_NAME).label(UPDATED_LABEL);
+        BlocDefinition blocDefinition = new BlocDefinition().name(UPDATED_NAME).label(UPDATED_LABEL).display(UPDATED_DISPLAY);
         return blocDefinition;
     }
 
@@ -96,6 +99,7 @@ class BlocDefinitionResourceIT {
         BlocDefinition testBlocDefinition = blocDefinitionList.get(blocDefinitionList.size() - 1);
         assertThat(testBlocDefinition.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testBlocDefinition.getLabel()).isEqualTo(DEFAULT_LABEL);
+        assertThat(testBlocDefinition.getDisplay()).isEqualTo(DEFAULT_DISPLAY);
     }
 
     @Test
@@ -158,6 +162,25 @@ class BlocDefinitionResourceIT {
 
     @Test
     @Transactional
+    void checkDisplayIsRequired() throws Exception {
+        int databaseSizeBeforeTest = blocDefinitionRepository.findAll().size();
+        // set the field null
+        blocDefinition.setDisplay(null);
+
+        // Create the BlocDefinition, which fails.
+
+        restBlocDefinitionMockMvc
+            .perform(
+                post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(blocDefinition))
+            )
+            .andExpect(status().isBadRequest());
+
+        List<BlocDefinition> blocDefinitionList = blocDefinitionRepository.findAll();
+        assertThat(blocDefinitionList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     void getAllBlocDefinitions() throws Exception {
         // Initialize the database
         blocDefinitionRepository.saveAndFlush(blocDefinition);
@@ -169,7 +192,8 @@ class BlocDefinitionResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(blocDefinition.getId().intValue())))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
-            .andExpect(jsonPath("$.[*].label").value(hasItem(DEFAULT_LABEL)));
+            .andExpect(jsonPath("$.[*].label").value(hasItem(DEFAULT_LABEL)))
+            .andExpect(jsonPath("$.[*].display").value(hasItem(DEFAULT_DISPLAY.booleanValue())));
     }
 
     @Test
@@ -185,7 +209,8 @@ class BlocDefinitionResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(blocDefinition.getId().intValue()))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME))
-            .andExpect(jsonPath("$.label").value(DEFAULT_LABEL));
+            .andExpect(jsonPath("$.label").value(DEFAULT_LABEL))
+            .andExpect(jsonPath("$.display").value(DEFAULT_DISPLAY.booleanValue()));
     }
 
     @Test
@@ -207,7 +232,7 @@ class BlocDefinitionResourceIT {
         BlocDefinition updatedBlocDefinition = blocDefinitionRepository.findById(blocDefinition.getId()).get();
         // Disconnect from session so that the updates on updatedBlocDefinition are not directly saved in db
         em.detach(updatedBlocDefinition);
-        updatedBlocDefinition.name(UPDATED_NAME).label(UPDATED_LABEL);
+        updatedBlocDefinition.name(UPDATED_NAME).label(UPDATED_LABEL).display(UPDATED_DISPLAY);
 
         restBlocDefinitionMockMvc
             .perform(
@@ -223,6 +248,7 @@ class BlocDefinitionResourceIT {
         BlocDefinition testBlocDefinition = blocDefinitionList.get(blocDefinitionList.size() - 1);
         assertThat(testBlocDefinition.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testBlocDefinition.getLabel()).isEqualTo(UPDATED_LABEL);
+        assertThat(testBlocDefinition.getDisplay()).isEqualTo(UPDATED_DISPLAY);
     }
 
     @Test
@@ -293,6 +319,8 @@ class BlocDefinitionResourceIT {
         BlocDefinition partialUpdatedBlocDefinition = new BlocDefinition();
         partialUpdatedBlocDefinition.setId(blocDefinition.getId());
 
+        partialUpdatedBlocDefinition.display(UPDATED_DISPLAY);
+
         restBlocDefinitionMockMvc
             .perform(
                 patch(ENTITY_API_URL_ID, partialUpdatedBlocDefinition.getId())
@@ -307,6 +335,7 @@ class BlocDefinitionResourceIT {
         BlocDefinition testBlocDefinition = blocDefinitionList.get(blocDefinitionList.size() - 1);
         assertThat(testBlocDefinition.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testBlocDefinition.getLabel()).isEqualTo(DEFAULT_LABEL);
+        assertThat(testBlocDefinition.getDisplay()).isEqualTo(UPDATED_DISPLAY);
     }
 
     @Test
@@ -321,7 +350,7 @@ class BlocDefinitionResourceIT {
         BlocDefinition partialUpdatedBlocDefinition = new BlocDefinition();
         partialUpdatedBlocDefinition.setId(blocDefinition.getId());
 
-        partialUpdatedBlocDefinition.name(UPDATED_NAME).label(UPDATED_LABEL);
+        partialUpdatedBlocDefinition.name(UPDATED_NAME).label(UPDATED_LABEL).display(UPDATED_DISPLAY);
 
         restBlocDefinitionMockMvc
             .perform(
@@ -337,6 +366,7 @@ class BlocDefinitionResourceIT {
         BlocDefinition testBlocDefinition = blocDefinitionList.get(blocDefinitionList.size() - 1);
         assertThat(testBlocDefinition.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testBlocDefinition.getLabel()).isEqualTo(UPDATED_LABEL);
+        assertThat(testBlocDefinition.getDisplay()).isEqualTo(UPDATED_DISPLAY);
     }
 
     @Test

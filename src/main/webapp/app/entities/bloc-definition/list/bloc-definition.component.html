@@ -35,9 +35,8 @@
           <th scope="col"><span>Id</span></th>
           <th scope="col"><span>Name</span></th>
           <th scope="col"><span>Label</span></th>
+          <th scope="col"><span>Display</span></th>
           <th scope="col"><span>Element</span></th>
-          <th scope="col"><span>Etape Definition</span></th>
-          <th scope="col"><span>Parcours Definition</span></th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -48,23 +47,10 @@
           </td>
           <td>{{ blocDefinition.name }}</td>
           <td>{{ blocDefinition.label }}</td>
+          <td>{{ blocDefinition.display }}</td>
           <td>
             <div *ngIf="blocDefinition.element">
               <a [routerLink]="['/element', blocDefinition.element?.id, 'view']">{{ blocDefinition.element?.id }}</a>
-            </div>
-          </td>
-          <td>
-            <div *ngIf="blocDefinition.etapeDefinition">
-              <a [routerLink]="['/etape-definition', blocDefinition.etapeDefinition?.id, 'view']">{{
-                blocDefinition.etapeDefinition?.id
-              }}</a>
-            </div>
-          </td>
-          <td>
-            <div *ngIf="blocDefinition.parcoursDefinition">
-              <a [routerLink]="['/parcours-definition', blocDefinition.parcoursDefinition?.id, 'view']">{{
-                blocDefinition.parcoursDefinition?.id
-              }}</a>
             </div>
           </td>
           <td class="text-right">

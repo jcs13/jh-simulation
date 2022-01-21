@@ -23,6 +23,7 @@ describe('BlocDefinition Service', () => {
       id: 0,
       name: 'AAAAAAA',
       label: 'AAAAAAA',
+      display: false,
     };
   });
 
@@ -60,6 +61,7 @@ describe('BlocDefinition Service', () => {
           id: 1,
           name: 'BBBBBB',
           label: 'BBBBBB',
+          display: true,
         },
         elemDefault
       );
@@ -99,6 +101,7 @@ describe('BlocDefinition Service', () => {
           id: 1,
           name: 'BBBBBB',
           label: 'BBBBBB',
+          display: true,
         },
         elemDefault
       );
@@ -150,7 +153,7 @@ describe('BlocDefinition Service', () => {
       });
 
       it('should add only unique BlocDefinition to an array', () => {
-        const blocDefinitionArray: IBlocDefinition[] = [{ id: 123 }, { id: 456 }, { id: 31495 }];
+        const blocDefinitionArray: IBlocDefinition[] = [{ id: 123 }, { id: 456 }, { id: 64440 }];
         const blocDefinitionCollection: IBlocDefinition[] = [{ id: 123 }];
         expectedResult = service.addBlocDefinitionToCollectionIfMissing(blocDefinitionCollection, ...blocDefinitionArray);
         expect(expectedResult).toHaveLength(3);

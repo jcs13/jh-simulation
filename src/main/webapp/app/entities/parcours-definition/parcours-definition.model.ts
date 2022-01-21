@@ -1,25 +1,11 @@
-import { IEtapeDefinition } from 'app/entities/etape-definition/etape-definition.model';
-import { IBlocDefinition } from 'app/entities/bloc-definition/bloc-definition.model';
-import { IOffre } from 'app/entities/offre/offre.model';
-
 export interface IParcoursDefinition {
   id?: number;
   name?: string;
   label?: string;
-  etapeDefinitions?: IEtapeDefinition[] | null;
-  blocDefinitions?: IBlocDefinition[] | null;
-  offre?: IOffre | null;
 }
 
 export class ParcoursDefinition implements IParcoursDefinition {
-  constructor(
-    public id?: number,
-    public name?: string,
-    public label?: string,
-    public etapeDefinitions?: IEtapeDefinition[] | null,
-    public blocDefinitions?: IBlocDefinition[] | null,
-    public offre?: IOffre | null
-  ) {}
+  constructor(public id?: number, public name?: string, public label?: string) {}
 }
 
 export function getParcoursDefinitionIdentifier(parcoursDefinition: IParcoursDefinition): number | undefined {

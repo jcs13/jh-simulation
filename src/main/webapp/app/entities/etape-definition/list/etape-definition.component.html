@@ -35,7 +35,7 @@
           <th scope="col"><span>Id</span></th>
           <th scope="col"><span>Name</span></th>
           <th scope="col"><span>Label</span></th>
-          <th scope="col"><span>Parcours Definition</span></th>
+          <th scope="col"><span>Display</span></th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -46,13 +46,7 @@
           </td>
           <td>{{ etapeDefinition.name }}</td>
           <td>{{ etapeDefinition.label }}</td>
-          <td>
-            <div *ngIf="etapeDefinition.parcoursDefinition">
-              <a [routerLink]="['/parcours-definition', etapeDefinition.parcoursDefinition?.id, 'view']">{{
-                etapeDefinition.parcoursDefinition?.id
-              }}</a>
-            </div>
-          </td>
+          <td>{{ etapeDefinition.display }}</td>
           <td class="text-right">
             <div class="btn-group">
               <button
