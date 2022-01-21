@@ -22,13 +22,9 @@
         <dd>
           <span>{{ etapeDefinition.label }}</span>
         </dd>
-        <dt><span>Parcours Definition</span></dt>
+        <dt><span>Display</span></dt>
         <dd>
-          <div *ngIf="etapeDefinition.parcoursDefinition">
-            <a [routerLink]="['/parcours-definition', etapeDefinition.parcoursDefinition?.id, 'view']">{{
-              etapeDefinition.parcoursDefinition?.id
-            }}</a>
-          </div>
+          <span>{{ etapeDefinition.display }}</span>
         </dd>
       </dl>
 

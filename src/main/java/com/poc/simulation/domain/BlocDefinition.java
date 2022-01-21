@@ -32,18 +32,14 @@ public class BlocDefinition implements Serializable {
     @Column(name = "label", nullable = false)
     private String label;
 
+    @NotNull
+    @Column(name = "display", nullable = false)
+    private Boolean display;
+
     @JsonIgnoreProperties(value = { "blocDefinition" }, allowSetters = true)
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(unique = true)
     private Element element;
-
-    @ManyToOne
-    @JsonIgnoreProperties(value = { "blocDefinitions", "parcoursDefinition" }, allowSetters = true)
-    private EtapeDefinition etapeDefinition;
-
-    @ManyToOne
-    @JsonIgnoreProperties(value = { "etapeDefinitions", "blocDefinitions", "offre" }, allowSetters = true)
-    private ParcoursDefinition parcoursDefinition;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -86,6 +82,19 @@ public class BlocDefinition implements Serializable {
         this.label = label;
     }
 
+    public Boolean getDisplay() {
+        return this.display;
+    }
+
+    public BlocDefinition display(Boolean display) {
+        this.setDisplay(display);
+        return this;
+    }
+
+    public void setDisplay(Boolean display) {
+        this.display = display;
+    }
+
     public Element getElement() {
         return this.element;
     }
@@ -96,32 +105,6 @@ public class BlocDefinition implements Serializable {
 
     public BlocDefinition element(Element element) {
         this.setElement(element);
-        return this;
-    }
-
-    public EtapeDefinition getEtapeDefinition() {
-        return this.etapeDefinition;
-    }
-
-    public void setEtapeDefinition(EtapeDefinition etapeDefinition) {
-        this.etapeDefinition = etapeDefinition;
-    }
-
-    public BlocDefinition etapeDefinition(EtapeDefinition etapeDefinition) {
-        this.setEtapeDefinition(etapeDefinition);
-        return this;
-    }
-
-    public ParcoursDefinition getParcoursDefinition() {
-        return this.parcoursDefinition;
-    }
-
-    public void setParcoursDefinition(ParcoursDefinition parcoursDefinition) {
-        this.parcoursDefinition = parcoursDefinition;
-    }
-
-    public BlocDefinition parcoursDefinition(ParcoursDefinition parcoursDefinition) {
-        this.setParcoursDefinition(parcoursDefinition);
         return this;
     }
 
@@ -151,6 +134,7 @@ public class BlocDefinition implements Serializable {
             "id=" + getId() +
             ", name='" + getName() + "'" +
             ", label='" + getLabel() + "'" +
+            ", display='" + getDisplay() + "'" +
             "}";
     }
 }

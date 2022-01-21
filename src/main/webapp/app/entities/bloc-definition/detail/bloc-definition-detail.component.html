@@ -22,24 +22,14 @@
         <dd>
           <span>{{ blocDefinition.label }}</span>
         </dd>
+        <dt><span>Display</span></dt>
+        <dd>
+          <span>{{ blocDefinition.display }}</span>
+        </dd>
         <dt><span>Element</span></dt>
         <dd>
           <div *ngIf="blocDefinition.element">
             <a [routerLink]="['/element', blocDefinition.element?.id, 'view']">{{ blocDefinition.element?.id }}</a>
-          </div>
-        </dd>
-        <dt><span>Etape Definition</span></dt>
-        <dd>
-          <div *ngIf="blocDefinition.etapeDefinition">
-            <a [routerLink]="['/etape-definition', blocDefinition.etapeDefinition?.id, 'view']">{{ blocDefinition.etapeDefinition?.id }}</a>
-          </div>
-        </dd>
-        <dt><span>Parcours Definition</span></dt>
-        <dd>
-          <div *ngIf="blocDefinition.parcoursDefinition">
-            <a [routerLink]="['/parcours-definition', blocDefinition.parcoursDefinition?.id, 'view']">{{
-              blocDefinition.parcoursDefinition?.id
-            }}</a>
           </div>
         </dd>
       </dl>

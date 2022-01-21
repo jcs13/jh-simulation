@@ -27,22 +27,20 @@ public class BlocTransition implements Serializable {
     @Column(name = "transition", nullable = false)
     private Integer transition;
 
-    @JsonIgnoreProperties(value = { "blocDefinitions", "parcoursDefinition" }, allowSetters = true)
     @OneToOne
     @JoinColumn
     private EtapeDefinition etapeDefinition;
 
-    @JsonIgnoreProperties(value = { "etapeDefinitions", "blocDefinitions", "offre" }, allowSetters = true)
     @OneToOne
     @JoinColumn
     private ParcoursDefinition parcoursDefinition;
 
-    @JsonIgnoreProperties(value = { "element", "etapeDefinition", "parcoursDefinition" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "element" }, allowSetters = true)
     @OneToOne
     @JoinColumn
     private BlocDefinition current;
 
-    @JsonIgnoreProperties(value = { "element", "etapeDefinition", "parcoursDefinition" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "element" }, allowSetters = true)
     @OneToOne
     @JoinColumn
     private BlocDefinition next;

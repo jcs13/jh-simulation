@@ -1,6 +1,5 @@
 package com.poc.simulation.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -27,17 +26,14 @@ public class EtapeTransition implements Serializable {
     @Column(name = "transition", nullable = false)
     private Integer transition;
 
-    @JsonIgnoreProperties(value = { "etapeDefinitions", "blocDefinitions", "offre" }, allowSetters = true)
     @OneToOne
     @JoinColumn
     private ParcoursDefinition parcoursDefinition;
 
-    @JsonIgnoreProperties(value = { "blocDefinitions", "parcoursDefinition" }, allowSetters = true)
     @OneToOne
     @JoinColumn
     private EtapeDefinition current;
 
-    @JsonIgnoreProperties(value = { "blocDefinitions", "parcoursDefinition" }, allowSetters = true)
     @OneToOne
     @JoinColumn
     private EtapeDefinition next;
