@@ -1,7 +1,7 @@
-"id";"label";"name";"parcours_definition_id"
-"1";informations générales;infos;"1"
-"2";configuration de l'offre;configuration;"1"
-"3";marges de manoeuvre;marges-manoeuvre;"1"
-"4";récapitulatif;recap;"1"
-"5";génération de documents;generate-documents;"1"
-"6";gestion des terminaux;terminaux;"2"
+"id";"label";"name"
+"1";informations générales;infos
+"2";configuration de l'offre;configuration
+"3";marges de manoeuvre;marges-manoeuvre
+"4";récapitulatif;recap
+"5";génération de documents;generate-documents
+"6";gestion des terminaux;terminaux

@@ -48,20 +48,20 @@
           <td>{{ parcoursComposition.inheritanceOrder }}</td>
           <td>
             <div *ngIf="parcoursComposition.offre">
-              <a [routerLink]="['/offre', parcoursComposition.offre?.id, 'view']">{{ parcoursComposition.offre?.id }}</a>
+              <a [routerLink]="['/offre', parcoursComposition.offre?.id, 'view']">{{ parcoursComposition.offre?.name }}</a>
             </div>
           </td>
           <td>
             <div *ngIf="parcoursComposition.parcoursParent">
               <a [routerLink]="['/parcours-definition', parcoursComposition.parcoursParent?.id, 'view']">{{
-                parcoursComposition.parcoursParent?.id
+                parcoursComposition.parcoursParent?.name
               }}</a>
             </div>
           </td>
           <td>
             <div *ngIf="parcoursComposition.parcoursChild">
               <a [routerLink]="['/parcours-definition', parcoursComposition.parcoursChild?.id, 'view']">{{
-                parcoursComposition.parcoursChild?.id
+                parcoursComposition.parcoursChild?.name
               }}</a>
             </div>
           </td>

@@ -2,8 +2,6 @@ package com.poc.simulation.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
@@ -33,11 +31,6 @@ public class Offre implements Serializable {
     @NotNull
     @Column(name = "label", nullable = false)
     private String label;
-
-    @OneToMany(mappedBy = "offre", fetch = FetchType.EAGER)
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "etapeDefinitions", "blocDefinitions", "offre" }, allowSetters = true)
-    private Set<ParcoursDefinition> parcoursDefinitions = new HashSet<>();
 
     @ManyToOne
     @JsonIgnoreProperties(value = { "offres" }, allowSetters = true)
@@ -82,37 +75,6 @@ public class Offre implements Serializable {
 
     public void setLabel(String label) {
         this.label = label;
-    }
-
-    public Set<ParcoursDefinition> getParcoursDefinitions() {
-        return this.parcoursDefinitions;
-    }
-
-    public void setParcoursDefinitions(Set<ParcoursDefinition> parcoursDefinitions) {
-        if (this.parcoursDefinitions != null) {
-            this.parcoursDefinitions.forEach(i -> i.setOffre(null));
-        }
-        if (parcoursDefinitions != null) {
-            parcoursDefinitions.forEach(i -> i.setOffre(this));
-        }
-        this.parcoursDefinitions = parcoursDefinitions;
-    }
-
-    public Offre parcoursDefinitions(Set<ParcoursDefinition> parcoursDefinitions) {
-        this.setParcoursDefinitions(parcoursDefinitions);
-        return this;
-    }
-
-    public Offre addParcoursDefinition(ParcoursDefinition parcoursDefinition) {
-        this.parcoursDefinitions.add(parcoursDefinition);
-        parcoursDefinition.setOffre(this);
-        return this;
-    }
-
-    public Offre removeParcoursDefinition(ParcoursDefinition parcoursDefinition) {
-        this.parcoursDefinitions.remove(parcoursDefinition);
-        parcoursDefinition.setOffre(null);
-        return this;
     }
 
     public BusinessUnit getBusinessUnit() {

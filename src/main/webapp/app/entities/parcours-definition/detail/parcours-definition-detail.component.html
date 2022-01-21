@@ -22,12 +22,6 @@
         <dd>
           <span>{{ parcoursDefinition.label }}</span>
         </dd>
-        <dt><span>Offre</span></dt>
-        <dd>
-          <div *ngIf="parcoursDefinition.offre">
-            <a [routerLink]="['/offre', parcoursDefinition.offre?.id, 'view']">{{ parcoursDefinition.offre?.id }}</a>
-          </div>
-        </dd>
       </dl>
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">

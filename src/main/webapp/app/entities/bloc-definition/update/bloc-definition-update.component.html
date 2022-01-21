@@ -32,6 +32,14 @@
         </div>
 
         <div class="form-group">
+          <label class="form-control-label" for="field_display">Display</label>
+          <input type="checkbox" class="form-check" name="display" id="field_display" data-cy="display" formControlName="display" />
+          <div *ngIf="editForm.get('display')!.invalid && (editForm.get('display')!.dirty || editForm.get('display')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('display')?.errors?.required"> This field is required. </small>
+          </div>
+        </div>
+
+        <div class="form-group">
           <label class="form-control-label" for="field_element">Element</label>
           <select class="form-control" id="field_element" data-cy="element" name="element" formControlName="element">
             <option [ngValue]="null"></option>
@@ -40,52 +48,6 @@
               *ngFor="let elementOption of elementsCollection; trackBy: trackElementById"
             >
               {{ elementOption.id }}
-            </option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label class="form-control-label" for="field_etapeDefinition">Etape Definition</label>
-          <select
-            class="form-control"
-            id="field_etapeDefinition"
-            data-cy="etapeDefinition"
-            name="etapeDefinition"
-            formControlName="etapeDefinition"
-          >
-            <option [ngValue]="null"></option>
-            <option
-              [ngValue]="
-                etapeDefinitionOption.id === editForm.get('etapeDefinition')!.value?.id
-                  ? editForm.get('etapeDefinition')!.value
-                  : etapeDefinitionOption
-              "
-              *ngFor="let etapeDefinitionOption of etapeDefinitionsSharedCollection; trackBy: trackEtapeDefinitionById"
-            >
-              {{ etapeDefinitionOption.id }}
-            </option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label class="form-control-label" for="field_parcoursDefinition">Parcours Definition</label>
-          <select
-            class="form-control"
-            id="field_parcoursDefinition"
-            data-cy="parcoursDefinition"
-            name="parcoursDefinition"
-            formControlName="parcoursDefinition"
-          >
-            <option [ngValue]="null"></option>
-            <option
-              [ngValue]="
-                parcoursDefinitionOption.id === editForm.get('parcoursDefinition')!.value?.id
-                  ? editForm.get('parcoursDefinition')!.value
-                  : parcoursDefinitionOption
-              "
-              *ngFor="let parcoursDefinitionOption of parcoursDefinitionsSharedCollection; trackBy: trackParcoursDefinitionById"
-            >
-              {{ parcoursDefinitionOption.id }}
             </option>
           </select>
         </div>

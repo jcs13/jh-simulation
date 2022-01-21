@@ -30,19 +30,6 @@
             <small class="form-text text-danger" *ngIf="editForm.get('label')?.errors?.required"> This field is required. </small>
           </div>
         </div>
-
-        <div class="form-group">
-          <label class="form-control-label" for="field_offre">Offre</label>
-          <select class="form-control" id="field_offre" data-cy="offre" name="offre" formControlName="offre">
-            <option [ngValue]="null"></option>
-            <option
-              [ngValue]="offreOption.id === editForm.get('offre')!.value?.id ? editForm.get('offre')!.value : offreOption"
-              *ngFor="let offreOption of offresSharedCollection; trackBy: trackOffreById"
-            >
-              {{ offreOption.id }}
-            </option>
-          </select>
-        </div>
       </div>
 
       <div>
