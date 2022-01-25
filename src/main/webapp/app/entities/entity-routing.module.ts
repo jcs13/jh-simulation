@@ -35,11 +35,6 @@ import { RouterModule } from '@angular/router';
         loadChildren: () => import('./offre/offre.module').then(m => m.OffreModule),
       },
       {
-        path: 'parcours-composition',
-        data: { pageTitle: 'ParcoursCompositions' },
-        loadChildren: () => import('./parcours-composition/parcours-composition.module').then(m => m.ParcoursCompositionModule),
-      },
-      {
         path: 'parcours-definition',
         data: { pageTitle: 'ParcoursDefinitions' },
         loadChildren: () => import('./parcours-definition/parcours-definition.module').then(m => m.ParcoursDefinitionModule),

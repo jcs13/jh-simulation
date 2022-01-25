@@ -2,15 +2,18 @@ package com.poc.simulation.service;
 
 import com.poc.simulation.domain.*;
 import com.poc.simulation.repository.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.temporal.ChronoField;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
-
-import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
 
 @Service
 public class ParcoursService {
@@ -24,7 +27,7 @@ public class ParcoursService {
     private ParcoursRepository parcoursRepository;
 
     @Autowired
-    private ParcoursCompositionRepository offreParcoursCompositionRepository;
+    private OffreCompositionRepository offreCompositionRepository;
 
     @Autowired
     private EtapeTransitionRepository etapeTransitionRepository;
@@ -32,32 +35,42 @@ public class ParcoursService {
     @Autowired
     private BlocTransitionRepository blocTransitionRepository;
 
+    private static final DateTimeFormatter DATE_TIME_FORMATTER =
+        (new DateTimeFormatterBuilder()).parseCaseInsensitive()
+            .append(DateTimeFormatter.BASIC_ISO_DATE)
+            .appendLiteral('-')
+            .appendValue(ChronoField.HOUR_OF_DAY, 2)
+            .appendValue(ChronoField.MINUTE_OF_HOUR, 2)
+            .optionalStart()
+            .appendValue(ChronoField.SECOND_OF_MINUTE, 2)
+            .optionalStart()
+            .toFormatter(Locale.FRANCE);
+
     public Parcours instanciateParcoursByOffre(String offerName) {
         log.debug("START instanciateParcoursByOffre");
         log.debug("offerName={}", offerName);
-
 
         final Optional<Offre> offre = offreRepository.findById(1L);
 
         log.info("offre {}", offre);
 
+        String dateTime = LocalDateTime.now().format(DATE_TIME_FORMATTER);
+        Parcours parcours = new Parcours()
+            .name("parcours " + offerName + " - " + dateTime)
+            .label("parcours pour offre " + offerName + " - " + dateTime)
+            .offreId("1");
 
-        Parcours parcours = new Parcours().name("parcours name").label("parcours pour offre " + offerName).offreId("1");
+        OffreComposition opcFilter = new OffreComposition().offre(new Offre().name(offerName));
+        final List<OffreComposition> offreCompositions = offreCompositionRepository.findAll(Example.of(opcFilter));
 
+        final OffreComposition offreComposition = offreCompositions.get(0);
 
-        ParcoursComposition opcFilter = new ParcoursComposition().offre(new Offre().name(offerName));
-        final List<ParcoursComposition> parcoursCompositionsFromOffre = offreParcoursCompositionRepository.findAll(
-            Example.of(opcFilter)
-        );
-
-        final ParcoursComposition parcoursComposition = parcoursCompositionsFromOffre.get(0);
-
-        final ParcoursDefinition parcoursParent = parcoursComposition.getParcoursParent();
+        final ParcoursDefinition parcoursParent = offreComposition.getParcoursParent();
         EtapeTransition etapeTransitionParentFilter = new EtapeTransition().parcoursDefinition(parcoursParent);
         List<EtapeTransition> etapeTransitionsParents = etapeTransitionRepository.findAll(Example.of(etapeTransitionParentFilter));
         etapeTransitionsParents.sort(Comparator.comparing(EtapeTransition::getTransition));
 
-        final ParcoursDefinition parcoursChild = parcoursComposition.getParcoursChild();
+        final ParcoursDefinition parcoursChild = offreComposition.getParcoursChild();
         EtapeTransition etapeTransitionChildFilter = new EtapeTransition().parcoursDefinition(parcoursChild);
         List<EtapeTransition> etapeTransitionsChild = etapeTransitionRepository.findAll(Example.of(etapeTransitionChildFilter));
         etapeTransitionsChild.sort(Comparator.comparing(EtapeTransition::getTransition));
@@ -73,25 +86,21 @@ public class ParcoursService {
         parcoursDefinitionComposition.add(parcoursParent);
         parcoursDefinitionComposition.add(parcoursChild);
 
-
-        final List<BlocTransition> blocTransitionParcoursEtapes = blocTransitionRepository.findByParcoursAndEtapes(parcoursDefinitionComposition, etapeTransitionsParents.stream().findFirst().get().getCurrent());
+        final List<BlocTransition> blocTransitionParcoursEtapes = blocTransitionRepository.findByParcoursAndEtapes(
+            parcoursDefinitionComposition,
+            etapeTransitionsParents.stream().findFirst().get().getCurrent()
+        );
 
         blocTransitionParcoursEtapes.forEach(blocTransition -> log.debug("blocTransition {}", blocTransition));
 
-        parcoursDefinitionComposition.forEach(parcoursDefinition -> {
+        parcoursDefinitionComposition.forEach(parcoursDefinition -> {});
 
-        });
-
-//        BlocTransition blocOrderFilterByParcoursDefEtapeDef = new BlocTransition().parcoursDefinition(parcoursParent);
-//        final List<BlocTransition> blocOrders = blocTransitionRepository.findAll(Example.of(blocOrderFilterByParcoursDefEtapeDef));
-
+        //        BlocTransition blocOrderFilterByParcoursDefEtapeDef = new BlocTransition().parcoursDefinition(parcoursParent);
+        //        final List<BlocTransition> blocOrders = blocTransitionRepository.findAll(Example.of(blocOrderFilterByParcoursDefEtapeDef));
 
         etapes.forEach(etape -> {
-
-//            etape.blocs(buildOrderedBlocs(etape.get, etape.getEtapeDefinitionId()));
+            //            etape.blocs(buildOrderedBlocs(etape.get, etape.getEtapeDefinitionId()));
         });
-
-
 
         etapes.forEach(etape -> log.info("{}", etape));
 
@@ -135,7 +144,7 @@ public class ParcoursService {
     }
 
     private Etape buildEtapeFromDefinition(Parcours parcours, EtapeDefinition etapeDefinition, int order) {
-//        List<BlocDefinition> blodDefs = findBlocDefinitionFromEtapeDefinition(etapeDefinition);
+        //        List<BlocDefinition> blodDefs = findBlocDefinitionFromEtapeDefinition(etapeDefinition);
 
         return new Etape()
             .name(etapeDefinition.getName())
@@ -176,5 +185,4 @@ public class ParcoursService {
             .elementPath(blocDefinition.getElement().getPath());
         return bloc;
     }
-
 }

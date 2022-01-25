@@ -48,7 +48,7 @@
           <td>{{ offre.label }}</td>
           <td>
             <div *ngIf="offre.businessUnit">
-              <a [routerLink]="['/business-unit', offre.businessUnit?.id, 'view']">{{ offre.businessUnit?.id }}</a>
+              <a [routerLink]="['/business-unit', offre.businessUnit?.id, 'view']">{{ offre.businessUnit?.name }}</a>
             </div>
           </td>
           <td class="text-right">

@@ -58,7 +58,6 @@ public class CacheConfiguration {
             createCache(cm, com.poc.simulation.domain.BusinessUnit.class.getName() + ".offres");
             createCache(cm, com.poc.simulation.domain.Offre.class.getName());
             createCache(cm, com.poc.simulation.domain.Offre.class.getName() + ".parcoursDefinitions");
-            createCache(cm, com.poc.simulation.domain.ParcoursComposition.class.getName());
             createCache(cm, com.poc.simulation.domain.ParcoursDefinition.class.getName());
             createCache(cm, com.poc.simulation.domain.ParcoursDefinition.class.getName() + ".etapeDefinitions");
             createCache(cm, com.poc.simulation.domain.EtapeDefinition.class.getName());

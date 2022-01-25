@@ -54,7 +54,7 @@
           <td>{{ etape.order }}</td>
           <td>
             <div *ngIf="etape.parcours">
-              <a [routerLink]="['/parcours', etape.parcours?.id, 'view']">{{ etape.parcours?.id }}</a>
+              <a [routerLink]="['/parcours', etape.parcours?.id, 'view']">{{ etape.parcours?.name }}</a>
             </div>
           </td>
           <td class="text-right">
