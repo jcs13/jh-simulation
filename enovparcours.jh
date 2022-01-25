@@ -65,14 +65,14 @@ entity Offre {
     label String required
 }
 
-entity ParcoursComposition {
+entity OffreComposition {
     inheritanceOrder Integer required
 }
 
 relationship OneToOne {
-	ParcoursComposition{offre} to Offre
-	ParcoursComposition{parcoursParent} to ParcoursDefinition
-	ParcoursComposition{parcoursChild} to ParcoursDefinition
+	OffreComposition{offre} to Offre
+	OffreComposition{parcoursParent} to ParcoursDefinition
+	OffreComposition{parcoursChild} to ParcoursDefinition
 }
 
 entity ParcoursDefinition {
@@ -85,6 +85,7 @@ entity EtapeDefinition {
 	id Long required
     name String required
     label String required
+    display Boolean required
 }
 
 
@@ -102,6 +103,7 @@ entity BlocDefinition {
 	id Long required
     name String required
     label String required
+    display Boolean required
 }
 
 entity Element {
@@ -124,10 +126,6 @@ relationship OneToOne {
 
 
 relationship OneToMany {
-	EtapeDefinition to BlocDefinition,
-	ParcoursDefinition to EtapeDefinition,
-	ParcoursDefinition to BlocDefinition,
-    Offre to ParcoursDefinition,
     BusinessUnit to Offre
 }
 
