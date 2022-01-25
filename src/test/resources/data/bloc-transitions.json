@@ -1,0 +1,113 @@
+[
+  {
+    "id": 1,
+    "transition": 1,
+    "etapeDefinition": {
+      "id": 1,
+      "name": "infos",
+      "label": "informations générales",
+      "display": true
+    },
+    "parcoursDefinition": {
+      "id": 1,
+      "name": "core",
+      "label": "parcours socle"
+    },
+    "current": {
+      "id": 1,
+      "name": "infos-client",
+      "label": "informations client",
+      "display": true,
+      "element": {
+        "id": 1,
+        "name": "info-client",
+        "path": "/elements/info-client.php"
+      }
+    },
+    "next": {
+      "id": 2,
+      "name": "adresse",
+      "label": "adresse client",
+      "display": true,
+      "element": {
+        "id": 2,
+        "name": "adresse-client",
+        "path": "/elements/adresse-client.php"
+      }
+    }
+  },
+  {
+    "id": 2,
+    "transition": 2,
+    "etapeDefinition": {
+      "id": 1,
+      "name": "infos",
+      "label": "informations générales",
+      "display": true
+    },
+    "parcoursDefinition": {
+      "id": 1,
+      "name": "core",
+      "label": "parcours socle"
+    },
+    "current": {
+      "id": 2,
+      "name": "adresse",
+      "label": "adresse client",
+      "display": true,
+      "element": {
+        "id": 2,
+        "name": "adresse-client",
+        "path": "/elements/adresse-client.php"
+      }
+    },
+    "next": {
+      "id": 3,
+      "name": "mode-paiement",
+      "label": "mode de paiement",
+      "display": true,
+      "element": {
+        "id": 3,
+        "name": "mode-paiement",
+        "path": "/elements/mode-paiement.php"
+      }
+    }
+  },
+  {
+    "id": 3,
+    "transition": 1,
+    "etapeDefinition": {
+      "id": 1,
+      "name": "infos",
+      "label": "informations générales",
+      "display": true
+    },
+    "parcoursDefinition": {
+      "id": 2,
+      "name": "asproe",
+      "label": "ASPROe"
+    },
+    "current": {
+      "id": 2,
+      "name": "adresse",
+      "label": "adresse client",
+      "display": true,
+      "element": {
+        "id": 2,
+        "name": "adresse-client",
+        "path": "/elements/adresse-client.php"
+      }
+    },
+    "next": {
+      "id": 8,
+      "name": "eligibilite",
+      "label": "éligibilité 360",
+      "display": true,
+      "element": {
+        "id": 8,
+        "name": "eligibilite",
+        "path": "/elements/eligibilite.php"
+      }
+    }
+  }
+]

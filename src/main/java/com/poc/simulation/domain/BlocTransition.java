@@ -35,12 +35,14 @@ public class BlocTransition implements Serializable {
     @JoinColumn
     private ParcoursDefinition parcoursDefinition;
 
-    @JsonIgnoreProperties(value = { "element" }, allowSetters = true)
+    //    @JsonIgnoreProperties(value = { "element" }, allowSetters = true)
+    @JsonIgnoreProperties(value = {}, allowSetters = true)
     @OneToOne
     @JoinColumn
     private BlocDefinition current;
 
-    @JsonIgnoreProperties(value = { "element" }, allowSetters = true)
+    //    @JsonIgnoreProperties(value = { "element" }, allowSetters = true)
+    @JsonIgnoreProperties(value = {}, allowSetters = true)
     @OneToOne
     @JoinColumn
     private BlocDefinition next;

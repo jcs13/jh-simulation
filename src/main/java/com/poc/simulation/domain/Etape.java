@@ -46,7 +46,7 @@ public class Etape implements Serializable {
     @Column(name = "jhi_order", nullable = false)
     private Integer order;
 
-    @OneToMany(mappedBy = "etape")
+    @OneToMany(mappedBy = "etape", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "etape" }, allowSetters = true)
     private Set<Bloc> blocs = new HashSet<>();

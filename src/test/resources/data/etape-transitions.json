@@ -1,0 +1,107 @@
+[
+  {
+    "id": 1,
+    "transition": 1,
+    "parcoursDefinition": {
+      "id": 1,
+      "name": "core",
+      "label": "parcours socle"
+    },
+    "current": {
+      "id": 1,
+      "name": "infos",
+      "label": "informations générales",
+      "display": true
+    },
+    "next": {
+      "id": 2,
+      "name": "configuration",
+      "label": "configuration de l'offre",
+      "display": true
+    }
+  },
+  {
+    "id": 2,
+    "transition": 2,
+    "parcoursDefinition": {
+      "id": 1,
+      "name": "core",
+      "label": "parcours socle"
+    },
+    "current": {
+      "id": 2,
+      "name": "configuration",
+      "label": "configuration de l'offre",
+      "display": true
+    },
+    "next": {
+      "id": 3,
+      "name": "marges-manoeuvre",
+      "label": "marges de manoeuvre",
+      "display": true
+    }
+  },
+  {
+    "id": 3,
+    "transition": 3,
+    "parcoursDefinition": {
+      "id": 1,
+      "name": "core",
+      "label": "parcours socle"
+    },
+    "current": {
+      "id": 3,
+      "name": "marges-manoeuvre",
+      "label": "marges de manoeuvre",
+      "display": true
+    },
+    "next": {
+      "id": 4,
+      "name": "recap",
+      "label": "récapitulatif",
+      "display": true
+    }
+  },
+  {
+    "id": 4,
+    "transition": 4,
+    "parcoursDefinition": {
+      "id": 1,
+      "name": "core",
+      "label": "parcours socle"
+    },
+    "current": {
+      "id": 4,
+      "name": "recap",
+      "label": "récapitulatif",
+      "display": true
+    },
+    "next": {
+      "id": 5,
+      "name": "generate-documents",
+      "label": "génération de documents",
+      "display": true
+    }
+  },
+  {
+    "id": 5,
+    "transition": 1,
+    "parcoursDefinition": {
+      "id": 2,
+      "name": "asproe",
+      "label": "ASPROe"
+    },
+    "current": {
+      "id": 2,
+      "name": "configuration",
+      "label": "configuration de l'offre",
+      "display": true
+    },
+    "next": {
+      "id": 6,
+      "name": "terminaux",
+      "label": "gestion des terminaux",
+      "display": true
+    }
+  }
+]
