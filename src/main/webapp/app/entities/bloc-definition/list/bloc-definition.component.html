@@ -50,7 +50,7 @@
           <td>{{ blocDefinition.display }}</td>
           <td>
             <div *ngIf="blocDefinition.element">
-              <a [routerLink]="['/element', blocDefinition.element?.id, 'view']">{{ blocDefinition.element?.id }}</a>
+              <a [routerLink]="['/element', blocDefinition.element?.id, 'view']">{{ blocDefinition.element?.name }}</a>
             </div>
           </td>
           <td class="text-right">

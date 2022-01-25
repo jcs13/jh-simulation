@@ -33,7 +33,7 @@ public class EtapeDefinition implements Serializable {
 
     @NotNull
     @Column(name = "display", nullable = false)
-    private Boolean display;
+    private Boolean display = true;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 

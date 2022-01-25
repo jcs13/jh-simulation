@@ -34,7 +34,7 @@ public class BlocDefinition implements Serializable {
 
     @NotNull
     @Column(name = "display", nullable = false)
-    private Boolean display;
+    private Boolean display = true;
 
     @JsonIgnoreProperties(value = { "blocDefinition" }, allowSetters = true)
     @OneToOne(fetch = FetchType.EAGER)

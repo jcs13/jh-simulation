@@ -21,22 +21,24 @@
     <include file="config/liquibase/changelog/20220117152533_added_entity_Bloc.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20220117152534_added_entity_BusinessUnit.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20220117152535_added_entity_Offre.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20220117152536_added_entity_ParcoursComposition.xml" relativeToChangelogFile="false"/>
+<!--    <include file="config/liquibase/changelog/20220117152536_added_entity_ParcoursComposition.xml" relativeToChangelogFile="false"/>-->
     <include file="config/liquibase/changelog/20220117152537_added_entity_ParcoursDefinition.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20220117152538_added_entity_EtapeDefinition.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20220117152539_added_entity_EtapeTransition.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20220117152540_added_entity_BlocDefinition.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20220117152541_added_entity_Element.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20220117152542_added_entity_BlocTransition.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20220125074106_added_entity_OffreComposition.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="config/liquibase/changelog/20220117152530_added_entity_constraints_Simulation.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20220117152532_added_entity_constraints_Etape.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20220117152533_added_entity_constraints_Bloc.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20220117152535_added_entity_constraints_Offre.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20220117152536_added_entity_constraints_ParcoursComposition.xml" relativeToChangelogFile="false"/>
+<!--    <include file="config/liquibase/changelog/20220117152536_added_entity_constraints_ParcoursComposition.xml" relativeToChangelogFile="false"/>-->
     <include file="config/liquibase/changelog/20220117152539_added_entity_constraints_EtapeTransition.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20220117152540_added_entity_constraints_BlocDefinition.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20220117152542_added_entity_constraints_BlocTransition.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20220125074106_added_entity_constraints_OffreComposition.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
     <!-- jhipster-needle-liquibase-add-incremental-changelog - JHipster will add incremental liquibase changelogs here -->
 </databaseChangeLog>
