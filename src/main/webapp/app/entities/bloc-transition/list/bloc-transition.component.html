@@ -34,8 +34,8 @@
         <tr>
           <th scope="col"><span>ID</span></th>
           <th scope="col"><span>Transition</span></th>
-          <th scope="col"><span>Parcours Definition</span></th>
           <th scope="col"><span>Etape Definition</span></th>
+          <th scope="col"><span>Parcours Definition</span></th>
           <th scope="col"><span>Current</span></th>
           <th scope="col"><span>Next</span></th>
           <th scope="col"></th>
@@ -48,27 +48,27 @@
           </td>
           <td>{{ blocTransition.transition }}</td>
           <td>
-            <div *ngIf="blocTransition.parcoursDefinition">
-              <a [routerLink]="['/parcours-definition', blocTransition.parcoursDefinition?.id, 'view']">{{
-                blocTransition.parcoursDefinition?.name
+            <div *ngIf="blocTransition.etapeDefinition">
+              <a [routerLink]="['/etape-definition', blocTransition.etapeDefinition?.id, 'view']">{{
+                blocTransition.etapeDefinition?.id
               }}</a>
             </div>
           </td>
           <td>
-            <div *ngIf="blocTransition.etapeDefinition">
-              <a [routerLink]="['/etape-definition', blocTransition.etapeDefinition?.id, 'view']">{{
-                blocTransition.etapeDefinition?.name
+            <div *ngIf="blocTransition.parcoursDefinition">
+              <a [routerLink]="['/parcours-definition', blocTransition.parcoursDefinition?.id, 'view']">{{
+                blocTransition.parcoursDefinition?.id
               }}</a>
             </div>
           </td>
           <td>
             <div *ngIf="blocTransition.current">
-              <a [routerLink]="['/bloc-definition', blocTransition.current?.id, 'view']">{{ blocTransition.current?.name }}</a>
+              <a [routerLink]="['/bloc-definition', blocTransition.current?.id, 'view']">{{ blocTransition.current?.id }}</a>
             </div>
           </td>
           <td>
             <div *ngIf="blocTransition.next">
-              <a [routerLink]="['/bloc-definition', blocTransition.next?.id, 'view']">{{ blocTransition.next?.name }}</a>
+              <a [routerLink]="['/bloc-definition', blocTransition.next?.id, 'view']">{{ blocTransition.next?.id }}</a>
             </div>
           </td>
           <td class="text-right">

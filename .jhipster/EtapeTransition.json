@@ -1,5 +1,9 @@
 {
-  "name": "EtapeTransition",
+  "applications": "*",
+  "changelogDate": "20220117152539",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "etape_transition",
   "fields": [
     {
       "fieldName": "transition",
@@ -7,37 +11,33 @@
       "fieldValidateRules": ["required"]
     }
   ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "EtapeTransition",
+  "pagination": "no",
+  "readOnly": false,
   "relationships": [
     {
-      "relationshipType": "one-to-one",
       "otherEntityName": "parcoursDefinition",
       "otherEntityRelationshipName": "etapeTransition",
+      "ownerSide": true,
       "relationshipName": "parcoursDefinition",
-      "ownerSide": true
+      "relationshipType": "one-to-one"
     },
     {
-      "relationshipType": "one-to-one",
       "otherEntityName": "etapeDefinition",
       "otherEntityRelationshipName": "etapeTransition",
+      "ownerSide": true,
       "relationshipName": "current",
-      "ownerSide": true
+      "relationshipType": "one-to-one"
     },
     {
-      "relationshipType": "one-to-one",
       "otherEntityName": "etapeDefinition",
       "otherEntityRelationshipName": "etapeTransition",
+      "ownerSide": true,
       "relationshipName": "next",
-      "ownerSide": true
+      "relationshipType": "one-to-one"
     }
   ],
-  "entityTableName": "etape_transition",
-  "dto": "no",
-  "pagination": "no",
-  "service": "no",
-  "jpaMetamodelFiltering": false,
-  "fluentMethods": true,
-  "readOnly": false,
-  "embedded": false,
-  "applications": "*",
-  "changelogDate": "20220117152539"
+  "service": "no"
 }

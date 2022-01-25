@@ -49,18 +49,18 @@
           <td>
             <div *ngIf="etapeTransition.parcoursDefinition">
               <a [routerLink]="['/parcours-definition', etapeTransition.parcoursDefinition?.id, 'view']">{{
-                etapeTransition.parcoursDefinition?.name
+                etapeTransition.parcoursDefinition?.id
               }}</a>
             </div>
           </td>
           <td>
             <div *ngIf="etapeTransition.current">
-              <a [routerLink]="['/etape-definition', etapeTransition.current?.id, 'view']">{{ etapeTransition.current?.name }}</a>
+              <a [routerLink]="['/etape-definition', etapeTransition.current?.id, 'view']">{{ etapeTransition.current?.id }}</a>
             </div>
           </td>
           <td>
             <div *ngIf="etapeTransition.next">
-              <a [routerLink]="['/etape-definition', etapeTransition.next?.id, 'view']">{{ etapeTransition.next?.name }}</a>
+              <a [routerLink]="['/etape-definition', etapeTransition.next?.id, 'view']">{{ etapeTransition.next?.id }}</a>
             </div>
           </td>
           <td class="text-right">

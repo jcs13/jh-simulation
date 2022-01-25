@@ -1,5 +1,9 @@
 {
-  "name": "Element",
+  "applications": "*",
+  "changelogDate": "20220117152541",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "element",
   "fields": [
     {
       "fieldName": "id",
@@ -17,23 +21,19 @@
       "fieldValidateRules": ["required"]
     }
   ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Element",
+  "pagination": "no",
+  "readOnly": false,
   "relationships": [
     {
-      "relationshipType": "one-to-one",
       "otherEntityName": "blocDefinition",
       "otherEntityRelationshipName": "element",
+      "ownerSide": false,
       "relationshipName": "blocDefinition",
-      "ownerSide": false
+      "relationshipType": "one-to-one"
     }
   ],
-  "entityTableName": "element",
-  "dto": "no",
-  "pagination": "no",
-  "service": "no",
-  "jpaMetamodelFiltering": false,
-  "fluentMethods": true,
-  "readOnly": false,
-  "embedded": false,
-  "applications": "*",
-  "changelogDate": "20220117152541"
+  "service": "no"
 }

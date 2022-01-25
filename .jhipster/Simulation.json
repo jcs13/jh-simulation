@@ -1,5 +1,9 @@
 {
-  "name": "Simulation",
+  "applications": "*",
+  "changelogDate": "20220117152530",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "simulation",
   "fields": [
     {
       "fieldName": "id",
@@ -41,30 +45,26 @@
       "fieldType": "LocalDate"
     }
   ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Simulation",
+  "pagination": "no",
+  "readOnly": false,
   "relationships": [
     {
-      "relationshipType": "one-to-one",
       "otherEntityName": "parcours",
       "otherEntityRelationshipName": "simulation",
+      "ownerSide": true,
       "relationshipName": "parcours",
-      "ownerSide": true
+      "relationshipType": "one-to-one"
     },
     {
-      "relationshipType": "one-to-one",
       "otherEntityName": "simulation",
       "otherEntityRelationshipName": "simulation",
+      "ownerSide": true,
       "relationshipName": "parent",
-      "ownerSide": true
+      "relationshipType": "one-to-one"
     }
   ],
-  "entityTableName": "simulation",
-  "dto": "no",
-  "pagination": "no",
-  "service": "no",
-  "jpaMetamodelFiltering": false,
-  "fluentMethods": true,
-  "readOnly": false,
-  "embedded": false,
-  "applications": "*",
-  "changelogDate": "20220117152530"
+  "service": "no"
 }

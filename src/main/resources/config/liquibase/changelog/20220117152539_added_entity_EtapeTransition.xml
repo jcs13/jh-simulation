@@ -18,13 +18,13 @@
                 <constraints nullable="false" />
             </column>
             <column name="parcours_definition_id" type="bigint">
-                <constraints nullable="true"/>
+                <constraints nullable="true" unique="true" uniqueConstraintName="ux_etape_transition__parcours_definition_id" />
             </column>
             <column name="current_id" type="bigint">
-                <constraints nullable="true"/>
+                <constraints nullable="true" unique="true" uniqueConstraintName="ux_etape_transition__current_id" />
             </column>
             <column name="next_id" type="bigint">
-                <constraints nullable="true"/>
+                <constraints nullable="true" unique="true" uniqueConstraintName="ux_etape_transition__next_id" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>

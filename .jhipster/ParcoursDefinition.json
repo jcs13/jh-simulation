@@ -1,5 +1,9 @@
 {
-  "name": "ParcoursDefinition",
+  "applications": "*",
+  "changelogDate": "20220117152537",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "parcours_definition",
   "fields": [
     {
       "fieldName": "id",
@@ -17,34 +21,11 @@
       "fieldValidateRules": ["required"]
     }
   ],
-  "relationships": [
-    {
-      "relationshipType": "one-to-many",
-      "otherEntityName": "etapeDefinition",
-      "otherEntityRelationshipName": "parcoursDefinition",
-      "relationshipName": "etapeDefinition"
-    },
-    {
-      "relationshipType": "one-to-many",
-      "otherEntityName": "blocDefinition",
-      "otherEntityRelationshipName": "parcoursDefinition",
-      "relationshipName": "blocDefinition"
-    },
-    {
-      "relationshipType": "many-to-one",
-      "otherEntityName": "offre",
-      "otherEntityRelationshipName": "parcoursDefinition",
-      "relationshipName": "offre"
-    }
-  ],
-  "entityTableName": "parcours_definition",
-  "dto": "no",
-  "pagination": "no",
-  "service": "no",
-  "jpaMetamodelFiltering": false,
   "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "ParcoursDefinition",
+  "pagination": "no",
   "readOnly": false,
-  "embedded": false,
-  "applications": "*",
-  "changelogDate": "20220117152537"
+  "relationships": [],
+  "service": "no"
 }

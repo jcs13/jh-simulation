@@ -1,5 +1,9 @@
 {
-  "name": "Etape",
+  "applications": "*",
+  "changelogDate": "20220117152532",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "etape",
   "fields": [
     {
       "fieldName": "id",
@@ -32,28 +36,24 @@
       "fieldValidateRules": ["required"]
     }
   ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Etape",
+  "pagination": "no",
+  "readOnly": false,
   "relationships": [
     {
-      "relationshipType": "one-to-many",
       "otherEntityName": "bloc",
       "otherEntityRelationshipName": "etape",
-      "relationshipName": "bloc"
+      "relationshipName": "bloc",
+      "relationshipType": "one-to-many"
     },
     {
-      "relationshipType": "many-to-one",
       "otherEntityName": "parcours",
       "otherEntityRelationshipName": "etape",
-      "relationshipName": "parcours"
+      "relationshipName": "parcours",
+      "relationshipType": "many-to-one"
     }
   ],
-  "entityTableName": "etape",
-  "dto": "no",
-  "pagination": "no",
-  "service": "no",
-  "jpaMetamodelFiltering": false,
-  "fluentMethods": true,
-  "readOnly": false,
-  "embedded": false,
-  "applications": "*",
-  "changelogDate": "20220117152532"
+  "service": "no"
 }

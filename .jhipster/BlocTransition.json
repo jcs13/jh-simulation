@@ -1,5 +1,9 @@
 {
-  "name": "BlocTransition",
+  "applications": "*",
+  "changelogDate": "20220117152542",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "bloc_transition",
   "fields": [
     {
       "fieldName": "transition",
@@ -7,44 +11,40 @@
       "fieldValidateRules": ["required"]
     }
   ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "BlocTransition",
+  "pagination": "no",
+  "readOnly": false,
   "relationships": [
     {
-      "relationshipType": "one-to-one",
       "otherEntityName": "etapeDefinition",
       "otherEntityRelationshipName": "blocTransition",
+      "ownerSide": true,
       "relationshipName": "etapeDefinition",
-      "ownerSide": true
+      "relationshipType": "one-to-one"
     },
     {
-      "relationshipType": "one-to-one",
       "otherEntityName": "parcoursDefinition",
       "otherEntityRelationshipName": "blocTransition",
+      "ownerSide": true,
       "relationshipName": "parcoursDefinition",
-      "ownerSide": true
+      "relationshipType": "one-to-one"
     },
     {
-      "relationshipType": "one-to-one",
       "otherEntityName": "blocDefinition",
       "otherEntityRelationshipName": "blocTransition",
+      "ownerSide": true,
       "relationshipName": "current",
-      "ownerSide": true
+      "relationshipType": "one-to-one"
     },
     {
-      "relationshipType": "one-to-one",
       "otherEntityName": "blocDefinition",
       "otherEntityRelationshipName": "blocTransition",
+      "ownerSide": true,
       "relationshipName": "next",
-      "ownerSide": true
+      "relationshipType": "one-to-one"
     }
   ],
-  "entityTableName": "bloc_transition",
-  "dto": "no",
-  "pagination": "no",
-  "service": "no",
-  "jpaMetamodelFiltering": false,
-  "fluentMethods": true,
-  "readOnly": false,
-  "embedded": false,
-  "applications": "*",
-  "changelogDate": "20220117152542"
+  "service": "no"
 }

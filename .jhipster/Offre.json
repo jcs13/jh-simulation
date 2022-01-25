@@ -1,5 +1,9 @@
 {
-  "name": "Offre",
+  "applications": "*",
+  "changelogDate": "20220117152535",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "offre",
   "fields": [
     {
       "fieldName": "id",
@@ -17,28 +21,18 @@
       "fieldValidateRules": ["required"]
     }
   ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Offre",
+  "pagination": "no",
+  "readOnly": false,
   "relationships": [
     {
-      "relationshipType": "one-to-many",
-      "otherEntityName": "parcoursDefinition",
-      "otherEntityRelationshipName": "offre",
-      "relationshipName": "parcoursDefinition"
-    },
-    {
-      "relationshipType": "many-to-one",
       "otherEntityName": "businessUnit",
       "otherEntityRelationshipName": "offre",
-      "relationshipName": "businessUnit"
+      "relationshipName": "businessUnit",
+      "relationshipType": "many-to-one"
     }
   ],
-  "entityTableName": "offre",
-  "dto": "no",
-  "pagination": "no",
-  "service": "no",
-  "jpaMetamodelFiltering": false,
-  "fluentMethods": true,
-  "readOnly": false,
-  "embedded": false,
-  "applications": "*",
-  "changelogDate": "20220117152535"
+  "service": "no"
 }
