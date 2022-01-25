@@ -27,15 +27,15 @@ public class EtapeTransition implements Serializable {
     private Integer transition;
 
     @OneToOne
-    @JoinColumn
+    @JoinColumn(unique = true)
     private ParcoursDefinition parcoursDefinition;
 
     @OneToOne
-    @JoinColumn
+    @JoinColumn(unique = true)
     private EtapeDefinition current;
 
     @OneToOne
-    @JoinColumn
+    @JoinColumn(unique = true)
     private EtapeDefinition next;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

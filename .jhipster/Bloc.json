@@ -1,5 +1,9 @@
 {
-  "name": "Bloc",
+  "applications": "*",
+  "changelogDate": "20220117152533",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "bloc",
   "fields": [
     {
       "fieldName": "id",
@@ -47,22 +51,18 @@
       "fieldValidateRules": ["required"]
     }
   ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Bloc",
+  "pagination": "no",
+  "readOnly": false,
   "relationships": [
     {
-      "relationshipType": "many-to-one",
       "otherEntityName": "etape",
       "otherEntityRelationshipName": "bloc",
-      "relationshipName": "etape"
+      "relationshipName": "etape",
+      "relationshipType": "many-to-one"
     }
   ],
-  "entityTableName": "bloc",
-  "dto": "no",
-  "pagination": "no",
-  "service": "no",
-  "jpaMetamodelFiltering": false,
-  "fluentMethods": true,
-  "readOnly": false,
-  "embedded": false,
-  "applications": "*",
-  "changelogDate": "20220117152533"
+  "service": "no"
 }

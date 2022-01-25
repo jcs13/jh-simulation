@@ -1,10 +1,11 @@
-"id";"label";"name";"element_id"
-"1";informations client;infos-client;"1"
-"2";adresse client;adresse;"2"
-"3";mode de paiement;mode-paiement;"3"
-"4";configuration offres castor;configuration-castor;"4"
-"5";marges;mdm;"5"
-"6";récapitulatif vendeur;recap;"6"
-"7";générer les documents;gen-doc;"7"
-"8";éligibilité 360;eligibilite;"8"
-"9";liste des terminaux;terminaux;"9"
+id;name;label;display
+1;Agent RAM;synthesizing;true
+2;Beauty Unit;radical secondary;true
+3;hardware;portals;false
+4;Communications up;payment override;false
+5;Darussalam;Salad Qatari;true
+6;parsing;Bacon District;true
+7;Consultant Re-engineered Grocery;Plastic Account secured;false
+8;compress customized web-enabled;Keyboard supply-chains Romania;true
+9;payment;Savings;true
+10;Handcrafted Assistant;Switchable;false

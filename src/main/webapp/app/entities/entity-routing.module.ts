@@ -69,6 +69,11 @@ import { RouterModule } from '@angular/router';
         data: { pageTitle: 'BlocTransitions' },
         loadChildren: () => import('./bloc-transition/bloc-transition.module').then(m => m.BlocTransitionModule),
       },
+      {
+        path: 'offre-composition',
+        data: { pageTitle: 'OffreCompositions' },
+        loadChildren: () => import('./offre-composition/offre-composition.module').then(m => m.OffreCompositionModule),
+      },
       /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
     ]),
   ],

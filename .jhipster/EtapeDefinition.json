@@ -1,5 +1,9 @@
 {
-  "name": "EtapeDefinition",
+  "applications": "*",
+  "changelogDate": "20220117152538",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "etape_definition",
   "fields": [
     {
       "fieldName": "id",
@@ -15,30 +19,18 @@
       "fieldName": "label",
       "fieldType": "String",
       "fieldValidateRules": ["required"]
-    }
-  ],
-  "relationships": [
-    {
-      "relationshipType": "one-to-many",
-      "otherEntityName": "blocDefinition",
-      "otherEntityRelationshipName": "etapeDefinition",
-      "relationshipName": "blocDefinition"
     },
     {
-      "relationshipType": "many-to-one",
-      "otherEntityName": "parcoursDefinition",
-      "otherEntityRelationshipName": "etapeDefinition",
-      "relationshipName": "parcoursDefinition"
+      "fieldName": "display",
+      "fieldType": "Boolean",
+      "fieldValidateRules": ["required"]
     }
   ],
-  "entityTableName": "etape_definition",
-  "dto": "no",
-  "pagination": "no",
-  "service": "no",
-  "jpaMetamodelFiltering": false,
   "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "EtapeDefinition",
+  "pagination": "no",
   "readOnly": false,
-  "embedded": false,
-  "applications": "*",
-  "changelogDate": "20220117152538"
+  "relationships": [],
+  "service": "no"
 }

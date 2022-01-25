@@ -1,0 +1,43 @@
+{
+  "applications": "*",
+  "changelogDate": "20220125074106",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "offre_composition",
+  "fields": [
+    {
+      "fieldName": "inheritanceOrder",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "OffreComposition",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "offre",
+      "otherEntityRelationshipName": "offreComposition",
+      "ownerSide": true,
+      "relationshipName": "offre",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "parcoursDefinition",
+      "otherEntityRelationshipName": "offreComposition",
+      "ownerSide": true,
+      "relationshipName": "parcoursParent",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "parcoursDefinition",
+      "otherEntityRelationshipName": "offreComposition",
+      "ownerSide": true,
+      "relationshipName": "parcoursChild",
+      "relationshipType": "one-to-one"
+    }
+  ],
+  "service": "no"
+}

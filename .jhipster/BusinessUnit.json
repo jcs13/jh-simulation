@@ -1,5 +1,9 @@
 {
-  "name": "BusinessUnit",
+  "applications": "*",
+  "changelogDate": "20220117152534",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "business_unit",
   "fields": [
     {
       "fieldName": "id",
@@ -22,22 +26,18 @@
       "fieldValidateRules": ["required"]
     }
   ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "BusinessUnit",
+  "pagination": "no",
+  "readOnly": false,
   "relationships": [
     {
-      "relationshipType": "one-to-many",
       "otherEntityName": "offre",
       "otherEntityRelationshipName": "businessUnit",
-      "relationshipName": "offre"
+      "relationshipName": "offre",
+      "relationshipType": "one-to-many"
     }
   ],
-  "entityTableName": "business_unit",
-  "dto": "no",
-  "pagination": "no",
-  "service": "no",
-  "jpaMetamodelFiltering": false,
-  "fluentMethods": true,
-  "readOnly": false,
-  "embedded": false,
-  "applications": "*",
-  "changelogDate": "20220117152534"
+  "service": "no"
 }

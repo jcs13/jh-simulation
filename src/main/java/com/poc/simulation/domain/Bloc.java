@@ -50,7 +50,7 @@ public class Bloc implements Serializable {
 
     @NotNull
     @Column(name = "display", nullable = false)
-    private Boolean display = true;
+    private Boolean display;
 
     @NotNull
     @Column(name = "jhi_order", nullable = false)
