@@ -3,6 +3,9 @@ package com.poc.simulation.web.rest;
 import com.poc.simulation.domain.Parcours;
 import com.poc.simulation.domain.ParcoursInstanceRequest;
 import com.poc.simulation.service.ParcoursService;
+import java.net.URI;
+import java.net.URISyntaxException;
+import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.validation.Valid;
-import java.net.URI;
-import java.net.URISyntaxException;
 
 @RestController
 @RequestMapping("/api")
@@ -30,11 +29,10 @@ public class ParcoursInstanceController {
         throws URISyntaxException {
         log.debug("REST request to instanciate Parcours : {}", instanceRequest);
 
-        Parcours result = parcoursService.instanciateParcoursByOffre(instanceRequest.getOfferName());
+        Parcours parcoursToIntanciate = parcoursService.generateParcoursByOffre(instanceRequest.getOfferId());
 
-        return ResponseEntity
-            .created(new URI("/api/parcours/" + result.getId()))
-            //            .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId()))
-            .body(result);
+        Parcours parcours = parcoursService.instanciateParcours(parcoursToIntanciate);
+
+        return ResponseEntity.created(new URI("/api/parcours/" + parcours.getId())).body(parcours);
     }
 }

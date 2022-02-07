@@ -46,133 +46,171 @@ public class ParcoursService {
             .optionalStart()
             .toFormatter(Locale.FRANCE);
 
-    public Parcours instanciateParcoursByOffre(String offerName) {
-        log.info("START instanciateParcoursByOffre");
-        log.debug("offerName={}", offerName);
+    public Parcours generateParcoursByOffre(Long offerId) {
+        log.info("generate parcours by offre");
 
-        final Optional<Offre> offre = offreRepository.findById(1L);
+        final Offre offre = getOffreById(offerId);
 
-        log.debug("offre {}", offre);
+        final List<OffreComposition> offreCompositions = getOffreCompositions(offerId);
 
-        final OffreComposition offreComposition = getOffreComposition(offerName);
+        return buildParcours(offre, offreCompositions);
+    }
 
-        List<EtapeTransition> etapeTransitions = getEtapeTransitions(offreComposition);
+    public Parcours instanciateParcours(Parcours parcoursToInstanciate) {
+        log.info("instanciate parcours");
+        return parcoursRepository.save(parcoursToInstanciate);
+    }
 
-        List<Etape> etapes = buildEtapes(etapeTransitions);
+    private Offre getOffreById(Long offerId) {
+        log.debug("get offer by id={}", offerId);
+        final Offre offre = offreRepository.findById(offerId).get();
+        return offre;
+    }
 
-        Parcours parcoursToSave = buildParcours(offreComposition, etapes);
+    private List<OffreComposition> getOffreCompositions(Long offerId) {
+        log.debug("get offre composition");
+        OffreComposition opcFilter = new OffreComposition().offre(new Offre().id(offerId));
+        final List<OffreComposition> offreCompositions = offreCompositionRepository.findAll(Example.of(opcFilter));
+        offreCompositions.sort(Comparator.comparing(OffreComposition::getInheritanceOrder));
+        return offreCompositions;
+    }
 
-        log.debug("save parcours");
-        Parcours parcours = parcoursRepository.save(parcoursToSave);
+    private Parcours buildParcours(Offre offre, List<OffreComposition> offreCompositions) {
+        log.debug("build parcours");
 
-        log.info("STOP instanciateParcoursByOffre");
+        final String parcoursKey = offre.getName() + " - " + LocalDateTime.now().format(DATE_TIME_FORMATTER);
+
+        Parcours parcours = new Parcours()
+            .name("parcours " + parcoursKey)
+            .label("parcours pour offre " + parcoursKey)
+            .offreId(offre.getId().toString());
+
+        final List<EtapeTransition> etapeTransitions = getEtapeTransitions(offreCompositions);
+        final List<Etape> etapes = buildEtapes(offreCompositions, etapeTransitions);
+        etapes.forEach(etape -> parcours.addEtape(etape));
+
+        // Parcours => list<Etape> => list<Bloc>
 
         return parcours;
     }
 
-    private List<EtapeTransition> getEtapeTransitions(OffreComposition offreComposition) {
+    private List<EtapeTransition> getEtapeTransitions(List<OffreComposition> offreCompositions) {
         log.debug("get etape transitions");
         List<EtapeTransition> etapeTransitions = new ArrayList<>();
 
-        List<EtapeTransition> etapeTransitionsParents = getEtapeTransitionsFromParcours(offreComposition.getParcoursParent());
-        etapeTransitions.addAll(etapeTransitionsParents);
+        offreCompositions.forEach(offreComposition -> {
+            List<EtapeTransition> etapeTransitionsParents = getEtapeTransitionsFromParcours(offreComposition.getParcoursParent());
+            etapeTransitions.addAll(etapeTransitionsParents);
 
-        List<EtapeTransition> etapeTransitionsChild = getEtapeTransitionsFromParcours(offreComposition.getParcoursChild());
-        etapeTransitions.addAll(etapeTransitionsChild);
+            List<EtapeTransition> etapeTransitionsChild = getEtapeTransitionsFromParcours(offreComposition.getParcoursChild());
+            etapeTransitions.addAll(etapeTransitionsChild);
+        });
+
+        // Liste des EtapesTransitions ordonnées avec : parcoursParent en 1er, puis parcoursChild en 2nd
+        // liste retournée :
+        // (parent) infos  -> config
+        // (parent) config -> mdm
+        // (parent) mdm    -> recap
+        // (child)  config -> terminaux
 
         return etapeTransitions;
     }
 
-    private List<EtapeTransition> getEtapeTransitionsFromParcours(ParcoursDefinition parcoursParent2) {
+    // liste ordonnées des objets EtapeTransition pour un parcoursDefinition donnée => depuis la BDD
+    // select * from etape_transition where parcours_definition_id = 1 order by transition
+    private List<EtapeTransition> getEtapeTransitionsFromParcours(ParcoursDefinition parcoursDefinition) {
         log.debug("get etape transitions from parcours");
-        final ParcoursDefinition parcoursParent = parcoursParent2;
-        EtapeTransition etapeTransitionParentFilter = new EtapeTransition().parcoursDefinition(parcoursParent);
+        EtapeTransition etapeTransitionParentFilter = new EtapeTransition().parcoursDefinition(parcoursDefinition);
         List<EtapeTransition> etapeTransitionsParents = etapeTransitionRepository.findAll(Example.of(etapeTransitionParentFilter));
         etapeTransitionsParents.sort(Comparator.comparing(EtapeTransition::getTransition));
         return etapeTransitionsParents;
     }
 
-    private OffreComposition getOffreComposition(String offerName) {
-        log.debug("get offre composition");
-        OffreComposition opcFilter = new OffreComposition().offre(new Offre().name(offerName));
-        final List<OffreComposition> offreCompositions = offreCompositionRepository.findAll(Example.of(opcFilter));
-
-        final OffreComposition offreComposition = offreCompositions.get(0);
-        return offreComposition;
-    }
-
-    public List<Etape> buildEtapes(List<EtapeTransition> etapeTransitions) {
+    public List<Etape> buildEtapes(List<OffreComposition> offreCompositions, List<EtapeTransition> etapeTransitions) {
         log.debug("build etapes");
+
+        // convertir liste<EtapeTransition> => liste<EtapeDefinition>
+
         List<EtapeDefinition> etapeDefinitionOrdered = new ArrayList<>();
+
+        // boucle sur liste etapesTransitions
+        // (parent) infos  -> config
+        // (parent) config -> mdm
+        // (parent) mdm    -> recap
+        // (parent) recap  -> doc
+        // (child)  config -> terminaux
         etapeTransitions.forEach(etapeTransition -> {
             orderingLinkedElements(etapeDefinitionOrdered, etapeTransition.getCurrent(), etapeTransition.getNext());
         });
-        return convertEtapeDefinitionsToEtapes(etapeDefinitionOrdered);
+
+        // liste EtapeDefinition : etapeDefinitionOrdered
+        // infos
+        // config
+        // terminaux
+        // mdm
+        // recap
+        // doc
+
+        return convertEtapeDefinitionsToEtapes(offreCompositions, etapeDefinitionOrdered);
     }
 
-    private List<Etape> convertEtapeDefinitionsToEtapes(List<EtapeDefinition> etapeDefinitionOrdered) {
+    private List<Etape> convertEtapeDefinitionsToEtapes(
+        List<OffreComposition> offreCompositions,
+        List<EtapeDefinition> etapeDefinitionOrdered
+    ) {
         log.debug("convert etapes definitions to etapes");
         AtomicInteger atomicInteger = new AtomicInteger(0);
         return etapeDefinitionOrdered
             .stream()
-            .map(etapeDefinition -> buildEtapeFromDefinition(etapeDefinition, atomicInteger.getAndIncrement()))
+            .map(etapeDefinition -> buildEtapeFromDefinition(offreCompositions, etapeDefinition, atomicInteger.getAndIncrement()))
             .collect(Collectors.toList());
     }
 
-    private Etape buildEtapeFromDefinition(EtapeDefinition etapeDefinition, int order) {
+    private Etape buildEtapeFromDefinition(List<OffreComposition> offreCompositions, EtapeDefinition etapeDefinition, int order) {
         log.debug("build etape from definition");
-        return new Etape()
+
+        Etape etape = new Etape()
             .name(etapeDefinition.getName())
             .label(etapeDefinition.getLabel())
             .order(order)
             .etapeDefinitionId(etapeDefinition.getId().toString())
             .display(etapeDefinition.getDisplay());
+
+        // récupère la liste des BlocTransition ordonnées, avec d'abord parcoursParent puis parcoursChild
+        List<BlocTransition> blocTransitions = getBlocTransitionsFromEtapeParcoursDef(offreCompositions, etape);
+        // générer les objets Blocs (à persister) depuis chaque BlocTransition
+        List<Bloc> blocs = buildBlocs(etape, blocTransitions);
+        blocs.forEach(bloc -> etape.addBloc(bloc));
+
+        return etape;
     }
 
-    private Parcours buildParcours(OffreComposition offreComposition, List<Etape> etapes) {
-        log.debug("build parcours");
-
-        String dateTime = LocalDateTime.now().format(DATE_TIME_FORMATTER);
-        String offerName = offreComposition.getOffre().getName();
-
-        Parcours parcours = new Parcours()
-            .name("parcours " + offerName + " - " + dateTime)
-            .label("parcours pour offre " + offerName + " - " + dateTime)
-            .offreId("1");
-
-        etapes.forEach(etape -> {
-            List<BlocTransition> blocTransitions = getBlocTransitionsFromEtapeParcoursDef(offreComposition, etape);
-            parcours.addEtape(etape);
-            List<Bloc> blocs = buildBlocs(etape, blocTransitions);
-            blocs.forEach(bloc -> etape.addBloc(bloc));
-        });
-        return parcours;
-    }
-
-    private List<BlocTransition> getBlocTransitionsFromEtapeParcoursDef(OffreComposition offreComposition, Etape etape) {
+    // select * from Bloc_transition where parcours_definition_id = X and etape_definition_id = Y order by transition
+    private List<BlocTransition> getBlocTransitionsFromEtapeParcoursDef(List<OffreComposition> offreCompositions, Etape etape) {
         log.debug("get bloc transitions from etape");
         List<BlocTransition> blocTransitionParcoursEtapes = new ArrayList<>();
 
-        final List<BlocTransition> blocTransitionParcoursEtapesParent = getBlocTransitionsFromEtapeParcoursDef(
-            etape,
-            offreComposition.getParcoursParent()
-        );
-        blocTransitionParcoursEtapes.addAll(blocTransitionParcoursEtapesParent);
+        offreCompositions.forEach(offreComposition -> {
+            final List<BlocTransition> blocTransitionParcoursEtapesParent = getBlocTransitionsFromEtapeParcoursDef(
+                etape,
+                offreComposition.getParcoursParent()
+            );
+            blocTransitionParcoursEtapes.addAll(blocTransitionParcoursEtapesParent);
 
-        final List<BlocTransition> blocTransitionParcoursEtapesChild = getBlocTransitionsFromEtapeParcoursDef(
-            etape,
-            offreComposition.getParcoursChild()
-        );
-        blocTransitionParcoursEtapes.addAll(blocTransitionParcoursEtapesChild);
+            final List<BlocTransition> blocTransitionParcoursEtapesChild = getBlocTransitionsFromEtapeParcoursDef(
+                etape,
+                offreComposition.getParcoursChild()
+            );
+            blocTransitionParcoursEtapes.addAll(blocTransitionParcoursEtapesChild);
+        });
 
         return blocTransitionParcoursEtapes;
     }
 
     private List<BlocTransition> getBlocTransitionsFromEtapeParcoursDef(Etape etape, ParcoursDefinition parcoursDefinition) {
         log.debug("get bloc transitions from etape + parcours definition");
-        final ParcoursDefinition parcoursChild = parcoursDefinition;
         return blocTransitionRepository.findByParcoursAndEtapesOrderByTransition(
-            parcoursChild,
+            parcoursDefinition,
             new EtapeDefinition().id(Long.valueOf(etape.getEtapeDefinitionId()))
         );
     }
@@ -180,9 +218,19 @@ public class ParcoursService {
     public List<Bloc> buildBlocs(Etape etape, List<BlocTransition> blocTransitionParcoursEtapes) {
         log.debug("build blocs");
         List<BlocDefinition> blocDefinitionsOrdered = new ArrayList<>();
+        // List<BlocTransition>
+        //  - (parent) infos-client -> adresse
+        //  - (parent) adresse -> mode paiement
+        //  - (child)  adresse ->  eligibilite
         blocTransitionParcoursEtapes.forEach(blocOrder -> {
             orderingLinkedElements(blocDefinitionsOrdered, blocOrder.getCurrent(), blocOrder.getNext());
         });
+        // List<BlocDefinition>
+        //  - (parent) infos-client
+        //  - (parent) adresse
+        //  - (child)  eligibilite
+        //  - (parent) mode paiement
+
         return convertBlocDefinitionsToBlocs(etape, blocDefinitionsOrdered);
     }
 
@@ -212,15 +260,25 @@ public class ParcoursService {
 
     private void orderingLinkedElements(List elements, Object current, Object next) {
         log.debug("ordering linked elements");
+        // list -> pre-info, info, configuration, terminaux, mdm, recap, gen-doc,
         if (elements.isEmpty()) {
+            // init liste
             elements.add(current);
             elements.add(next);
         } else if (elements.contains(current)) {
+            // insère l'objet "next", juste après le current (s'intercale)
             final int idxCurrent = elements.indexOf(current);
             elements.add(idxCurrent + 1, next);
         } else if (elements.contains(next)) {
+            // insère l'objet 'current' juste avant le "next"
             final int idxNext = elements.indexOf(next);
             elements.add(idxNext > 0 ? idxNext - 1 : 0, current);
         }
+        // (parent) 1ere boucle : (current : infos, next: config) => [infos, config]
+        // (parent) 2eme boucle : (current : config, next: mdm) =>  [infos, config, mdm]
+        // (parent) 3eme boucle : (current : mdm, next: recap) =>  [infos, config, mdm, recap]
+        // (parent) 4eme boucle : (current : recap, next: doc) =>  [infos, config, mdm, recap, doc]
+        // (child)  5eme boucle : (current : config, next: terminaux) =>  [infos, config, terminaux, mdm, recap, doc]
+
     }
 }

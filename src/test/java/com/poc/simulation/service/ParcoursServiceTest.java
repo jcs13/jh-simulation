@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.poc.simulation.domain.*;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -34,7 +35,8 @@ class ParcoursServiceTest {
         log.info("etapes init");
         etapeTransitions.forEach(etape -> log.info("{}", etape));
 
-        final List<Etape> etapes = parcoursService.buildEtapes(etapeTransitions);
+        List<OffreComposition> offresCompositions = new ArrayList<>();
+        final List<Etape> etapes = parcoursService.buildEtapes(offresCompositions, etapeTransitions);
 
         String jsonStr = mapper.writeValueAsString(etapes);
 
